@@ -42,6 +42,7 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
   implementation ("org.bouncycastle:bcprov-jdk18on:${bouncycastleVersion}")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
+  implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
   implementation("org.springframework.boot:spring-boot-starter-validation")
   implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocOpenApiVersion")
   implementation("io.micrometer:micrometer-tracing-bridge-otel:$micrometerVersion")
