@@ -92,6 +92,10 @@ jwt:
                 IwIDAQAB
                 -----END PUBLIC KEY-----}"
 
+data-cipher:
+  encrypt-psw: "\${DATA_CIPHER_ENCRYPT_PASSWORD:PWD}"
+  hash-pepper: "\${DATA_CIPHER_HASH_PEPPER:PEPPER}"
+
 rest:
   defaults:
     connection-pool:
