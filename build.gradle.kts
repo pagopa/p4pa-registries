@@ -123,15 +123,15 @@ configure<SourceSetContainer> {
 
 springBoot {
   buildInfo()
-  mainClass.value("it.gov.pagopa.registry.RegistryApplication")
+  mainClass.value("it.gov.pagopa.pu.registry.RegistryApplication")
 }
 
 openApiGenerate {
   generatorName.set("spring")
   inputSpec.set("$rootDir/openapi/p4pa-registries.openapi.yaml")
   outputDir.set("$projectDir/build/generated")
-  apiPackage.set("it.gov.pagopa.registry.controller.generated")
-  modelPackage.set("it.gov.pagopa.registry.dto.generated")
+  apiPackage.set("it.gov.pagopa.pu.registry.controller.generated")
+  modelPackage.set("it.gov.pagopa.pu.registry.dto.generated")
   configOptions.set(mapOf(
     "dateLibrary" to "java8",
     "requestMappingMode" to "api_interface",
