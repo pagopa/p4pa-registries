@@ -38,7 +38,7 @@ spring:
         paymentsConsumer-in-0:
           binder: kafka-payments-consumer
           content-type: "\${KAFKA_CONTENT_TYPE:application/json}"
-          destination: "\${KAFKA_TOPIC_PAYMENTS:}"
+          destination: "\${KAFKA_TOPIC_PAYMENTS:p4pa-payhub-payments-evh}"
           group: "\${KAFKA_PAYMENTS_REGISTRIES_GROUP_ID:p4pa-registries-consumer-group}"
           consumer.auto-startup: "\${KAFKA_PAYMENTS_CONSUMER_ENABLED:true}"
       kafka:
@@ -49,8 +49,8 @@ spring:
             session.timeout.ms: "\${KAFKA_CONFIG_SESSION_TIMEOUT_MS:30000}"
             request.timeout.ms: "\${KAFKA_CONFIG_REQUEST_TIMEOUT_MS:60000}"
             metadata.max.age.ms: "\${KAFKA_CONFIG_METADATA_MAX_AGE:180000}"
-            sasl.mechanism: "\${KAFKA_CONFIG_SASL_MECHANISM:}"
-            security.protocol: "\${KAFKA_CONFIG_SECURITY_PROTOCOL:}"
+            sasl.mechanism: "\${KAFKA_CONFIG_SASL_MECHANISM:PLAIN}"
+            security.protocol: "\${KAFKA_CONFIG_SECURITY_PROTOCOL:SASL_SSL}"
             max.request.size: "\${KAFKA_CONFIG_MAX_REQUEST_SIZE:1000000}"
         binders:
           paymentsConsumer-in-0:
@@ -109,6 +109,18 @@ management:
       system: true
       http: true
       logback: true
+
+springwolf:
+  docket:
+    base-package: it.gov.pagopa.pu.registry.event
+    info:
+      title: "\${spring.application.name}"
+      version: "\${spring.application.version}"
+      description: AsyncAPI And Models
+    servers.kafka-server:
+      protocol: kafka
+      host: "\${KAFKA_BINDER_BROKER:localhost:9093}"
+  use-fqn: false
 
 logging:
   level:
