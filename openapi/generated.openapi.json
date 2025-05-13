@@ -546,7 +546,8 @@
           "readOnly" : {
             "type" : "boolean"
           }
-        }
+        },
+        "title" : "AbstractJsonSchemaProperty"
       },
       "Item" : {
         "type" : "object",
@@ -566,7 +567,8 @@
               "type" : "string"
             }
           }
-        }
+        },
+        "title" : "Item"
       },
       "JsonSchema" : {
         "type" : "object",
@@ -601,7 +603,8 @@
           "$schema" : {
             "type" : "string"
           }
-        }
+        },
+        "title" : "JsonSchema"
       },
       "RepresentationModelObject" : {
         "type" : "object",
@@ -609,87 +612,19 @@
           "_links" : {
             "$ref" : "#/components/schemas/Links"
           }
-        }
+        },
+        "title" : "RepresentationModel"
       },
-      "EventType" : {
+      "PaymentEventType" : {
         "type" : "string",
-        "enum" : [ "DP_CREATED", "DP_UPDATED", "DP_CANCELLED", "DPI_ADDED", "DPI_CANCELLED", "DPI_UPDATED", "DPI_EXPIRED", "DPI_REPORTED", "RT_RECEIVED", "SYNC_ERROR", "IO_NOTIFIED", "SEND_NOTIFICATION_CREATED", "SEND_NOTIFICATION_ERROR", "SEND_NOTIFICATION_DATE" ]
-      },
-      "EntityModelInstallmentRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "eventType" : {
-            "$ref" : "#/components/schemas/EventType"
-          },
-          "eventDateTime" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
-          "eventDescription" : {
-            "type" : "string"
-          },
-          "operatorExternalUserId" : {
-            "type" : "string"
-          },
-          "traceId" : {
-            "type" : "string"
-          },
-          "nav" : {
-            "type" : "string"
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          }
-        }
-      },
-      "PageMetadata" : {
-        "type" : "object",
-        "properties" : {
-          "size" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "totalElements" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "totalPages" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "number" : {
-            "type" : "integer",
-            "format" : "int64"
-          }
-        }
-      },
-      "PagedModelEntityModelInstallmentRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "_embedded" : {
-            "type" : "object",
-            "properties" : {
-              "installmentRegistries" : {
-                "type" : "array",
-                "items" : {
-                  "$ref" : "#/components/schemas/EntityModelInstallmentRegistry"
-                }
-              }
-            }
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          },
-          "page" : {
-            "$ref" : "#/components/schemas/PageMetadata"
-          }
-        }
+        "enum" : [ "DP_CREATED", "DP_UPDATED", "DP_CANCELLED", "DPI_ADDED", "DPI_UPDATED", "DPI_CANCELLED", "DPI_EXPIRED", "DPI_REPORTED", "RT_RECEIVED", "SYNC_ERROR", "IO_NOTIFIED", "SEND_NOTIFICATION_CREATED", "SEND_NOTIFICATION_ERROR", "SEND_NOTIFICATION_DATE" ],
+        "title" : "PaymentEventType"
       },
       "EntityModelDebtPositionRegistry" : {
         "type" : "object",
         "properties" : {
           "eventType" : {
-            "$ref" : "#/components/schemas/EventType"
+            "$ref" : "#/components/schemas/PaymentEventType"
           },
           "eventDateTime" : {
             "type" : "string",
@@ -715,7 +650,30 @@
           "_links" : {
             "$ref" : "#/components/schemas/Links"
           }
-        }
+        },
+        "title" : "EntityModel"
+      },
+      "PageMetadata" : {
+        "type" : "object",
+        "properties" : {
+          "size" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "totalElements" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "totalPages" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "number" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        },
+        "title" : "PageMetadata"
       },
       "PagedModelEntityModelDebtPositionRegistry" : {
         "type" : "object",
@@ -737,7 +695,67 @@
           "page" : {
             "$ref" : "#/components/schemas/PageMetadata"
           }
-        }
+        },
+        "title" : "PagedModel"
+      },
+      "EntityModelInstallmentRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "eventType" : {
+            "$ref" : "#/components/schemas/PaymentEventType"
+          },
+          "eventDateTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "eventDescription" : {
+            "type" : "string"
+          },
+          "operatorExternalUserId" : {
+            "type" : "string"
+          },
+          "traceId" : {
+            "type" : "string"
+          },
+          "debtPositionId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "organizationId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "nav" : {
+            "type" : "string"
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          }
+        },
+        "title" : "EntityModel"
+      },
+      "PagedModelEntityModelInstallmentRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "_embedded" : {
+            "type" : "object",
+            "properties" : {
+              "installmentRegistries" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/EntityModelInstallmentRegistry"
+                }
+              }
+            }
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "page" : {
+            "$ref" : "#/components/schemas/PageMetadata"
+          }
+        },
+        "title" : "PagedModel"
       },
       "DebtPositionRegistryRequestBody" : {
         "type" : "object",
@@ -746,7 +764,7 @@
             "type" : "string"
           },
           "eventType" : {
-            "$ref" : "#/components/schemas/EventType"
+            "$ref" : "#/components/schemas/PaymentEventType"
           },
           "eventDateTime" : {
             "type" : "string",
@@ -778,7 +796,7 @@
             "type" : "string"
           },
           "eventType" : {
-            "$ref" : "#/components/schemas/EventType"
+            "$ref" : "#/components/schemas/PaymentEventType"
           },
           "eventDateTime" : {
             "type" : "string",
@@ -792,6 +810,14 @@
           },
           "traceId" : {
             "type" : "string"
+          },
+          "debtPositionId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "organizationId" : {
+            "type" : "integer",
+            "format" : "int64"
           },
           "nav" : {
             "type" : "string"
