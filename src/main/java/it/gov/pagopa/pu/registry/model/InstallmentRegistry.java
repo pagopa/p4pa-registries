@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 
-@Document(collection = "debt_position_registry")
+@Document(collection = "installment_registry")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
