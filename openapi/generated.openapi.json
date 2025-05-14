@@ -10,7 +10,7 @@
     "description" : "Generated server url"
   } ],
   "paths" : {
-    "/debt-position-registry" : {
+    "/debt-position-registries" : {
       "get" : {
         "tags" : [ "debt-position-registry-entity-controller" ],
         "description" : "get-debtpositionregistry",
@@ -98,7 +98,7 @@
         }
       }
     },
-    "/debt-position-registry/{id}" : {
+    "/debt-position-registries/{id}" : {
       "get" : {
         "tags" : [ "debt-position-registry-entity-controller" ],
         "description" : "get-debtpositionregistry",
@@ -235,7 +235,7 @@
         }
       }
     },
-    "/installment-registry" : {
+    "/installment-registries" : {
       "get" : {
         "tags" : [ "installment-registry-entity-controller" ],
         "description" : "get-installmentregistry",
@@ -323,7 +323,7 @@
         }
       }
     },
-    "/installment-registry/{id}" : {
+    "/installment-registries/{id}" : {
       "get" : {
         "tags" : [ "installment-registry-entity-controller" ],
         "description" : "get-installmentregistry",
@@ -478,7 +478,7 @@
         }
       }
     },
-    "/profile/debt-position-registry" : {
+    "/profile/debt-position-registries" : {
       "get" : {
         "tags" : [ "profile-controller" ],
         "operationId" : "descriptor",
@@ -506,7 +506,7 @@
         }
       }
     },
-    "/profile/installment-registry" : {
+    "/profile/installment-registries" : {
       "get" : {
         "tags" : [ "profile-controller" ],
         "operationId" : "descriptor_1",
@@ -546,8 +546,7 @@
           "readOnly" : {
             "type" : "boolean"
           }
-        },
-        "title" : "AbstractJsonSchemaProperty"
+        }
       },
       "Item" : {
         "type" : "object",
@@ -567,8 +566,7 @@
               "type" : "string"
             }
           }
-        },
-        "title" : "Item"
+        }
       },
       "JsonSchema" : {
         "type" : "object",
@@ -603,8 +601,7 @@
           "$schema" : {
             "type" : "string"
           }
-        },
-        "title" : "JsonSchema"
+        }
       },
       "RepresentationModelObject" : {
         "type" : "object",
@@ -612,91 +609,7 @@
           "_links" : {
             "$ref" : "#/components/schemas/Links"
           }
-        },
-        "title" : "RepresentationModel"
-      },
-      "PaymentEventType" : {
-        "type" : "string",
-        "enum" : [ "DP_CREATED", "DP_UPDATED", "DP_CANCELLED", "DPI_ADDED", "DPI_UPDATED", "DPI_CANCELLED", "DPI_EXPIRED", "DPI_REPORTED", "RT_RECEIVED", "SYNC_ERROR", "IO_NOTIFIED", "SEND_NOTIFICATION_CREATED", "SEND_NOTIFICATION_ERROR", "SEND_NOTIFICATION_DATE" ],
-        "title" : "PaymentEventType"
-      },
-      "EntityModelDebtPositionRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "eventType" : {
-            "$ref" : "#/components/schemas/PaymentEventType"
-          },
-          "eventDateTime" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
-          "eventDescription" : {
-            "type" : "string"
-          },
-          "operatorExternalUserId" : {
-            "type" : "string"
-          },
-          "traceId" : {
-            "type" : "string"
-          },
-          "debtPositionId" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "organizationId" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          }
-        },
-        "title" : "EntityModel"
-      },
-      "PageMetadata" : {
-        "type" : "object",
-        "properties" : {
-          "size" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "totalElements" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "totalPages" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "number" : {
-            "type" : "integer",
-            "format" : "int64"
-          }
-        },
-        "title" : "PageMetadata"
-      },
-      "PagedModelEntityModelDebtPositionRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "_embedded" : {
-            "type" : "object",
-            "properties" : {
-              "debtPositionRegistries" : {
-                "type" : "array",
-                "items" : {
-                  "$ref" : "#/components/schemas/EntityModelDebtPositionRegistry"
-                }
-              }
-            }
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          },
-          "page" : {
-            "$ref" : "#/components/schemas/PageMetadata"
-          }
-        },
-        "title" : "PagedModel"
+        }
       },
       "EntityModelInstallmentRegistry" : {
         "type" : "object",
@@ -731,8 +644,28 @@
           "_links" : {
             "$ref" : "#/components/schemas/Links"
           }
-        },
-        "title" : "EntityModel"
+        }
+      },
+      "PageMetadata" : {
+        "type" : "object",
+        "properties" : {
+          "size" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "totalElements" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "totalPages" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "number" : {
+            "type" : "integer",
+            "format" : "int64"
+          }
+        }
       },
       "PagedModelEntityModelInstallmentRegistry" : {
         "type" : "object",
@@ -754,8 +687,65 @@
           "page" : {
             "$ref" : "#/components/schemas/PageMetadata"
           }
-        },
-        "title" : "PagedModel"
+        }
+      },
+      "PaymentEventType" : {
+        "type" : "string",
+        "enum" : [ "DP_CREATED", "DP_UPDATED", "DP_CANCELLED", "DPI_ADDED", "DPI_UPDATED", "DPI_CANCELLED", "DPI_EXPIRED", "DPI_REPORTED", "RT_RECEIVED", "SYNC_ERROR", "IO_NOTIFIED", "SEND_NOTIFICATION_CREATED", "SEND_NOTIFICATION_ERROR", "SEND_NOTIFICATION_DATE" ]
+      },
+      "EntityModelDebtPositionRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "eventType" : {
+            "$ref" : "#/components/schemas/PaymentEventType"
+          },
+          "eventDateTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "eventDescription" : {
+            "type" : "string"
+          },
+          "operatorExternalUserId" : {
+            "type" : "string"
+          },
+          "traceId" : {
+            "type" : "string"
+          },
+          "debtPositionId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "organizationId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          }
+        }
+      },
+      "PagedModelEntityModelDebtPositionRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "_embedded" : {
+            "type" : "object",
+            "properties" : {
+              "debtPositionRegistries" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/EntityModelDebtPositionRegistry"
+                }
+              }
+            }
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "page" : {
+            "$ref" : "#/components/schemas/PageMetadata"
+          }
+        }
       },
       "DebtPositionRegistryRequestBody" : {
         "type" : "object",
