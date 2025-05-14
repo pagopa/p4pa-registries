@@ -34,7 +34,8 @@ repositories {
 
   dependencyManagement {
     imports {
-      mavenBom("org.springframework.cloud:spring-cloud-dependencies:2024.0.1")
+      // updating this to 2024.0.1 would actually break Mongo @Document discovery
+      mavenBom("org.springframework.cloud:spring-cloud-dependencies:2024.0.0")
     }
   }
 }
