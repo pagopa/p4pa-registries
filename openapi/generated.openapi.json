@@ -10,11 +10,11 @@
     "description" : "Generated server url"
   } ],
   "paths" : {
-    "/debt-position-registries" : {
+    "/crud/debt-position-registries" : {
       "get" : {
         "tags" : [ "debt-position-registry-entity-controller" ],
         "description" : "get-debtpositionregistry",
-        "operationId" : "getCollectionResource-debtpositionregistry-get",
+        "operationId" : "crud-get-debtpositionregistrys",
         "parameters" : [ {
           "name" : "page",
           "in" : "query",
@@ -53,12 +53,12 @@
             "content" : {
               "application/hal+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/PagedModelEntityModelDebtPositionRegistry"
+                  "$ref" : "#/components/schemas/PagedModelDebtPositionRegistry"
                 }
               },
               "application/x-spring-data-compact+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/PagedModelEntityModelDebtPositionRegistry"
+                  "$ref" : "#/components/schemas/PagedModelDebtPositionRegistry"
                 }
               },
               "text/uri-list" : {
@@ -73,7 +73,7 @@
       "post" : {
         "tags" : [ "debt-position-registry-entity-controller" ],
         "description" : "create-debtpositionregistry",
-        "operationId" : "postCollectionResource-debtpositionregistry-post",
+        "operationId" : "crud-create-debtpositionregistry",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -90,7 +90,7 @@
             "content" : {
               "application/hal+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/EntityModelDebtPositionRegistry"
+                  "$ref" : "#/components/schemas/DebtPositionRegistry"
                 }
               }
             }
@@ -98,11 +98,11 @@
         }
       }
     },
-    "/debt-position-registries/{id}" : {
+    "/crud/debt-position-registries/{id}" : {
       "get" : {
         "tags" : [ "debt-position-registry-entity-controller" ],
         "description" : "get-debtpositionregistry",
-        "operationId" : "getItemResource-debtpositionregistry-get",
+        "operationId" : "crud-get-debtpositionregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -117,7 +117,7 @@
             "content" : {
               "application/hal+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/EntityModelDebtPositionRegistry"
+                  "$ref" : "#/components/schemas/DebtPositionRegistry"
                 }
               }
             }
@@ -130,7 +130,7 @@
       "put" : {
         "tags" : [ "debt-position-registry-entity-controller" ],
         "description" : "update-debtpositionregistry",
-        "operationId" : "putItemResource-debtpositionregistry-put",
+        "operationId" : "crud-update-debtpositionregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -155,7 +155,7 @@
             "content" : {
               "application/hal+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/EntityModelDebtPositionRegistry"
+                  "$ref" : "#/components/schemas/DebtPositionRegistry"
                 }
               }
             }
@@ -165,7 +165,7 @@
             "content" : {
               "application/hal+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/EntityModelDebtPositionRegistry"
+                  "$ref" : "#/components/schemas/DebtPositionRegistry"
                 }
               }
             }
@@ -178,7 +178,7 @@
       "delete" : {
         "tags" : [ "debt-position-registry-entity-controller" ],
         "description" : "delete-debtpositionregistry",
-        "operationId" : "deleteItemResource-debtpositionregistry-delete",
+        "operationId" : "crud-delete-debtpositionregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -199,7 +199,7 @@
       "patch" : {
         "tags" : [ "debt-position-registry-entity-controller" ],
         "description" : "patch-debtpositionregistry",
-        "operationId" : "patchItemResource-debtpositionregistry-patch",
+        "operationId" : "crud-patch-debtpositionregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -224,7 +224,7 @@
             "content" : {
               "application/hal+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/EntityModelDebtPositionRegistry"
+                  "$ref" : "#/components/schemas/DebtPositionRegistry"
                 }
               }
             }
@@ -235,11 +235,11 @@
         }
       }
     },
-    "/installment-registries" : {
+    "/crud/installment-registries" : {
       "get" : {
         "tags" : [ "installment-registry-entity-controller" ],
         "description" : "get-installmentregistry",
-        "operationId" : "getCollectionResource-installmentregistry-get",
+        "operationId" : "crud-get-installmentregistrys",
         "parameters" : [ {
           "name" : "page",
           "in" : "query",
@@ -278,12 +278,12 @@
             "content" : {
               "application/hal+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/PagedModelEntityModelInstallmentRegistry"
+                  "$ref" : "#/components/schemas/PagedModelInstallmentRegistry"
                 }
               },
               "application/x-spring-data-compact+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/PagedModelEntityModelInstallmentRegistry"
+                  "$ref" : "#/components/schemas/PagedModelInstallmentRegistry"
                 }
               },
               "text/uri-list" : {
@@ -298,7 +298,7 @@
       "post" : {
         "tags" : [ "installment-registry-entity-controller" ],
         "description" : "create-installmentregistry",
-        "operationId" : "postCollectionResource-installmentregistry-post",
+        "operationId" : "crud-create-installmentregistry",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -315,7 +315,7 @@
             "content" : {
               "application/hal+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/EntityModelInstallmentRegistry"
+                  "$ref" : "#/components/schemas/InstallmentRegistry"
                 }
               }
             }
@@ -323,11 +323,11 @@
         }
       }
     },
-    "/installment-registries/{id}" : {
+    "/crud/installment-registries/{id}" : {
       "get" : {
         "tags" : [ "installment-registry-entity-controller" ],
         "description" : "get-installmentregistry",
-        "operationId" : "getItemResource-installmentregistry-get",
+        "operationId" : "crud-get-installmentregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -342,7 +342,7 @@
             "content" : {
               "application/hal+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/EntityModelInstallmentRegistry"
+                  "$ref" : "#/components/schemas/InstallmentRegistry"
                 }
               }
             }
@@ -355,7 +355,7 @@
       "put" : {
         "tags" : [ "installment-registry-entity-controller" ],
         "description" : "update-installmentregistry",
-        "operationId" : "putItemResource-installmentregistry-put",
+        "operationId" : "crud-update-installmentregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -380,7 +380,7 @@
             "content" : {
               "application/hal+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/EntityModelInstallmentRegistry"
+                  "$ref" : "#/components/schemas/InstallmentRegistry"
                 }
               }
             }
@@ -390,7 +390,7 @@
             "content" : {
               "application/hal+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/EntityModelInstallmentRegistry"
+                  "$ref" : "#/components/schemas/InstallmentRegistry"
                 }
               }
             }
@@ -403,7 +403,7 @@
       "delete" : {
         "tags" : [ "installment-registry-entity-controller" ],
         "description" : "delete-installmentregistry",
-        "operationId" : "deleteItemResource-installmentregistry-delete",
+        "operationId" : "crud-delete-installmentregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -424,7 +424,7 @@
       "patch" : {
         "tags" : [ "installment-registry-entity-controller" ],
         "description" : "patch-installmentregistry",
-        "operationId" : "patchItemResource-installmentregistry-patch",
+        "operationId" : "crud-patch-installmentregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -449,7 +449,7 @@
             "content" : {
               "application/hal+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/EntityModelInstallmentRegistry"
+                  "$ref" : "#/components/schemas/InstallmentRegistry"
                 }
               }
             }
@@ -460,10 +460,10 @@
         }
       }
     },
-    "/profile" : {
+    "/crud/profile" : {
       "get" : {
         "tags" : [ "profile-controller" ],
-        "operationId" : "listAllFormsOfMetadata",
+        "operationId" : "crud-profile-profiles",
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -478,10 +478,10 @@
         }
       }
     },
-    "/profile/debt-position-registries" : {
+    "/crud/profile/debt-position-registries" : {
       "get" : {
         "tags" : [ "profile-controller" ],
-        "operationId" : "descriptor",
+        "operationId" : "crud-profile-debt-position-registries",
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -506,10 +506,10 @@
         }
       }
     },
-    "/profile/installment-registries" : {
+    "/crud/profile/installment-registries" : {
       "get" : {
         "tags" : [ "profile-controller" ],
-        "operationId" : "descriptor_1",
+        "operationId" : "crud-profile-installment-registries",
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -611,41 +611,6 @@
           }
         }
       },
-      "EntityModelInstallmentRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "eventType" : {
-            "$ref" : "#/components/schemas/PaymentEventType"
-          },
-          "eventDateTime" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
-          "eventDescription" : {
-            "type" : "string"
-          },
-          "operatorExternalUserId" : {
-            "type" : "string"
-          },
-          "traceId" : {
-            "type" : "string"
-          },
-          "debtPositionId" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "organizationId" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "nav" : {
-            "type" : "string"
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          }
-        }
-      },
       "PageMetadata" : {
         "type" : "object",
         "properties" : {
@@ -667,85 +632,9 @@
           }
         }
       },
-      "PagedModelEntityModelInstallmentRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "_embedded" : {
-            "type" : "object",
-            "properties" : {
-              "installmentRegistries" : {
-                "type" : "array",
-                "items" : {
-                  "$ref" : "#/components/schemas/EntityModelInstallmentRegistry"
-                }
-              }
-            }
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          },
-          "page" : {
-            "$ref" : "#/components/schemas/PageMetadata"
-          }
-        }
-      },
       "PaymentEventType" : {
         "type" : "string",
         "enum" : [ "DP_CREATED", "DP_UPDATED", "DP_CANCELLED", "DPI_ADDED", "DPI_UPDATED", "DPI_CANCELLED", "DPI_EXPIRED", "DPI_REPORTED", "RT_RECEIVED", "SYNC_ERROR", "IO_NOTIFIED", "SEND_NOTIFICATION_CREATED", "SEND_NOTIFICATION_ERROR", "SEND_NOTIFICATION_DATE" ]
-      },
-      "EntityModelDebtPositionRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "eventType" : {
-            "$ref" : "#/components/schemas/PaymentEventType"
-          },
-          "eventDateTime" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
-          "eventDescription" : {
-            "type" : "string"
-          },
-          "operatorExternalUserId" : {
-            "type" : "string"
-          },
-          "traceId" : {
-            "type" : "string"
-          },
-          "debtPositionId" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "organizationId" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          }
-        }
-      },
-      "PagedModelEntityModelDebtPositionRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "_embedded" : {
-            "type" : "object",
-            "properties" : {
-              "debtPositionRegistries" : {
-                "type" : "array",
-                "items" : {
-                  "$ref" : "#/components/schemas/EntityModelDebtPositionRegistry"
-                }
-              }
-            }
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          },
-          "page" : {
-            "$ref" : "#/components/schemas/PageMetadata"
-          }
-        }
       },
       "DebtPositionRegistryRequestBody" : {
         "type" : "object",
@@ -814,6 +703,123 @@
           }
         }
       },
+      "InstallmentRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "eventId" : {
+            "type" : "string"
+          },
+          "eventType" : {
+            "$ref" : "#/components/schemas/PaymentEventType"
+          },
+          "eventDateTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "eventDescription" : {
+            "type" : "string"
+          },
+          "operatorExternalUserId" : {
+            "type" : "string"
+          },
+          "traceId" : {
+            "type" : "string"
+          },
+          "debtPositionId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "organizationId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "nav" : {
+            "type" : "string"
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          }
+        }
+      },
+      "PagedModelInstallmentRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "_embedded" : {
+            "type" : "object",
+            "properties" : {
+              "installmentRegistries" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/InstallmentRegistry"
+                }
+              }
+            }
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "page" : {
+            "$ref" : "#/components/schemas/PageMetadata"
+          }
+        }
+      },
+      "DebtPositionRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "eventId" : {
+            "type" : "string"
+          },
+          "eventType" : {
+            "$ref" : "#/components/schemas/PaymentEventType"
+          },
+          "eventDateTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "eventDescription" : {
+            "type" : "string"
+          },
+          "operatorExternalUserId" : {
+            "type" : "string"
+          },
+          "traceId" : {
+            "type" : "string"
+          },
+          "debtPositionId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "organizationId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          }
+        }
+      },
+      "PagedModelDebtPositionRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "_embedded" : {
+            "type" : "object",
+            "properties" : {
+              "debtPositionRegistries" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/DebtPositionRegistry"
+                }
+              }
+            }
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "page" : {
+            "$ref" : "#/components/schemas/PageMetadata"
+          }
+        }
+      },
       "Link" : {
         "type" : "object",
         "properties" : {
@@ -848,6 +854,13 @@
         "additionalProperties" : {
           "$ref" : "#/components/schemas/Link"
         }
+      }
+    },
+    "securitySchemes" : {
+      "BearerAuth" : {
+        "type" : "http",
+        "scheme" : "bearer",
+        "bearerFormat" : "JWT"
       }
     }
   }
