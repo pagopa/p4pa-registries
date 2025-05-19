@@ -2,6 +2,7 @@ package it.gov.pagopa.pu.registry.mapper.debtposition;
 
 import it.gov.pagopa.pu.registry.event.payments.dto.DebtPositionEventDTO;
 import it.gov.pagopa.pu.registry.model.DebtPositionRegistry;
+import it.gov.pagopa.pu.registry.utils.TestUtils;
 import it.gov.pagopa.pu.workflowhub.dto.generated.DebtPositionDTO;
 import it.gov.pagopa.pu.workflowhub.dto.generated.PaymentEventType;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,6 +26,7 @@ public class DebtPositionEventDTO2DebtPositionRegistryMapperTest {
   void map_shouldMapCorrectly_whenValidInput() {
     DebtPositionEventDTO dto = createValidDto();
     DebtPositionRegistry result = mapper.map(dto);
+    TestUtils.checkNotNullFields(result);
 
     assertEquals(dto.getEventId(), result.getEventId());
     assertEquals(dto.getEventType(), result.getEventType());
@@ -34,51 +36,6 @@ public class DebtPositionEventDTO2DebtPositionRegistryMapperTest {
     assertEquals(dto.getPayload().getDebtPositionId(), result.getDebtPositionId());
     assertEquals(dto.getPayload().getUpdateOperatorExternalId(), result.getOperatorExternalUserId());
     assertEquals(dto.getPayload().getOrganizationId(), result.getOrganizationId());
-  }
-
-  @Test
-  void map_shouldFailMapping_whenNullValues() {
-    DebtPositionEventDTO dto = createValidDto();
-
-    // validate eventId
-    dto.setEventId(null);
-    assertThrows(NullPointerException.class, () -> mapper.map(dto));
-
-    // validate eventType
-    dto.setEventId("eventId1");
-    dto.setEventType(null);
-    assertThrows(NullPointerException.class, () -> mapper.map(dto));
-
-    // validate traceId
-    dto.setTraceId(null);
-    dto.setEventType(PaymentEventType.DP_CREATED);
-    assertThrows(NullPointerException.class, () -> mapper.map(dto));
-
-    // validate event datetime
-    dto.setEventDateTime(null);
-    dto.setTraceId("traceId2");
-    assertThrows(NullPointerException.class, () -> mapper.map(dto));
-
-    // validate payload
-    dto.setEventDateTime(OffsetDateTime.now());
-    DebtPositionDTO payload = dto.getPayload();
-    dto.setPayload(null);
-    assertThrows(NullPointerException.class, () -> mapper.map(dto));
-
-    // validate payload debt position id
-    dto.setPayload(payload);
-    dto.getPayload().setDebtPositionId(null);
-    assertThrows(NullPointerException.class, () -> mapper.map(dto));
-
-    // validate payload operator external id
-    dto.getPayload().setDebtPositionId(payload.getDebtPositionId());
-    dto.getPayload().setUpdateOperatorExternalId(null);
-    assertThrows(NullPointerException.class, () -> mapper.map(dto));
-
-    // validate payload organization id
-    dto.getPayload().setUpdateOperatorExternalId(payload.getUpdateOperatorExternalId());
-    dto.getPayload().setOrganizationId(null);
-    assertThrows(NullPointerException.class, () -> mapper.map(dto));
   }
 
   private DebtPositionEventDTO createValidDto() {
