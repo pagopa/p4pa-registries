@@ -41,8 +41,8 @@ public class DebtPositionEventDTO2InstallmentRegistryMapperTest {
     assertEquals(dto.getPayload().getDebtPositionId(), result.getFirst().getDebtPositionId());
     assertEquals(dto.getPayload().getOrganizationId(), result.getFirst().getOrganizationId());
 
-    InstallmentDTO firstInstallmentDTO = dto.getPayload().getPaymentOptions().get(0).getInstallments().get(0);
-    InstallmentDTO secondInstallmentDTO = dto.getPayload().getPaymentOptions().get(0).getInstallments().get(1);
+    InstallmentDTO firstInstallmentDTO = dto.getPayload().getPaymentOptions().getFirst().getInstallments().get(0);
+    InstallmentDTO secondInstallmentDTO = dto.getPayload().getPaymentOptions().getFirst().getInstallments().get(1);
     TestUtils.checkNotNullFields(result.get(0));
     TestUtils.checkNotNullFields(result.get(1));
     assertEquals(dto.getEventId() + "." + firstInstallmentDTO.getNav(), result.get(0).getEventId());
