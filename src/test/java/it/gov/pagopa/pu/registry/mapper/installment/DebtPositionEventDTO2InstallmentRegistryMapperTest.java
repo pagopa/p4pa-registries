@@ -41,17 +41,17 @@ public class DebtPositionEventDTO2InstallmentRegistryMapperTest {
     assertEquals(dto.getPayload().getDebtPositionId(), result.getFirst().getDebtPositionId());
     assertEquals(dto.getPayload().getOrganizationId(), result.getFirst().getOrganizationId());
 
-    IntStream.range(0, dto.getPayload().getPaymentOptions().size()).forEach(i -> {
-      PaymentOptionDTO paymentOptionDTO = dto.getPayload().getPaymentOptions().get(i);
-      IntStream.range(0, paymentOptionDTO.getInstallments().size()).forEach(j -> {
-        InstallmentDTO installmentDTO = paymentOptionDTO.getInstallments().get(j);
-        InstallmentRegistry installmentRegistry = result.get(i + j);
-        TestUtils.checkNotNullFields(installmentRegistry);
-        assertEquals(dto.getEventId() + "." + installmentDTO.getNav(), installmentRegistry.getEventId());
-        assertEquals(installmentDTO.getNav(), installmentRegistry.getNav());
-        assertEquals(installmentDTO.getUpdateOperatorExternalId(), installmentRegistry.getOperatorExternalUserId());
-      });
-    });
+    InstallmentDTO firstInstallmentDTO = dto.getPayload().getPaymentOptions().get(0).getInstallments().get(0);
+    InstallmentDTO secondInstallmentDTO = dto.getPayload().getPaymentOptions().get(0).getInstallments().get(1);
+    TestUtils.checkNotNullFields(result.get(0));
+    TestUtils.checkNotNullFields(result.get(1));
+    assertEquals(dto.getEventId() + "." + firstInstallmentDTO.getNav(), result.get(0).getEventId());
+    assertEquals(firstInstallmentDTO.getNav(), result.get(0).getNav());
+    assertEquals(firstInstallmentDTO.getUpdateOperatorExternalId(), result.get(0).getOperatorExternalUserId());
+
+    assertEquals(dto.getEventId() + "." + secondInstallmentDTO.getNav(), result.get(1).getEventId());
+    assertEquals(secondInstallmentDTO.getNav(), result.get(1).getNav());
+    assertEquals(secondInstallmentDTO.getUpdateOperatorExternalId(), result.get(1).getOperatorExternalUserId());
   }
 
   private DebtPositionEventDTO createValidDto() {
