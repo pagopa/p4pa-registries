@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.OffsetDateTime;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,17 +34,24 @@ public class DebtPositionEventDTO2InstallmentRegistryMapperTest {
     assertEquals(2, result.size());
     assertNotNull(dto.getPayload().getPaymentOptions());
     assertNotNull(dto.getPayload().getPaymentOptions().getFirst().getInstallments());
-
-    InstallmentDTO firstInstallment = dto.getPayload().getPaymentOptions().getFirst().getInstallments().getFirst();
-
-    assertEquals(dto.getEventId() + "." + firstInstallment.getNav(), result.getFirst().getEventId());
     assertEquals(dto.getEventType(), result.getFirst().getEventType());
     assertEquals(dto.getTraceId(), result.getFirst().getTraceId());
     assertEquals(dto.getEventDateTime(), result.getFirst().getEventDateTime());
     assertEquals(dto.getEventDescription(), result.getFirst().getEventDescription());
     assertEquals(dto.getPayload().getDebtPositionId(), result.getFirst().getDebtPositionId());
-    assertEquals(firstInstallment.getUpdateOperatorExternalId(), result.getFirst().getOperatorExternalUserId());
     assertEquals(dto.getPayload().getOrganizationId(), result.getFirst().getOrganizationId());
+
+    IntStream.range(0, dto.getPayload().getPaymentOptions().size()).forEach(i -> {
+      PaymentOptionDTO paymentOptionDTO = dto.getPayload().getPaymentOptions().get(i);
+      IntStream.range(0, paymentOptionDTO.getInstallments().size()).forEach(j -> {
+        InstallmentDTO installmentDTO = paymentOptionDTO.getInstallments().get(j);
+        InstallmentRegistry installmentRegistry = result.get(i + j);
+        TestUtils.checkNotNullFields(installmentRegistry);
+        assertEquals(dto.getEventId() + "." + installmentDTO.getNav(), installmentRegistry.getEventId());
+        assertEquals(installmentDTO.getNav(), installmentRegistry.getNav());
+        assertEquals(installmentDTO.getUpdateOperatorExternalId(), installmentRegistry.getOperatorExternalUserId());
+      });
+    });
   }
 
   private DebtPositionEventDTO createValidDto() {
