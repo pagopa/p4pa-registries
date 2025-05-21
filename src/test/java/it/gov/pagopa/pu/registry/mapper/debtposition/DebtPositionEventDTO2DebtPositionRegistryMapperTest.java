@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import java.time.OffsetDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DebtPositionEventDTO2DebtPositionRegistryMapperTest {
 
