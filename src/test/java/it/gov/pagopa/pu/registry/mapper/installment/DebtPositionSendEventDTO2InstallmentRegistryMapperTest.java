@@ -1,12 +1,10 @@
 package it.gov.pagopa.pu.registry.mapper.installment;
 
-import it.gov.pagopa.pu.registry.event.payments.dto.DebtPositionEventDTO;
+import it.gov.pagopa.pu.registry.event.payments.dto.DebtPositionSendEventDTO;
+import it.gov.pagopa.pu.registry.event.payments.dto.DebtPositionSendNotificationDTO;
 import it.gov.pagopa.pu.registry.model.InstallmentRegistry;
 import it.gov.pagopa.pu.registry.utils.TestUtils;
-import it.gov.pagopa.pu.workflowhub.dto.generated.DebtPositionDTO;
-import it.gov.pagopa.pu.workflowhub.dto.generated.InstallmentDTO;
 import it.gov.pagopa.pu.workflowhub.dto.generated.PaymentEventType;
-import it.gov.pagopa.pu.workflowhub.dto.generated.PaymentOptionDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,72 +12,48 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class DebtPositionEventDTO2InstallmentRegistryMapperTest {
+public class DebtPositionSendEventDTO2InstallmentRegistryMapperTest {
 
-  private DebtPositionEventDTO2InstallmentRegistryMapper mapper;
+  private DebtPositionSendEventDTO2InstallmentRegistryMapper mapper;
 
   @BeforeEach
   void setUp() {
-    mapper = new DebtPositionEventDTO2InstallmentRegistryMapper();
+    mapper = new DebtPositionSendEventDTO2InstallmentRegistryMapper();
   }
 
   @Test
   void map_shouldMapCorrectly_whenValidInput() {
-    DebtPositionEventDTO dto = createValidDto();
+    DebtPositionSendEventDTO dto = createValidDto();
     List<InstallmentRegistry> result = mapper.map(dto);
-    result.forEach(TestUtils::checkNotNullFields);
+    result.forEach(installmentRegistry -> {
+      TestUtils.checkNotNullFields(installmentRegistry, "operatorExternalUserId");
+    });
 
     assertEquals(2, result.size());
-    assertNotNull(dto.getPayload().getPaymentOptions());
-    assertNotNull(dto.getPayload().getPaymentOptions().getFirst().getInstallments());
     assertEquals(dto.getEventType(), result.getFirst().getEventType());
     assertEquals(dto.getTraceId(), result.getFirst().getTraceId());
     assertEquals(dto.getEventDateTime(), result.getFirst().getEventDateTime());
     assertEquals(dto.getEventDescription(), result.getFirst().getEventDescription());
     assertEquals(dto.getPayload().getDebtPositionId(), result.getFirst().getDebtPositionId());
     assertEquals(dto.getPayload().getOrganizationId(), result.getFirst().getOrganizationId());
+    String firstNoticeCode = dto.getPayload().getNoticeCodes().get(0);
+    String secondNoticeCode = dto.getPayload().getNoticeCodes().get(1);
+    assertEquals(dto.getEventId() + "." + firstNoticeCode, result.getFirst().getEventId());
+    assertEquals(firstNoticeCode, result.getFirst().getNav());
 
-    InstallmentDTO firstInstallmentDTO = dto.getPayload().getPaymentOptions().getFirst().getInstallments().get(0);
-    InstallmentDTO secondInstallmentDTO = dto.getPayload().getPaymentOptions().getFirst().getInstallments().get(1);
-    TestUtils.checkNotNullFields(result.get(0));
-    TestUtils.checkNotNullFields(result.get(1));
-    assertEquals(dto.getEventId() + "." + firstInstallmentDTO.getNav(), result.get(0).getEventId());
-    assertEquals(firstInstallmentDTO.getNav(), result.get(0).getNav());
-    assertEquals(firstInstallmentDTO.getUpdateOperatorExternalId(), result.get(0).getOperatorExternalUserId());
-
-    assertEquals(dto.getEventId() + "." + secondInstallmentDTO.getNav(), result.get(1).getEventId());
-    assertEquals(secondInstallmentDTO.getNav(), result.get(1).getNav());
-    assertEquals(secondInstallmentDTO.getUpdateOperatorExternalId(), result.get(1).getOperatorExternalUserId());
+    assertEquals(dto.getEventId() + "." + secondNoticeCode, result.get(1).getEventId());
+    assertEquals(secondNoticeCode, result.get(1).getNav());
   }
 
-  private DebtPositionEventDTO createValidDto() {
-    List<InstallmentDTO> installments = List.of(
-      InstallmentDTO.builder()
-        .nav("nav1")
-        .updateOperatorExternalId("operatorExternalId123")
-        .build(),
-      InstallmentDTO.builder()
-        .nav("nav2")
-        .updateOperatorExternalId("operatorExternalId456")
-        .build()
-    );
-
-    List<PaymentOptionDTO> paymentOptions = List.of(
-      PaymentOptionDTO.builder()
-        .installments(installments)
-        .build()
-    );
-
-    DebtPositionDTO payload = DebtPositionDTO.builder()
+  private DebtPositionSendEventDTO createValidDto() {
+    DebtPositionSendNotificationDTO payload = DebtPositionSendNotificationDTO.builder()
       .debtPositionId(123L)
-      .updateOperatorExternalId("externalOperatorId456")
       .organizationId(789L)
-      .paymentOptions(paymentOptions)
+      .noticeCodes(List.of("nav1", "nav2"))
       .build();
 
-    return DebtPositionEventDTO.builder()
+    return DebtPositionSendEventDTO.builder()
       .eventId("eventId1")
       .eventType(PaymentEventType.DP_CREATED)
       .traceId("traceId2")
