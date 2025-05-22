@@ -12,7 +12,7 @@ import java.time.OffsetDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DebtPositionEventDTO2DebtPositionRegistryMapperTest {
+class DebtPositionEventDTO2DebtPositionRegistryMapperTest {
 
   private DebtPositionEventDTO2DebtPositionRegistryMapper mapper;
 

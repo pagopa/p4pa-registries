@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DebtPositionSendEventDTO2DebtPositionRegistryMapperTest {
+class DebtPositionSendEventDTO2DebtPositionRegistryMapperTest {
 
   private DebtPositionSendEventDTO2DebtPositionRegistryMapper mapper;
 
