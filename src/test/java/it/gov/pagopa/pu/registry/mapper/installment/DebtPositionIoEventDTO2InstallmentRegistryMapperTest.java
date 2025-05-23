@@ -31,7 +31,7 @@ public class DebtPositionIoEventDTO2InstallmentRegistryMapperTest {
     });
 
     assertEquals(2, result.size());
-    assertEquals(2, dto.getPayload().getMessages().size());
+    assertEquals(4, dto.getPayload().getMessages().size());
     assertEquals(dto.getEventType(), result.getFirst().getEventType());
     assertEquals(dto.getTraceId(), result.getFirst().getTraceId());
     assertEquals(dto.getEventDateTime(), result.getFirst().getEventDateTime());
@@ -48,20 +48,6 @@ public class DebtPositionIoEventDTO2InstallmentRegistryMapperTest {
     assertEquals(secondInstallmentDTO.getNav(), result.get(1).getNav());
   }
 
-  @Test
-  void map_shouldFilterOut_whenIUDNotPresentInDescription() {
-    DebtPositionIoEventDTO dto = createValidDto();
-    dto.setEventDescription("IUD: notificationId1");
-    List<InstallmentRegistry> result = mapper.map(dto);
-    result.forEach(installmentRegistry -> {
-      TestUtils.checkNotNullFields(installmentRegistry, "operatorExternalUserId");
-    });
-
-    assertEquals(1, result.size());
-    assertEquals(2, dto.getPayload().getMessages().size());
-    assertEquals("nav1", result.getFirst().getNav());
-  }
-
   private DebtPositionIoEventDTO createValidDto() {
     List<DebtPositionIoNotificationDTO.IoMessage> ioMessagess = List.of(
       DebtPositionIoNotificationDTO.IoMessage.builder()
@@ -73,6 +59,16 @@ public class DebtPositionIoEventDTO2InstallmentRegistryMapperTest {
         .serviceId("serviceId2")
         .nav("nav2")
         .notificationId("notificationId2")
+        .build(),
+      DebtPositionIoNotificationDTO.IoMessage.builder()
+        .serviceId("serviceId3")
+        .nav(null)
+        .notificationId("notificationId3")
+        .build(),
+      DebtPositionIoNotificationDTO.IoMessage.builder()
+        .serviceId("serviceId4")
+        .nav("")
+        .notificationId("notificationId4")
         .build()
     );
 

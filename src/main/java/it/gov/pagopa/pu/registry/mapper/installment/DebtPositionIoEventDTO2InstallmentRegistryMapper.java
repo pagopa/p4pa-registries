@@ -15,19 +15,8 @@ public class DebtPositionIoEventDTO2InstallmentRegistryMapper {
   public List<InstallmentRegistry> map(DebtPositionIoEventDTO dto) {
     if (dto.getPayload().getMessages() == null) return List.of();
 
-    List<String> iudList;
-
-    if (dto.getEventDescription().startsWith("IUD:")) {
-      iudList = List.of(dto.getEventDescription().split(":")[1].trim().split(","));
-    } else {
-      iudList = null;
-    }
-
     return dto.getPayload().getMessages().stream()
-      .filter(ioMessageDTO -> {
-        if (iudList == null) return true;
-        return iudList.contains(ioMessageDTO.getNotificationId());
-      })
+      .filter(ioMessageDTO -> ioMessageDTO.getNav() != null && !ioMessageDTO.getNav().isEmpty())
       .map(ioMessageDTO -> InstallmentRegistry.builder()
         .eventId(dto.getEventId() + "." + ioMessageDTO.getNav())
         .eventType(dto.getEventType())
