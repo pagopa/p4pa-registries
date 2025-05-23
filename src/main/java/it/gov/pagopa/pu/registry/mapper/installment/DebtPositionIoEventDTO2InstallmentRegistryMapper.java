@@ -4,9 +4,9 @@ import it.gov.pagopa.pu.registry.event.payments.dto.DebtPositionIoEventDTO;
 import it.gov.pagopa.pu.registry.model.InstallmentRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -16,7 +16,7 @@ public class DebtPositionIoEventDTO2InstallmentRegistryMapper {
     if (dto.getPayload().getMessages() == null) return List.of();
 
     return dto.getPayload().getMessages().stream()
-      .filter(ioMessageDTO -> ioMessageDTO.getNav() != null && !ioMessageDTO.getNav().isEmpty())
+      .filter(ioMessageDTO -> StringUtils.hasText(ioMessageDTO.getNav()))
       .map(ioMessageDTO -> InstallmentRegistry.builder()
         .eventId(dto.getEventId() + "." + ioMessageDTO.getNav())
         .eventType(dto.getEventType())
@@ -27,7 +27,7 @@ public class DebtPositionIoEventDTO2InstallmentRegistryMapper {
         .organizationId(dto.getPayload().getOrganizationId())
         .nav(ioMessageDTO.getNav())
         .build())
-      .collect(Collectors.toList());
+      .toList();
   }
 
 }
