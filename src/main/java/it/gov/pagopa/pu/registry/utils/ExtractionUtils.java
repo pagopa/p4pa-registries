@@ -7,7 +7,11 @@ import java.util.regex.Pattern;
 
 public class ExtractionUtils {
 
-  private final static Pattern IUD_MATCH_PATTERN = Pattern.compile("IUD:\\s*([^;]*)\\s*(?:;|$)");
+  private ExtractionUtils() {
+    // Constructor is intentionally empty to hide the default public one
+  }
+
+  private static final Pattern IUD_MATCH_PATTERN = Pattern.compile("IUD:\\s*([^;]*)\\s*(?:;|$)");
 
   public static Set<String> extractIudIdsFromDescription(String description) {
     Set<String> iudIds = new HashSet<>();
