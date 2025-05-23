@@ -2,17 +2,10 @@ package it.gov.pagopa.pu.registry.mapper.installment;
 
 import it.gov.pagopa.pu.registry.event.payments.dto.DebtPositionEventDTO;
 import it.gov.pagopa.pu.registry.model.InstallmentRegistry;
-import it.gov.pagopa.pu.workflowhub.dto.generated.InstallmentDTO;
-import it.gov.pagopa.pu.workflowhub.dto.generated.PaymentOptionDTO;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
-@Slf4j
 @Service
 public class DebtPositionEventDTO2InstallmentRegistryMapper {
 
@@ -33,7 +26,7 @@ public class DebtPositionEventDTO2InstallmentRegistryMapper {
         .organizationId(dto.getPayload().getOrganizationId())
         .nav(installmentDTO.getNav())
         .build())
-      .collect(Collectors.toList());
+      .toList();
   }
 
 }
