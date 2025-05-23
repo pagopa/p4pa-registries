@@ -7,10 +7,11 @@ import java.util.regex.Pattern;
 
 public class ExtractionUtils {
 
+  private final static Pattern IUD_MATCH_PATTERN = Pattern.compile("IUD:\\s*([^;]*)\\s*(?:;|$)");
+
   public static Set<String> extractIudIdsFromDescription(String description) {
     Set<String> iudIds = new HashSet<>();
-    Pattern pattern = Pattern.compile("IUD:\\s*([^;]*)");
-    Matcher matcher = pattern.matcher(description);
+    Matcher matcher = IUD_MATCH_PATTERN.matcher(description);
 
     if (matcher.find()) {
       String ids = matcher.group(1);
