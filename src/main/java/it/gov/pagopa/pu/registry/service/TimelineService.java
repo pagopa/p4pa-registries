@@ -16,6 +16,11 @@ public class TimelineService {
   private final InstallmentRegistryService installmentRegistryService;
 
   public void consumePaymentEvent(PaymentEventDTO<?> event) {
+    if (event == null) {
+      log.warn("Received null payment event, skipping processing.");
+      return;
+    }
+
     log.info("Processing payment event: {}", event);
     debtPositionRegistryService.consumePaymentEvent(event);
     installmentRegistryService.consumePaymentEvent(event);
