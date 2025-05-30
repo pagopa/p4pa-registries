@@ -1,57 +1,115 @@
 package it.gov.pagopa.pu.registry.mapper.installment;
 
 import it.gov.pagopa.pu.registry.event.payments.dto.*;
-import it.gov.pagopa.pu.workflowhub.dto.generated.DebtPositionDTO;
+import it.gov.pagopa.pu.registry.model.InstallmentRegistry;
 import it.gov.pagopa.pu.workflowhub.dto.generated.PaymentEventType;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+
+@ExtendWith(MockitoExtension.class)
 class InstallmentRegistryMapperServiceTest {
 
-  private InstallmentRegistryMapperService installmentRegistryMapperService;
-  private DebtPositionEventDTO2InstallmentRegistryMapper debtPositionEventDTO2InstallmentRegistryMapper;
-  private DebtPositionIoEventDTO2InstallmentRegistryMapper debtPositionIoEventDTO2InstallmentRegistryMapper;
-  private DebtPositionSendEventDTO2InstallmentRegistryMapper debtPositionSendEventDTO2InstallmentRegistryMapper;
+  @Mock
+  private DebtPositionEventDTO2InstallmentRegistryMapper dpEventMapperMock;
+  @Mock
+  private DebtPositionIoEventDTO2InstallmentRegistryMapper dpIoEventMapperMock;
+  @Mock
+  private DebtPositionSendEventDTO2InstallmentRegistryMapper dpSendEventMapperMock;
+
+  private InstallmentRegistryMapperService service;
 
   @BeforeEach
   void setUp() {
-    this.debtPositionEventDTO2InstallmentRegistryMapper = Mockito.spy(new DebtPositionEventDTO2InstallmentRegistryMapper());
-    this.debtPositionIoEventDTO2InstallmentRegistryMapper = Mockito.spy(new DebtPositionIoEventDTO2InstallmentRegistryMapper());
-    this.debtPositionSendEventDTO2InstallmentRegistryMapper = Mockito.spy(new DebtPositionSendEventDTO2InstallmentRegistryMapper());
-
-    installmentRegistryMapperService = new InstallmentRegistryMapperService(
-        debtPositionEventDTO2InstallmentRegistryMapper,
-        debtPositionIoEventDTO2InstallmentRegistryMapper,
-        debtPositionSendEventDTO2InstallmentRegistryMapper
+    service = new InstallmentRegistryMapperService(
+      dpEventMapperMock,
+      dpIoEventMapperMock,
+      dpSendEventMapperMock
     );
   }
 
-  @Test
-  void map_shouldReturnInstallmentRegistry_whenEventIsDebtPositionEvent() {
-    DebtPositionEventDTO dto = new DebtPositionEventDTO();
-    dto.setEventType(PaymentEventType.DP_CREATED);
-    dto.setPayload(new DebtPositionDTO());
-    this.installmentRegistryMapperService.map(dto);
-    Mockito.verify(debtPositionEventDTO2InstallmentRegistryMapper, Mockito.times(1)).map(Mockito.any(DebtPositionEventDTO.class));
+  @AfterEach
+  void afterEach() {
+    Mockito.verifyNoMoreInteractions(dpEventMapperMock, dpIoEventMapperMock, dpSendEventMapperMock);
   }
 
   @Test
-  void map_shouldReturnInstallmentRegistry_whenEventIsDebtPositionIoEvent() {
+  void givenDPIoEventWhenMappedThenInvokesExpectedMapper() {
+    // Given
     DebtPositionIoEventDTO dto = new DebtPositionIoEventDTO();
     dto.setEventType(PaymentEventType.IO_NOTIFIED);
     dto.setPayload(new DebtPositionIoNotificationDTO());
-    this.installmentRegistryMapperService.map(dto);
-    Mockito.verify(debtPositionIoEventDTO2InstallmentRegistryMapper, Mockito.times(1)).map(Mockito.any(DebtPositionIoEventDTO.class));
+    List<InstallmentRegistry> installmentRegistries = List.of(new InstallmentRegistry());
+
+    Mockito.when(dpIoEventMapperMock.map(Mockito.same(dto))).thenReturn(installmentRegistries);
+
+    // When
+    List<InstallmentRegistry> results = this.service.map(dto);
+
+    // Then
+    assertSame(installmentRegistries, results);
   }
 
   @Test
-  void map_shouldReturnInstallmentRegistry_whenEventIsDebtPositionSendEvent() {
+  void givenDPSendEventWhenMappedThenInvokesExpectedMapper() {
+    // Given
     DebtPositionSendEventDTO dto = new DebtPositionSendEventDTO();
     dto.setEventType(PaymentEventType.SEND_NOTIFICATION_CREATED);
     dto.setPayload(new DebtPositionSendNotificationDTO());
-    this.installmentRegistryMapperService.map(dto);
-    Mockito.verify(debtPositionSendEventDTO2InstallmentRegistryMapper, Mockito.times(1)).map(Mockito.any(DebtPositionSendEventDTO.class));
+    List<InstallmentRegistry> installmentRegistries = List.of(new InstallmentRegistry());
+
+    Mockito.when(dpSendEventMapperMock.map(Mockito.same(dto))).thenReturn(installmentRegistries);
+
+    // When
+    List<InstallmentRegistry> results = this.service.map(dto);
+
+    // Then
+    assertSame(installmentRegistries, results);
+  }
+
+  @Test
+  void givenNullEventWhenMappedThenReturnsEmpty() {
+    // When
+    List<InstallmentRegistry> results = this.service.map(null);
+
+    // Then
+    assertEquals(0, results.size());
+  }
+
+  @Test
+  void givenNullPayloadWhenMappedThenReturnsEmpty() {
+    // Given
+    PaymentEventDTO<Object> dto = new PaymentEventDTO<>();
+    dto.setEventType(PaymentEventType.SYNC_ERROR);
+    dto.setPayload(null);
+
+    // When
+    List<InstallmentRegistry> results = this.service.map(null);
+
+    // Then
+    assertEquals(0, results.size());
+  }
+
+  @Test
+  void givenNullEventTypeWhenMappedThenReturnsEmpty() {
+    // Given
+    PaymentEventDTO<Object> dto = new PaymentEventDTO<>();
+    dto.setPayload(new Object());
+
+    // When
+    List<InstallmentRegistry> results = this.service.map(null);
+
+    // Then
+    assertEquals(0, results.size());
   }
 
 }

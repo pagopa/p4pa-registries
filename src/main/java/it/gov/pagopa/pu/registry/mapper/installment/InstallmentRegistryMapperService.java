@@ -35,20 +35,18 @@ public class InstallmentRegistryMapperService {
       return List.of();
     }
 
-    Object payload = event.getPayload();
-
-    switch (payload) {
-      case DebtPositionDTO debtPositionDTO -> {
-        return debtPositionEventDTO2InstallmentRegistryMapper.map((DebtPositionEventDTO) event);
+    switch (event) {
+      case DebtPositionEventDTO debtPositionEvent -> {
+        return debtPositionEventDTO2InstallmentRegistryMapper.map(debtPositionEvent);
       }
-      case DebtPositionIoNotificationDTO debtPositionIoNotificationDTO -> {
-        return debtPositionIoEventDTO2DebtPositionRegistryMapper.map((DebtPositionIoEventDTO) event);
+      case DebtPositionIoEventDTO debtPositionIoEvent -> {
+        return debtPositionIoEventDTO2DebtPositionRegistryMapper.map(debtPositionIoEvent);
       }
-      case DebtPositionSendNotificationDTO debtPositionSendNotificationDTO -> {
-        return debtPositionSendEventDTO2DebtPositionRegistryMapper.map((DebtPositionSendEventDTO) event);
+      case DebtPositionSendEventDTO debtPositionSendEvent -> {
+        return debtPositionSendEventDTO2DebtPositionRegistryMapper.map(debtPositionSendEvent);
       }
       default -> {
-        log.warn("Unsupported payload type: class={} eventType={} eventId={} traceId={} eventDescription={}", payload.getClass().getName(),
+        log.warn("Unsupported payload type: eventType={} eventId={} traceId={} eventDescription={}",
           event.getEventType(), event.getEventId(), event.getTraceId(), event.getEventDescription());
         return List.of();
       }
