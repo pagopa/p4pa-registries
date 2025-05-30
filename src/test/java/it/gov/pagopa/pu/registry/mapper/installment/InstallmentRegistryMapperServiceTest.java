@@ -2,6 +2,7 @@ package it.gov.pagopa.pu.registry.mapper.installment;
 
 import it.gov.pagopa.pu.registry.event.payments.dto.*;
 import it.gov.pagopa.pu.registry.model.InstallmentRegistry;
+import it.gov.pagopa.pu.workflowhub.dto.generated.DebtPositionDTO;
 import it.gov.pagopa.pu.workflowhub.dto.generated.PaymentEventType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,6 +41,23 @@ class InstallmentRegistryMapperServiceTest {
   @AfterEach
   void afterEach() {
     Mockito.verifyNoMoreInteractions(dpEventMapperMock, dpIoEventMapperMock, dpSendEventMapperMock);
+  }
+
+  @Test
+  void givenDPEventWhenMappedThenInvokesExpectedMapper() {
+    // Given
+    DebtPositionEventDTO dto = new DebtPositionEventDTO();
+    dto.setEventType(PaymentEventType.DP_CREATED);
+    dto.setPayload(new DebtPositionDTO());
+    List<InstallmentRegistry> installmentRegistries = List.of(new InstallmentRegistry());
+
+    Mockito.when(dpEventMapperMock.map(Mockito.same(dto))).thenReturn(installmentRegistries);
+
+    // When
+    List<InstallmentRegistry> results = this.service.map(dto);
+
+    // Then
+    assertSame(installmentRegistries, results);
   }
 
   @Test
