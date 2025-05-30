@@ -111,7 +111,7 @@ class InstallmentRegistryMapperServiceTest {
     dto.setPayload(null);
 
     // When
-    List<InstallmentRegistry> results = this.service.map(null);
+    List<InstallmentRegistry> results = this.service.map(dto);
 
     // Then
     assertEquals(0, results.size());
@@ -124,7 +124,7 @@ class InstallmentRegistryMapperServiceTest {
     dto.setPayload(new Object());
 
     // When
-    List<InstallmentRegistry> results = this.service.map(null);
+    List<InstallmentRegistry> results = this.service.map(dto);
 
     // Then
     assertEquals(0, results.size());
