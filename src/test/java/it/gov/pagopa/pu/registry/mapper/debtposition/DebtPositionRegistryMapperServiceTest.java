@@ -77,7 +77,7 @@ class DebtPositionRegistryMapperServiceTest {
   }
 
   @Test
-  void givenDPSendEventWHenMappedThenInvokesExpectedMapper() {
+  void givenDPSendEventWhenMappedThenInvokesExpectedMapper() {
     // Given
     DebtPositionSendEventDTO dto = new DebtPositionSendEventDTO();
     dto.setEventType(PaymentEventType.SEND_NOTIFICATION_CREATED);
@@ -92,6 +92,56 @@ class DebtPositionRegistryMapperServiceTest {
 
     // Then
     assertSame(debtPositionRegistry, result);
+  }
+
+  @Test
+  void givenUnknownEventWhenMappedThenReturnsNull() {
+    // Given
+    PaymentEventDTO<Object> dto = new PaymentEventDTO<>();
+    dto.setEventType(PaymentEventType.SYNC_ERROR);
+    dto.setPayload(new Object());
+
+    // When
+    DebtPositionRegistry result = this.service.map(dto);
+
+    // Then
+    assertSame(null, result);
+  }
+
+  @Test
+  void givenNullEventWhenMappedThenReturnsNull() {
+    // When
+    DebtPositionRegistry result = this.service.map(null);
+
+    // Then
+    assertSame(null, result);
+  }
+
+  @Test
+  void givenNullPayloadWhenMappedThenReturnsNull() {
+    // Given
+    PaymentEventDTO<Object> dto = new PaymentEventDTO<>();
+    dto.setEventType(PaymentEventType.SYNC_ERROR);
+    dto.setPayload(null);
+
+    // When
+    DebtPositionRegistry result = this.service.map(dto);
+
+    // Then
+    assertSame(null, result);
+  }
+
+  @Test
+  void givenNullEventTypeWhenMappedThenReturnsNull() {
+    // Given
+    PaymentEventDTO<Object> dto = new PaymentEventDTO<>();
+    dto.setPayload(new Object());
+
+    // When
+    DebtPositionRegistry result = this.service.map(dto);
+
+    // Then
+    assertSame(null, result);
   }
 
 }
