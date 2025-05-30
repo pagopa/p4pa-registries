@@ -35,7 +35,7 @@ class InstallmentRegistryServiceTest {
   }
 
   @Test
-  void consumePaymentEvent_whenRequestIsValid() {
+  void whenConsumePaymentEventThenMapperAndRepositoryAreInvoked() {
     Mockito.when(mapperService.map(Mockito.any(PaymentEventDTO.class)))
       .thenReturn(List.of(new InstallmentRegistry(), new InstallmentRegistry()));
     this.service.consumePaymentEvent(Mockito.mock(PaymentEventDTO.class));
