@@ -1,43 +1,47 @@
 package it.gov.pagopa.pu.registry.service.installment;
 
 import it.gov.pagopa.pu.registry.event.payments.dto.PaymentEventDTO;
-import it.gov.pagopa.pu.registry.mapper.installment.DebtPositionEventDTO2InstallmentRegistryMapper;
-import it.gov.pagopa.pu.registry.mapper.installment.DebtPositionIoEventDTO2InstallmentRegistryMapper;
-import it.gov.pagopa.pu.registry.mapper.installment.DebtPositionSendEventDTO2InstallmentRegistryMapper;
 import it.gov.pagopa.pu.registry.mapper.installment.InstallmentRegistryMapperService;
 import it.gov.pagopa.pu.registry.model.InstallmentRegistry;
 import it.gov.pagopa.pu.registry.repository.InstallmentRegistryRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
+@ExtendWith(MockitoExtension.class)
 class InstallmentRegistryServiceTest {
 
-  private InstallmentRegistryService installmentRegistryService;
-  private InstallmentRegistryRepository installmentRegistryRepository;
-  private InstallmentRegistryMapperService installmentRegistryMapperService;
+  @Mock
+  private InstallmentRegistryRepository repository;
+  @Mock
+  private InstallmentRegistryMapperService mapperService;
+
+  private InstallmentRegistryService service;
 
   @BeforeEach
   void setUp() {
-    this.installmentRegistryRepository = Mockito.spy(InstallmentRegistryRepository.class);
-    this.installmentRegistryMapperService = Mockito.spy(new InstallmentRegistryMapperService(
-      Mockito.mock(DebtPositionEventDTO2InstallmentRegistryMapper.class),
-      Mockito.mock(DebtPositionIoEventDTO2InstallmentRegistryMapper.class),
-      Mockito.mock(DebtPositionSendEventDTO2InstallmentRegistryMapper.class)
-    ));
-    this.installmentRegistryService = new InstallmentRegistryService(
-      installmentRegistryMapperService, installmentRegistryRepository);
+    this.service = new InstallmentRegistryService(mapperService, repository);
+  }
+
+  @AfterEach
+  void afterEach() {
+    Mockito.verifyNoMoreInteractions(repository, mapperService);
   }
 
   @Test
   void consumePaymentEvent_whenRequestIsValid() {
-    Mockito.when(installmentRegistryMapperService.map(Mockito.any(PaymentEventDTO.class))).thenReturn(List.of(new InstallmentRegistry(), new InstallmentRegistry()));
-    this.installmentRegistryService.consumePaymentEvent(Mockito.mock(PaymentEventDTO.class));
-    Mockito.verify(installmentRegistryMapperService, Mockito.times(1))
+    Mockito.when(mapperService.map(Mockito.any(PaymentEventDTO.class)))
+      .thenReturn(List.of(new InstallmentRegistry(), new InstallmentRegistry()));
+    this.service.consumePaymentEvent(Mockito.mock(PaymentEventDTO.class));
+    Mockito.verify(mapperService, Mockito.times(1))
         .map(Mockito.any(PaymentEventDTO.class));
-    Mockito.verify(installmentRegistryRepository, Mockito.times(1))
+    Mockito.verify(repository, Mockito.times(1))
         .saveAll(Mockito.any());
   }
 
