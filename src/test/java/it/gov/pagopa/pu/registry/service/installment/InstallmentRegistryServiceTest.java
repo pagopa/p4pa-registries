@@ -51,8 +51,8 @@ class InstallmentRegistryServiceTest {
     this.service.consumePaymentEvent(dto);
 
     // Then
-    Mockito.verify(repository, Mockito.times(1))
-        .saveAll(Mockito.anyList());
+    Mockito.verify(repository)
+        .saveAll(expectedResults);
   }
 
 }
