@@ -37,7 +37,7 @@ class DebtPositionRegistryMapperServiceTest {
 
   @AfterEach
   void afterEach() {
-    Mockito.verifyNoMoreInteractions(dpIoEventMapperMock);
+    Mockito.verifyNoMoreInteractions(dpEventMapperMock, dpIoEventMapperMock, dpSendEventMapperMock);
   }
 
   @Test
