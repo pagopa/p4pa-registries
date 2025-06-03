@@ -302,6 +302,10 @@
             "traceId": "string"
           }
         ],
+        "required": [
+          "eventType",
+          "payload"
+        ],
         "allOf": [
           {
             "$ref": "#/components/schemas/PaymentEventDTOObject"
@@ -338,6 +342,10 @@
             },
             "traceId": "string"
           }
+        ],
+        "required": [
+          "eventType",
+          "payload"
         ],
         "allOf": [
           {
@@ -428,6 +436,10 @@
             },
             "traceId": "string"
           }
+        ],
+        "required": [
+          "eventType",
+          "payload"
         ],
         "allOf": [
           {
@@ -793,6 +805,10 @@
             "payload": { },
             "traceId": "string"
           }
+        ],
+        "required": [
+          "eventType",
+          "payload"
         ]
       },
       "PaymentEventType": {

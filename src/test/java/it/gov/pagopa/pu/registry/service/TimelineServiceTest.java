@@ -3,6 +3,7 @@ package it.gov.pagopa.pu.registry.service;
 import it.gov.pagopa.pu.registry.event.payments.dto.PaymentEventDTO;
 import it.gov.pagopa.pu.registry.service.debtposition.DebtPositionRegistryService;
 import it.gov.pagopa.pu.registry.service.installment.InstallmentRegistryService;
+import it.gov.pagopa.pu.workflowhub.dto.generated.PaymentEventType;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,8 +33,12 @@ class TimelineServiceTest {
   }
 
   @Test
-  void consumePaymentEvent_whenEventIsValid_shouldCallServices() {
-    PaymentEventDTO<?> event = Mockito.mock(PaymentEventDTO.class);
+  void whenConsumePaymentEventValidThenRegistryServicesAreInvoked() {
+    PaymentEventDTO<Object> event = new PaymentEventDTO<>();
+    event.setEventId("test-event-id");
+    event.setTraceId("test-trace-id");
+    event.setEventType(PaymentEventType.DP_CREATED);
+    event.setPayload(new Object());
 
     service.consumePaymentEvent(event);
 
@@ -42,7 +47,7 @@ class TimelineServiceTest {
   }
 
   @Test
-  void consumePaymentEvent_whenEventIsNull_shouldNotCallServices() {
+  void whenConsumePaymentEventInvalidThenRegistryServicesAreNotInvoked() {
     service.consumePaymentEvent(null);
     Mockito.verify(debtPositionRegistryService, Mockito.never()).consumePaymentEvent(Mockito.any());
     Mockito.verify(installmentRegistryService, Mockito.never()).consumePaymentEvent(Mockito.any());

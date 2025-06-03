@@ -18,11 +18,12 @@ public class PaymentsConsumer implements Consumer<PaymentEventDTO<?>> {
 
   @Override
   public void accept(PaymentEventDTO paymentEventDTO) {
-    log.info("Read eventId {} of type eventType {}", paymentEventDTO.getEventId(), paymentEventDTO.getEventType());
     try {
       timelineService.consumePaymentEvent(paymentEventDTO);
     } catch (Exception exception) {
-      log.error("Error processing payment event: {}", paymentEventDTO, exception);
+      log.error("Error processing payment event: eventId={} traceId={} eventType={} payloadType={}",
+        paymentEventDTO.getEventId(), paymentEventDTO.getTraceId(),paymentEventDTO.getEventType(),
+        paymentEventDTO.getPayload().getClass().getSimpleName(), exception);
     }
   }
 

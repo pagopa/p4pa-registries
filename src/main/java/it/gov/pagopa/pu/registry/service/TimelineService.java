@@ -21,7 +21,14 @@ public class TimelineService {
       return;
     }
 
-    log.info("Processing payment event: {}", event);
+    if (event.getPayload() == null) {
+      log.warn("Received payment event with null payload, skipping processing. eventId={} traceId={} eventType={}",
+          event.getEventId(), event.getTraceId(), event.getEventType());
+      return;
+    }
+
+    log.info("Processing payment event: eventId={} traceId={} eventType={} payloadType={}",
+      event.getEventId(), event.getTraceId(), event.getEventType(), event.getPayload().getClass().getSimpleName());
     debtPositionRegistryService.consumePaymentEvent(event);
     installmentRegistryService.consumePaymentEvent(event);
   }
