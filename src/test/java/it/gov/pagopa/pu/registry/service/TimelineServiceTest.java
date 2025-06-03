@@ -1,40 +1,41 @@
 package it.gov.pagopa.pu.registry.service;
 
 import it.gov.pagopa.pu.registry.event.payments.dto.PaymentEventDTO;
-import it.gov.pagopa.pu.registry.mapper.debtposition.DebtPositionRegistryMapperService;
-import it.gov.pagopa.pu.registry.mapper.installment.InstallmentRegistryMapperService;
-import it.gov.pagopa.pu.registry.repository.DebtPositionRegistryRepository;
-import it.gov.pagopa.pu.registry.repository.InstallmentRegistryRepository;
 import it.gov.pagopa.pu.registry.service.debtposition.DebtPositionRegistryService;
 import it.gov.pagopa.pu.registry.service.installment.InstallmentRegistryService;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 class TimelineServiceTest {
 
+  @Mock
   private DebtPositionRegistryService debtPositionRegistryService;
+  @Mock
   private InstallmentRegistryService installmentRegistryService;
-  private TimelineService timelineService;
+
+  private TimelineService service;
 
   @BeforeEach
   void setUp() {
-    this.debtPositionRegistryService = Mockito.spy(new DebtPositionRegistryService(
-      Mockito.mock(DebtPositionRegistryMapperService.class),
-      Mockito.mock(DebtPositionRegistryRepository.class)
-    ));
-    this.installmentRegistryService = Mockito.spy(new InstallmentRegistryService(
-      Mockito.mock(InstallmentRegistryMapperService.class),
-      Mockito.mock(InstallmentRegistryRepository.class)
-    ));
-    this.timelineService = new TimelineService(debtPositionRegistryService, installmentRegistryService);
+    this.service = new TimelineService(debtPositionRegistryService, installmentRegistryService);
+  }
+
+  @AfterEach
+  void afterEach() {
+    Mockito.verifyNoMoreInteractions(debtPositionRegistryService, installmentRegistryService);
   }
 
   @Test
   void consumePaymentEvent_whenEventIsValid_shouldCallServices() {
     PaymentEventDTO<?> event = Mockito.mock(PaymentEventDTO.class);
 
-    timelineService.consumePaymentEvent(event);
+    service.consumePaymentEvent(event);
 
     Mockito.verify(debtPositionRegistryService, Mockito.times(1)).consumePaymentEvent(event);
     Mockito.verify(installmentRegistryService, Mockito.times(1)).consumePaymentEvent(event);
@@ -42,7 +43,7 @@ class TimelineServiceTest {
 
   @Test
   void consumePaymentEvent_whenEventIsNull_shouldNotCallServices() {
-    timelineService.consumePaymentEvent(null);
+    service.consumePaymentEvent(null);
     Mockito.verify(debtPositionRegistryService, Mockito.never()).consumePaymentEvent(Mockito.any());
     Mockito.verify(installmentRegistryService, Mockito.never()).consumePaymentEvent(Mockito.any());
   }
