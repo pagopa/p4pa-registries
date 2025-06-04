@@ -34,21 +34,27 @@ class TimelineServiceTest {
 
   @Test
   void whenConsumePaymentEventValidThenRegistryServicesAreInvoked() {
+    //Given
     PaymentEventDTO<Object> event = new PaymentEventDTO<>();
     event.setEventId("test-event-id");
     event.setTraceId("test-trace-id");
     event.setEventType(PaymentEventType.DP_CREATED);
     event.setPayload(new Object());
 
+    // When
     service.consumePaymentEvent(event);
 
+    // Then
     Mockito.verify(debtPositionRegistryService, Mockito.times(1)).consumePaymentEvent(event);
     Mockito.verify(installmentRegistryService, Mockito.times(1)).consumePaymentEvent(event);
   }
 
   @Test
   void whenConsumePaymentEventInvalidThenRegistryServicesAreNotInvoked() {
+    // When
     service.consumePaymentEvent(null);
+
+    // Then
     Mockito.verify(debtPositionRegistryService, Mockito.never()).consumePaymentEvent(Mockito.any());
     Mockito.verify(installmentRegistryService, Mockito.never()).consumePaymentEvent(Mockito.any());
   }
