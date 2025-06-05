@@ -13,6 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 @ExtendWith(MockitoExtension.class)
 class PaymentsConsumerTest {
 
@@ -45,6 +47,21 @@ class PaymentsConsumerTest {
 
     // Then
     Mockito.verify(timelineService).consumePaymentEvent(Mockito.same(paymentEventDTO));
+  }
+
+  @Test
+  void whenTimelineServiceThrowsErrorThenItDoesntFail() {
+    // Given
+    PaymentEventDTO<Object> paymentEventDTO = new PaymentEventDTO<>();
+    paymentEventDTO.setEventId(UUID.randomUUID().toString());
+    paymentEventDTO.setTraceId(UUID.randomUUID().toString());
+    paymentEventDTO.setEventType(PaymentEventType.DP_CREATED);
+    paymentEventDTO.setPayload(new Object());
+
+    Mockito.doThrow(RuntimeException.class).when(timelineService).consumePaymentEvent(Mockito.same(paymentEventDTO));
+
+    // Then
+    assertDoesNotThrow(() -> consumer.accept(paymentEventDTO));
   }
 
 
