@@ -15,7 +15,9 @@ class DebtPositionSendEventDTOMapperTest {
 
   @BeforeEach
   void setUp() {
-    this.mapper = new DebtPositionSendEventDTOMapper();
+    this.mapper = new DebtPositionSendEventDTOMapper() {
+      // This is an abstract class, so we need to instantiate it with an anonymous class
+    };
   }
 
   @Test
