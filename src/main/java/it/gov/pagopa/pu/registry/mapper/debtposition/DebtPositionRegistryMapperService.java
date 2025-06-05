@@ -1,6 +1,9 @@
 package it.gov.pagopa.pu.registry.mapper.debtposition;
 
-import it.gov.pagopa.pu.registry.event.payments.dto.*;
+import it.gov.pagopa.pu.registry.event.payments.dto.DebtPositionEventDTO;
+import it.gov.pagopa.pu.registry.event.payments.dto.DebtPositionIoEventDTO;
+import it.gov.pagopa.pu.registry.event.payments.dto.DebtPositionSendEventDTO;
+import it.gov.pagopa.pu.registry.event.payments.dto.PaymentEventDTO;
 import it.gov.pagopa.pu.registry.model.DebtPositionRegistry;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
