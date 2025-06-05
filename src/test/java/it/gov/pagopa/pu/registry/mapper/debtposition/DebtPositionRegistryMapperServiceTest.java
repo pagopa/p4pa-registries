@@ -4,6 +4,9 @@ import it.gov.pagopa.pu.registry.event.payments.dto.*;
 import it.gov.pagopa.pu.registry.model.DebtPositionRegistry;
 import it.gov.pagopa.pu.workflowhub.dto.generated.DebtPositionDTO;
 import it.gov.pagopa.pu.workflowhub.dto.generated.PaymentEventType;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +15,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class DebtPositionRegistryMapperServiceTest {
@@ -25,9 +30,11 @@ class DebtPositionRegistryMapperServiceTest {
   private DebtPositionSendEventDTO2DebtPositionRegistryMapper dpSendEventMapperMock;
 
   private DebtPositionRegistryMapperService service;
+  private Validator validator;
 
   @BeforeEach
   void setUp() {
+    validator = Validation.buildDefaultValidatorFactory().getValidator();
     service = new DebtPositionRegistryMapperService(
       dpEventMapperMock,
       dpIoEventMapperMock,
@@ -109,12 +116,9 @@ class DebtPositionRegistryMapperServiceTest {
   }
 
   @Test
-  void givenNullEventWhenMappedThenReturnsNull() {
-    // When
-    DebtPositionRegistry result = this.service.map(null);
-
+  void givenNullEventWhenMappedThenThrows() {
     // Then
-    assertSame(null, result);
+    assertThrows(NullPointerException.class, () -> this.service.map(null));
   }
 
   @Test
@@ -126,9 +130,12 @@ class DebtPositionRegistryMapperServiceTest {
 
     // When
     DebtPositionRegistry result = this.service.map(dto);
+    Set<ConstraintViolation<PaymentEventDTO<Object>>> violations = validator.validate(dto);
 
     // Then
-    assertSame(null, result);
+    assertFalse(violations.isEmpty());
+    assertTrue(violations.stream().anyMatch(constraintViolation -> "payload".equals(constraintViolation.getPropertyPath().toString())));
+    assertNull(result);
   }
 
   @Test
@@ -139,9 +146,12 @@ class DebtPositionRegistryMapperServiceTest {
 
     // When
     DebtPositionRegistry result = this.service.map(dto);
+    Set<ConstraintViolation<PaymentEventDTO<Object>>> violations = validator.validate(dto);
 
     // Then
-    assertSame(null, result);
+    assertFalse(violations.isEmpty());
+    assertTrue(violations.stream().anyMatch(constraintViolation -> "eventType".equals(constraintViolation.getPropertyPath().toString())));
+    assertNull(result);
   }
 
 }
