@@ -1,8 +1,10 @@
 package it.gov.pagopa.pu.registry.mapper.installment;
 
-import it.gov.pagopa.pu.registry.event.payments.dto.*;
+import it.gov.pagopa.pu.registry.event.payments.dto.DebtPositionEventDTO;
+import it.gov.pagopa.pu.registry.event.payments.dto.DebtPositionIoEventDTO;
+import it.gov.pagopa.pu.registry.event.payments.dto.DebtPositionSendEventDTO;
+import it.gov.pagopa.pu.registry.event.payments.dto.PaymentEventDTO;
 import it.gov.pagopa.pu.registry.model.InstallmentRegistry;
-import it.gov.pagopa.pu.workflowhub.dto.generated.DebtPositionDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
