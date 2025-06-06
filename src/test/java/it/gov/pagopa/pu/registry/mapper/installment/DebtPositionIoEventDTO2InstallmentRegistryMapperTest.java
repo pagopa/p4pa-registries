@@ -23,9 +23,14 @@ class DebtPositionIoEventDTO2InstallmentRegistryMapperTest {
   }
 
   @Test
-  void map_shouldMapCorrectly_whenValidInput() {
+  void whenMappingToInstallmentRegistryThenReturnsCorrectResults() {
+    // Given
     DebtPositionIoEventDTO dto = createValidDto();
+
+    // When
     List<InstallmentRegistry> result = mapper.map(dto);
+
+    // Then
     result.forEach(installmentRegistry -> {
       TestUtils.checkNotNullFields(installmentRegistry, "operatorExternalUserId");
     });
@@ -35,7 +40,7 @@ class DebtPositionIoEventDTO2InstallmentRegistryMapperTest {
     assertEquals(dto.getEventType(), result.getFirst().getEventType());
     assertEquals(dto.getTraceId(), result.getFirst().getTraceId());
     assertEquals(dto.getEventDateTime(), result.getFirst().getEventDateTime());
-    assertEquals(dto.getEventDescription(), result.getFirst().getEventDescription());
+    assertEquals(dto.getEventDescription() + "; ioNotificationId: notificationId1", result.getFirst().getEventDescription());
     assertEquals(dto.getPayload().getDebtPositionId(), result.getFirst().getDebtPositionId());
     assertEquals(dto.getPayload().getOrganizationId(), result.getFirst().getOrganizationId());
 
@@ -46,6 +51,18 @@ class DebtPositionIoEventDTO2InstallmentRegistryMapperTest {
 
     assertEquals(dto.getEventId() + "." + secondInstallmentDTO.getNav(), result.get(1).getEventId());
     assertEquals(secondInstallmentDTO.getNav(), result.get(1).getNav());
+  }
+
+  @Test
+  void whenGetEventDescriptionThenReturnCorrectDescription() {
+    // Given
+    DebtPositionIoEventDTO dto = createValidDto();
+
+    // When
+    List<InstallmentRegistry> results = mapper.map(dto);
+
+    // Then
+    assertEquals("Some event description; ioNotificationId: notificationId1", results.getFirst().getEventDescription());
   }
 
   private DebtPositionIoEventDTO createValidDto() {
