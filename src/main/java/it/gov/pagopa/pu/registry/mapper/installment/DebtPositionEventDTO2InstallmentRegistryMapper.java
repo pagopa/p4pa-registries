@@ -14,12 +14,12 @@ public class DebtPositionEventDTO2InstallmentRegistryMapper {
   public List<InstallmentRegistry> map(DebtPositionEventDTO dto) {
     if (dto.getPayload().getPaymentOptions() == null) return List.of();
 
-    Set<String> iudIds = ExtractionUtils.extractIudIdsFromDescription(dto.getEventDescription());
+    Set<String> iuds = ExtractionUtils.extractIudsFromDescription(dto.getEventDescription());
 
     return dto.getPayload().getPaymentOptions().stream()
       .filter(paymentOptionDTO -> paymentOptionDTO.getInstallments() != null)
       .flatMap(paymentOptionDTO -> paymentOptionDTO.getInstallments().stream())
-      .filter(installmentDTO -> iudIds.isEmpty() || iudIds.contains(installmentDTO.getIud()))
+      .filter(installmentDTO -> iuds.isEmpty() || iuds.contains(installmentDTO.getIud()))
       .map(installmentDTO -> InstallmentRegistry.builder()
         .eventId(dto.getEventId() + "." + installmentDTO.getNav())
         .eventType(dto.getEventType())

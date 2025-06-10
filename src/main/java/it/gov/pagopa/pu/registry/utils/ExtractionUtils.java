@@ -13,8 +13,8 @@ public class ExtractionUtils {
 
   private static final Pattern IUD_MATCH_PATTERN = Pattern.compile("IUD:\\s*([^;]*)\\s*(?:;|$)");
 
-  public static Set<String> extractIudIdsFromDescription(String description) {
-    Set<String> iudIds = new HashSet<>();
+  public static Set<String> extractIudsFromDescription(String description) {
+    Set<String> iuds = new HashSet<>();
     Matcher matcher = IUD_MATCH_PATTERN.matcher(description);
 
     if (matcher.find()) {
@@ -23,12 +23,12 @@ public class ExtractionUtils {
       for (String id : splitIds) {
         String trimmedId = id.trim();
         if (!trimmedId.isEmpty()) {
-          iudIds.add(trimmedId);
+          iuds.add(trimmedId);
         }
       }
     }
 
-    return iudIds;
+    return iuds;
   }
 
 }

@@ -21,10 +21,10 @@ class ExtractionUtilsTest {
     Set<String> expected3 = Set.of("id6", "id7", "id8");
     Set<String> expected4 = Set.of("id1", "id2", "id3");
 
-    assertEquals(expected1, ExtractionUtils.extractIudIdsFromDescription(str1));
-    assertEquals(expected2, ExtractionUtils.extractIudIdsFromDescription(str2));
-    assertEquals(expected3, ExtractionUtils.extractIudIdsFromDescription(str3));
-    assertEquals(expected4, ExtractionUtils.extractIudIdsFromDescription(str4));
+    assertEquals(expected1, ExtractionUtils.extractIudsFromDescription(str1));
+    assertEquals(expected2, ExtractionUtils.extractIudsFromDescription(str2));
+    assertEquals(expected3, ExtractionUtils.extractIudsFromDescription(str3));
+    assertEquals(expected4, ExtractionUtils.extractIudsFromDescription(str4));
   }
 
   @Test
@@ -33,9 +33,9 @@ class ExtractionUtilsTest {
     String str2 = "Completely unrelated text.";
     String str3 = "";
 
-    assertTrue(ExtractionUtils.extractIudIdsFromDescription(str1).isEmpty());
-    assertTrue(ExtractionUtils.extractIudIdsFromDescription(str2).isEmpty());
-    assertTrue(ExtractionUtils.extractIudIdsFromDescription(str3).isEmpty());
+    assertTrue(ExtractionUtils.extractIudsFromDescription(str1).isEmpty());
+    assertTrue(ExtractionUtils.extractIudsFromDescription(str2).isEmpty());
+    assertTrue(ExtractionUtils.extractIudsFromDescription(str3).isEmpty());
   }
 
 }
