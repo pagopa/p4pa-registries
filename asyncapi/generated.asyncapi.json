@@ -28,6 +28,18 @@
   },
   "components": {
     "schemas": {
+      "Action": {
+        "title": "Action",
+        "type": "string",
+        "enum": [
+          "I",
+          "M",
+          "A"
+        ],
+        "examples": [
+          "\"I\""
+        ]
+      },
       "DebtPositionDTO": {
         "title": "DebtPositionDTO",
         "type": "object",
@@ -53,7 +65,7 @@
           "flagIuvVolatile": {
             "type": "boolean"
           },
-          "flagPagoPaPayment": {
+          "flagPuPagoPaPayment": {
             "type": "boolean"
           },
           "iupdOrg": {
@@ -98,7 +110,7 @@
             "debtPositionTypeOrgId": 0,
             "description": "string",
             "flagIuvVolatile": true,
-            "flagPagoPaPayment": true,
+            "flagPuPagoPaPayment": true,
             "iupdOrg": "string",
             "multiDebtor": true,
             "organizationId": 0,
@@ -125,7 +137,7 @@
                       "province": "string"
                     },
                     "dueDate": "2015-07-20",
-                    "ingestionFlowFileGenerateAdvice": true,
+                    "ingestionFlowFileAction": "\"I\"",
                     "ingestionFlowFileId": 0,
                     "ingestionFlowFileLineNumber": 0,
                     "installmentId": 0,
@@ -142,6 +154,7 @@
                     "paymentOptionId": 0,
                     "receiptId": 0,
                     "remittanceInformation": "string",
+                    "sourceFlowName": "string",
                     "status": "TO_SYNC",
                     "syncStatus": {
                       "syncError": "string",
@@ -207,7 +220,7 @@
               "debtPositionTypeOrgId": 0,
               "description": "string",
               "flagIuvVolatile": true,
-              "flagPagoPaPayment": true,
+              "flagPuPagoPaPayment": true,
               "iupdOrg": "string",
               "multiDebtor": true,
               "organizationId": 0,
@@ -234,7 +247,7 @@
                         "province": "string"
                       },
                       "dueDate": "2015-07-20",
-                      "ingestionFlowFileGenerateAdvice": true,
+                      "ingestionFlowFileAction": "\"I\"",
                       "ingestionFlowFileId": 0,
                       "ingestionFlowFileLineNumber": 0,
                       "installmentId": 0,
@@ -251,6 +264,7 @@
                       "paymentOptionId": 0,
                       "receiptId": 0,
                       "remittanceInformation": "string",
+                      "sourceFlowName": "string",
                       "status": "TO_SYNC",
                       "syncStatus": {
                         "syncError": "string",
@@ -302,6 +316,10 @@
             "traceId": "string"
           }
         ],
+        "required": [
+          "eventType",
+          "payload"
+        ],
         "allOf": [
           {
             "$ref": "#/components/schemas/PaymentEventDTOObject"
@@ -338,6 +356,10 @@
             },
             "traceId": "string"
           }
+        ],
+        "required": [
+          "eventType",
+          "payload"
         ],
         "allOf": [
           {
@@ -428,6 +450,10 @@
             },
             "traceId": "string"
           }
+        ],
+        "required": [
+          "eventType",
+          "payload"
         ],
         "allOf": [
           {
@@ -548,8 +574,8 @@
             "type": "string",
             "format": "date"
           },
-          "ingestionFlowFileGenerateAdvice": {
-            "type": "boolean"
+          "ingestionFlowFileAction": {
+            "$ref": "#/components/schemas/Action"
           },
           "ingestionFlowFileId": {
             "type": "integer",
@@ -606,6 +632,9 @@
           "remittanceInformation": {
             "type": "string"
           },
+          "sourceFlowName": {
+            "type": "string"
+          },
           "status": {
             "$ref": "#/components/schemas/InstallmentStatus"
           },
@@ -647,7 +676,7 @@
               "province": "string"
             },
             "dueDate": "2015-07-20",
-            "ingestionFlowFileGenerateAdvice": true,
+            "ingestionFlowFileAction": "\"I\"",
             "ingestionFlowFileId": 0,
             "ingestionFlowFileLineNumber": 0,
             "installmentId": 0,
@@ -664,6 +693,7 @@
             "paymentOptionId": 0,
             "receiptId": 0,
             "remittanceInformation": "string",
+            "sourceFlowName": "string",
             "status": "TO_SYNC",
             "syncStatus": {
               "syncError": "string",
@@ -793,6 +823,10 @@
             "payload": { },
             "traceId": "string"
           }
+        ],
+        "required": [
+          "eventType",
+          "payload"
         ]
       },
       "PaymentEventType": {
@@ -891,7 +925,7 @@
                   "province": "string"
                 },
                 "dueDate": "2015-07-20",
-                "ingestionFlowFileGenerateAdvice": true,
+                "ingestionFlowFileAction": "\"I\"",
                 "ingestionFlowFileId": 0,
                 "ingestionFlowFileLineNumber": 0,
                 "installmentId": 0,
@@ -908,6 +942,7 @@
                 "paymentOptionId": 0,
                 "receiptId": 0,
                 "remittanceInformation": "string",
+                "sourceFlowName": "string",
                 "status": "TO_SYNC",
                 "syncStatus": {
                   "syncError": "string",

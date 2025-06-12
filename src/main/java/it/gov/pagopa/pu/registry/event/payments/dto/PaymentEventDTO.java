@@ -3,6 +3,7 @@ package it.gov.pagopa.pu.registry.event.payments.dto;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import it.gov.pagopa.pu.workflowhub.dto.generated.PaymentEventType;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -38,8 +39,10 @@ import java.time.OffsetDateTime;
 public class PaymentEventDTO <T> {
   private String eventId;
   private String traceId;
+  @NotNull
   private PaymentEventType eventType;
   private OffsetDateTime eventDateTime;
+  @NotNull
   private T payload;
   private String eventDescription;
 }

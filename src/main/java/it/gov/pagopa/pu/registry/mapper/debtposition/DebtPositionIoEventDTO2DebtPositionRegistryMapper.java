@@ -1,22 +1,21 @@
 package it.gov.pagopa.pu.registry.mapper.debtposition;
 
-import it.gov.pagopa.pu.registry.event.payments.dto.DebtPositionSendEventDTO;
-import it.gov.pagopa.pu.registry.mapper.DebtPositionSendEventDTOMapper;
+import it.gov.pagopa.pu.registry.event.payments.dto.DebtPositionIoEventDTO;
 import it.gov.pagopa.pu.registry.model.DebtPositionRegistry;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class DebtPositionSendEventDTO2DebtPositionRegistryMapper extends DebtPositionSendEventDTOMapper {
+public class DebtPositionIoEventDTO2DebtPositionRegistryMapper {
 
-  public DebtPositionRegistry map(DebtPositionSendEventDTO dto) {
+  public DebtPositionRegistry map(DebtPositionIoEventDTO dto) {
     return DebtPositionRegistry.builder()
       .eventId(dto.getEventId())
       .eventType(dto.getEventType())
       .traceId(dto.getTraceId())
       .eventDateTime(dto.getEventDateTime())
-      .eventDescription(getEventDescription(dto))
+      .eventDescription(dto.getEventDescription())
       .debtPositionId(dto.getPayload().getDebtPositionId())
       .organizationId(dto.getPayload().getOrganizationId())
       .build();

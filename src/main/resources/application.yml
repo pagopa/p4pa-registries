@@ -42,7 +42,7 @@ spring:
           content-type: "\${KAFKA_CONTENT_TYPE:application/json}"
           destination: "\${KAFKA_TOPIC_PAYMENTS:p4pa-payhub-payments-evh}"
           group: "\${KAFKA_PAYMENTS_REGISTRIES_GROUP_ID:p4pa-registries-consumer-group}"
-          consumer.auto-startup: "\${KAFKA_PAYMENTS_CONSUMER_ENABLED:true}"
+          consumer.auto-startup: "\${KAFKA_PAYMENTS_CONSUMER_ENABLED:false}"
       kafka:
         binder:
           auto-create-topics: false
@@ -92,6 +92,7 @@ management:
     health:
       probes.enabled: true
       logging.slow-indicator-threshold: "\${HEALTH_ACTUATOR_LOGGER_TIMEOUT_DURATION:PT1S}"
+      show-details: "\${HEALTH_ACTUATOR_SHOW_DETAILS:when-authorized}"
       group:
         readiness.include: "*"
         liveness.include: livenessState,diskSpace,ping
