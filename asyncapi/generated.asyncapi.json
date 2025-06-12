@@ -28,6 +28,18 @@
   },
   "components": {
     "schemas": {
+      "Action": {
+        "title": "Action",
+        "type": "string",
+        "enum": [
+          "I",
+          "M",
+          "A"
+        ],
+        "examples": [
+          "\"I\""
+        ]
+      },
       "DebtPositionDTO": {
         "title": "DebtPositionDTO",
         "type": "object",
@@ -125,6 +137,7 @@
                       "province": "string"
                     },
                     "dueDate": "2015-07-20",
+                    "ingestionFlowFileAction": "\"I\"",
                     "ingestionFlowFileId": 0,
                     "ingestionFlowFileLineNumber": 0,
                     "installmentId": 0,
@@ -234,6 +247,7 @@
                         "province": "string"
                       },
                       "dueDate": "2015-07-20",
+                      "ingestionFlowFileAction": "\"I\"",
                       "ingestionFlowFileId": 0,
                       "ingestionFlowFileLineNumber": 0,
                       "installmentId": 0,
@@ -560,6 +574,9 @@
             "type": "string",
             "format": "date"
           },
+          "ingestionFlowFileAction": {
+            "$ref": "#/components/schemas/Action"
+          },
           "ingestionFlowFileId": {
             "type": "integer",
             "format": "int64"
@@ -659,6 +676,7 @@
               "province": "string"
             },
             "dueDate": "2015-07-20",
+            "ingestionFlowFileAction": "\"I\"",
             "ingestionFlowFileId": 0,
             "ingestionFlowFileLineNumber": 0,
             "installmentId": 0,
@@ -907,6 +925,7 @@
                   "province": "string"
                 },
                 "dueDate": "2015-07-20",
+                "ingestionFlowFileAction": "\"I\"",
                 "ingestionFlowFileId": 0,
                 "ingestionFlowFileLineNumber": 0,
                 "installmentId": 0,
