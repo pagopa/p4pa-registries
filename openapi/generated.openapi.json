@@ -1213,18 +1213,6 @@
           }
         }
       },
-      "EventCategory" : {
-        "type" : "string",
-        "enum" : [ "INTERNO", "INTERFACCIA" ]
-      },
-      "EventSubType" : {
-        "type" : "string",
-        "enum" : [ "REQ", "RESP" ]
-      },
-      "Outcome" : {
-        "type" : "string",
-        "enum" : [ "OK", "KO" ]
-      },
       "PageMetadata" : {
         "type" : "object",
         "properties" : {
@@ -1249,10 +1237,6 @@
       "PaymentEventType" : {
         "type" : "string",
         "enum" : [ "DP_CREATED", "DP_UPDATED", "DP_CANCELLED", "DPI_ADDED", "DPI_UPDATED", "DPI_CANCELLED", "DPI_EXPIRED", "DPI_REPORTED", "RT_RECEIVED", "SYNC_ERROR", "IO_NOTIFIED", "SEND_NOTIFICATION_CREATED", "SEND_NOTIFICATION_ERROR", "SEND_NOTIFICATION_DATE" ]
-      },
-      "RegistryType" : {
-        "type" : "string",
-        "enum" : [ "REGISTRY_PAGOPA", "REGISTRY_SIL" ]
       },
       "DebtPositionRegistryRequestBody" : {
         "type" : "object",
@@ -1327,24 +1311,18 @@
           "registryId" : {
             "type" : "string"
           },
-          "eventType" : {
-            "$ref" : "#/components/schemas/PaymentEventType"
-          },
-          "eventDateTime" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
-          "eventDescription" : {
-            "type" : "string"
-          },
-          "operatorExternalUserId" : {
-            "type" : "string"
-          },
-          "traceId" : {
+          "registryOrigin" : {
             "type" : "string"
           },
           "registryType" : {
-            "$ref" : "#/components/schemas/RegistryType"
+            "type" : "string"
+          },
+          "dateTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "traceId" : {
+            "type" : "string"
           },
           "brokerStationId" : {
             "type" : "string"
@@ -1371,10 +1349,13 @@
             "type" : "string"
           },
           "eventCategory" : {
-            "$ref" : "#/components/schemas/EventCategory"
+            "type" : "string"
+          },
+          "eventType" : {
+            "type" : "string"
           },
           "eventSubType" : {
-            "$ref" : "#/components/schemas/EventSubType"
+            "type" : "string"
           },
           "requestorId" : {
             "type" : "string"
@@ -1383,10 +1364,11 @@
             "type" : "string"
           },
           "outcome" : {
-            "$ref" : "#/components/schemas/Outcome"
+            "type" : "string"
           },
           "body" : {
-            "type" : "string"
+            "type" : "string",
+            "format" : "byte"
           }
         }
       },
@@ -1396,27 +1378,18 @@
           "registryId" : {
             "type" : "string"
           },
-          "eventType" : {
-            "$ref" : "#/components/schemas/PaymentEventType"
-          },
-          "eventDateTime" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
-          "eventDescription" : {
-            "type" : "string"
-          },
-          "operatorExternalUserId" : {
-            "type" : "string"
-          },
-          "traceId" : {
-            "type" : "string"
-          },
           "registryOrigin" : {
             "type" : "string"
           },
           "registryType" : {
-            "$ref" : "#/components/schemas/RegistryType"
+            "type" : "string"
+          },
+          "dateTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "traceId" : {
+            "type" : "string"
           },
           "brokerFiscalCode" : {
             "type" : "string"
@@ -1430,77 +1403,11 @@
           "nav" : {
             "type" : "string"
           },
-          "eventSubType" : {
-            "$ref" : "#/components/schemas/EventSubType"
-          },
-          "requestorId" : {
-            "type" : "string"
-          },
-          "grantorId" : {
-            "type" : "string"
-          },
-          "outcome" : {
-            "$ref" : "#/components/schemas/Outcome"
-          },
-          "body" : {
-            "type" : "string"
-          }
-        }
-      },
-      "PagopaRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "registryId" : {
-            "type" : "string"
-          },
           "eventType" : {
-            "$ref" : "#/components/schemas/PaymentEventType"
-          },
-          "eventDateTime" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
-          "eventDescription" : {
             "type" : "string"
-          },
-          "operatorExternalUserId" : {
-            "type" : "string"
-          },
-          "traceId" : {
-            "type" : "string"
-          },
-          "registryType" : {
-            "$ref" : "#/components/schemas/RegistryType"
-          },
-          "brokerStationId" : {
-            "type" : "string"
-          },
-          "orgFiscalCode" : {
-            "type" : "string"
-          },
-          "iuv" : {
-            "type" : "string"
-          },
-          "nav" : {
-            "type" : "string"
-          },
-          "ccp" : {
-            "type" : "string"
-          },
-          "pspId" : {
-            "type" : "string"
-          },
-          "pspChannelId" : {
-            "type" : "string"
-          },
-          "paymentMethod" : {
-            "type" : "string"
-          },
-          "eventCategory" : {
-            "$ref" : "#/components/schemas/EventCategory"
           },
           "eventSubType" : {
-            "$ref" : "#/components/schemas/EventSubType"
+            "type" : "string"
           },
           "requestorId" : {
             "type" : "string"
@@ -1509,117 +1416,11 @@
             "type" : "string"
           },
           "outcome" : {
-            "$ref" : "#/components/schemas/Outcome"
+            "type" : "string"
           },
           "body" : {
-            "type" : "string"
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          }
-        }
-      },
-      "PagedModelPagopaRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "_embedded" : {
-            "type" : "object",
-            "properties" : {
-              "pagopaRegistries" : {
-                "type" : "array",
-                "items" : {
-                  "$ref" : "#/components/schemas/PagopaRegistry"
-                }
-              }
-            }
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          },
-          "page" : {
-            "$ref" : "#/components/schemas/PageMetadata"
-          }
-        }
-      },
-      "SilRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "registryId" : {
-            "type" : "string"
-          },
-          "eventType" : {
-            "$ref" : "#/components/schemas/PaymentEventType"
-          },
-          "eventDateTime" : {
             "type" : "string",
-            "format" : "date-time"
-          },
-          "eventDescription" : {
-            "type" : "string"
-          },
-          "operatorExternalUserId" : {
-            "type" : "string"
-          },
-          "traceId" : {
-            "type" : "string"
-          },
-          "registryOrigin" : {
-            "type" : "string"
-          },
-          "registryType" : {
-            "$ref" : "#/components/schemas/RegistryType"
-          },
-          "brokerFiscalCode" : {
-            "type" : "string"
-          },
-          "orgFiscalCode" : {
-            "type" : "string"
-          },
-          "iuv" : {
-            "type" : "string"
-          },
-          "nav" : {
-            "type" : "string"
-          },
-          "eventSubType" : {
-            "$ref" : "#/components/schemas/EventSubType"
-          },
-          "requestorId" : {
-            "type" : "string"
-          },
-          "grantorId" : {
-            "type" : "string"
-          },
-          "outcome" : {
-            "$ref" : "#/components/schemas/Outcome"
-          },
-          "body" : {
-            "type" : "string"
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          }
-        }
-      },
-      "PagedModelSilRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "_embedded" : {
-            "type" : "object",
-            "properties" : {
-              "silRegistries" : {
-                "type" : "array",
-                "items" : {
-                  "$ref" : "#/components/schemas/SilRegistry"
-                }
-              }
-            }
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          },
-          "page" : {
-            "$ref" : "#/components/schemas/PageMetadata"
+            "format" : "byte"
           }
         }
       },
@@ -1696,6 +1497,175 @@
           },
           "_links" : {
             "$ref" : "#/components/schemas/Links"
+          }
+        }
+      },
+      "PagopaRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "registryId" : {
+            "type" : "string"
+          },
+          "registryOrigin" : {
+            "type" : "string"
+          },
+          "registryType" : {
+            "type" : "string"
+          },
+          "dateTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "traceId" : {
+            "type" : "string"
+          },
+          "brokerStationId" : {
+            "type" : "string"
+          },
+          "orgFiscalCode" : {
+            "type" : "string"
+          },
+          "iuv" : {
+            "type" : "string"
+          },
+          "nav" : {
+            "type" : "string"
+          },
+          "ccp" : {
+            "type" : "string"
+          },
+          "pspId" : {
+            "type" : "string"
+          },
+          "pspChannelId" : {
+            "type" : "string"
+          },
+          "paymentMethod" : {
+            "type" : "string"
+          },
+          "eventCategory" : {
+            "type" : "string"
+          },
+          "eventType" : {
+            "type" : "string"
+          },
+          "eventSubType" : {
+            "type" : "string"
+          },
+          "requestorId" : {
+            "type" : "string"
+          },
+          "grantorId" : {
+            "type" : "string"
+          },
+          "outcome" : {
+            "type" : "string"
+          },
+          "body" : {
+            "type" : "string",
+            "format" : "byte"
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          }
+        }
+      },
+      "PagedModelPagopaRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "_embedded" : {
+            "type" : "object",
+            "properties" : {
+              "pagopaRegistries" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/PagopaRegistry"
+                }
+              }
+            }
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "page" : {
+            "$ref" : "#/components/schemas/PageMetadata"
+          }
+        }
+      },
+      "SilRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "registryId" : {
+            "type" : "string"
+          },
+          "registryOrigin" : {
+            "type" : "string"
+          },
+          "registryType" : {
+            "type" : "string"
+          },
+          "dateTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "traceId" : {
+            "type" : "string"
+          },
+          "brokerFiscalCode" : {
+            "type" : "string"
+          },
+          "orgFiscalCode" : {
+            "type" : "string"
+          },
+          "iuv" : {
+            "type" : "string"
+          },
+          "nav" : {
+            "type" : "string"
+          },
+          "eventType" : {
+            "type" : "string"
+          },
+          "eventSubType" : {
+            "type" : "string"
+          },
+          "requestorId" : {
+            "type" : "string"
+          },
+          "grantorId" : {
+            "type" : "string"
+          },
+          "outcome" : {
+            "type" : "string"
+          },
+          "body" : {
+            "type" : "string",
+            "format" : "byte"
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          }
+        }
+      },
+      "PagedModelSilRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "_embedded" : {
+            "type" : "object",
+            "properties" : {
+              "silRegistries" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/SilRegistry"
+                }
+              }
+            }
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "page" : {
+            "$ref" : "#/components/schemas/PageMetadata"
           }
         }
       },
