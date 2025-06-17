@@ -1,5 +1,10 @@
 package it.gov.pagopa.pu.registry.model;
 
+import it.gov.pagopa.pu.registry.enums.RegistryEventCategory;
+import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
+import it.gov.pagopa.pu.registry.enums.RegistryOutcome;
+import it.gov.pagopa.pu.registry.enums.RegistryPagopaEventType;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -17,12 +22,13 @@ import java.time.OffsetDateTime;
 public class PagopaRegistry implements Serializable {
 
   @Id
-  private String registryId;
-  private String registryOrigin;
-  private String registryType;
+  private String eventId;
+  @NotNull
   private OffsetDateTime dateTime;
+  @NotNull
   private String traceId;
   private String brokerStationId;
+  @NotNull
   private String orgFiscalCode;
   private String iuv;
   private String nav;
@@ -30,11 +36,17 @@ public class PagopaRegistry implements Serializable {
   private String pspId;
   private String pspChannelId;
   private String paymentMethod;
-  private String eventCategory;
-  private String eventType;
-  private String eventSubType;
+  @NotNull
+  private RegistryEventCategory eventCategory;
+  @NotNull
+  private RegistryPagopaEventType eventType;
+  @NotNull
+  private RegistryEventSubType eventSubType;
+  @NotNull
   private String requestorId;
+  @NotNull
   private String grantorId;
-  private String outcome;
-  private byte[] body;
+  @NotNull
+  private RegistryOutcome outcome;
+  private byte[] bodyCiphered;
 }
