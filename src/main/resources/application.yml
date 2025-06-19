@@ -35,7 +35,7 @@ spring:
             spring.cloud.stream.kafka.binder:
               brokers: "\${KAFKA_BINDER_BROKER:}"
               configuration:
-                sasl.jaas.config: "\${KAFKA_PAYMENTS_SASL_JAAS_CONFIG:}"
+                sasl.jaas.config: "\${KAFKA_PAYMENTS_CONSUMER_SASL_JAAS_CONFIG:}"
       bindings:
         paymentsConsumer-in-0:
           binder: kafka-payments-consumer
