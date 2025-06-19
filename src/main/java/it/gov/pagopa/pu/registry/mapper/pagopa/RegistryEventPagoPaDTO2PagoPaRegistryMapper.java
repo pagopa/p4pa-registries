@@ -5,41 +5,46 @@ import it.gov.pagopa.pu.registry.model.PagopaRegistry;
 import it.gov.pagopa.pu.registry.service.DataCipherService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class RegistryEventPagoPaDTO2PagoPaRegistryMapper {
-  private final DataCipherService dataCipherService;
-  private final RegistryMappingService mappingService;
+public class RegistryEventPagoPaDTO2PagoPaRegistryMapper extends BaseRegistryMapper<RegistryEventPagoPaDTO, PagopaRegistry> {
 
-  public RegistryEventPagoPaDTO2PagoPaRegistryMapper(DataCipherService dataCipherService, RegistryMappingService mappingService) {
+  private final DataCipherService dataCipherService;
+
+  public RegistryEventPagoPaDTO2PagoPaRegistryMapper(DataCipherService dataCipherService) {
     this.dataCipherService = dataCipherService;
-    this.mappingService = mappingService;
   }
 
-  public List<PagopaRegistry> mapToPagoPaRegistry(RegistryEventPagoPaDTO dto) {
-    return mappingService.mapRegistries(dto,
-      RegistryEventPagoPaDTO::getIuv,
-      RegistryEventPagoPaDTO::getNav,
-      (d, iuv, nav) -> PagopaRegistry.builder()
-        .eventId(d.getRegistryId())
-        .dateTime(d.getDateTime())
-        .traceId(d.getTraceId())
-        .brokerStationId(d.getBrokerStationId())
-        .orgFiscalCode(d.getOrgFiscalCode())
-        .iuv(iuv)
-        .nav(nav)
-        .ccp(d.getCcp())
-        .pspId(d.getPspId())
-        .pspChannelId(d.getPspChannelId())
-        .paymentMethod(d.getPaymentMethod())
-        .eventCategory(d.getEventCategory())
-        .eventType(d.getEventType())
-        .eventSubType(d.getEventSubType())
-        .requestorId(d.getRequestorId())
-        .grantorId(d.getGrantorId())
-        .outcome(d.getOutcome())
-        .bodyCiphered(dataCipherService.encrypt(d.getBody()))
-        .build());
+  @Override
+  protected String getIuv(RegistryEventPagoPaDTO dto) {
+    return dto.getIuv();
+  }
+
+  @Override
+  protected String getNav(RegistryEventPagoPaDTO dto) {
+    return dto.getNav();
+  }
+
+  @Override
+  protected PagopaRegistry build(RegistryEventPagoPaDTO d, String iuv, String nav) {
+    return PagopaRegistry.builder()
+      .eventId(d.getRegistryId())
+      .dateTime(d.getDateTime())
+      .traceId(d.getTraceId())
+      .brokerStationId(d.getBrokerStationId())
+      .orgFiscalCode(d.getOrgFiscalCode())
+      .iuv(iuv)
+      .nav(nav)
+      .ccp(d.getCcp())
+      .pspId(d.getPspId())
+      .pspChannelId(d.getPspChannelId())
+      .paymentMethod(d.getPaymentMethod())
+      .eventCategory(d.getEventCategory())
+      .eventType(d.getEventType())
+      .eventSubType(d.getEventSubType())
+      .requestorId(d.getRequestorId())
+      .grantorId(d.getGrantorId())
+      .outcome(d.getOutcome())
+      .bodyCiphered(dataCipherService.encrypt(d.getBody()))
+      .build();
   }
 }

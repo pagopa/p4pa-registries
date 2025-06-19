@@ -6,45 +6,45 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RegistryUtilsTest {
+class UtilitiesTest {
 
   @Test
-  void givenNullInput_whenSplit_thenReturnEmptyArray() {
-    String[] result = RegistryUtils.split(null);
+  void givenNullInput_whenSplit_CommaString_thenReturnEmptyArray() {
+    String[] result = Utilities.splitCommaString(null);
     assertNotNull(result);
     assertEquals(0, result.length);
   }
 
   @Test
-  void givenEmptyInput_whenSplit_thenReturnEmptyArray() {
-    String[] result = RegistryUtils.split("");
+  void givenEmptyInput_whenSplit_CommaString_thenReturnEmptyArray() {
+    String[] result = Utilities.splitCommaString("");
     assertNotNull(result);
     assertEquals(0, result.length);
   }
 
   @Test
-  void givenCommaSeparatedString_whenSplit_thenReturnArray() {
-    String[] result = RegistryUtils.split("a,b,c");
+  void givenCommaSeparatedString_whenSplit_CommaString_thenReturnArray() {
+    String[] result = Utilities.splitCommaString("a,b,c");
     assertArrayEquals(new String[]{"a", "b", "c"}, result);
   }
 
   @Test
-  void givenSingleElement_whenSplit_thenReturnArrayWithOneElement() {
-    String[] result = RegistryUtils.split("single");
+  void givenSingleElement_whenSplit_CommaString_thenReturnArrayWithOneElement() {
+    String[] result = Utilities.splitCommaString("single");
     assertArrayEquals(new String[]{"single"}, result);
   }
 
   @Test
   void givenExactSizeArray_whenStreamAndExtend_thenReturnSameElements() {
     String[] values = {"x", "y"};
-    List<String> result = RegistryUtils.streamAndExtend(values, 2).toList();
+    List<String> result = Utilities.streamAndExtend(values, 2, null).toList();
     assertEquals(List.of("x", "y"), result);
   }
 
   @Test
   void givenLongerArrayThanMin_whenStreamAndExtend_thenReturnOriginalTrimmedElements() {
     String[] values = {" val1 ", " val2 "};
-    List<String> result = RegistryUtils.streamAndExtend(values, 1).toList();
+    List<String> result = Utilities.streamAndExtend(values, 1, null).toList();
     assertEquals(List.of("val1", "val2"), result);
   }
 }

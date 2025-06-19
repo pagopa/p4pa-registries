@@ -5,23 +5,28 @@ import it.gov.pagopa.pu.registry.model.SilRegistry;
 import it.gov.pagopa.pu.registry.service.DataCipherService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class RegistryEventSilDTO2SilRegistryMapper {
-  private final DataCipherService dataCipherService;
-  private final RegistryMappingService mappingService;
+public class RegistryEventSilDTO2SilRegistryMapper extends BaseRegistryMapper<RegistryEventSilDTO, SilRegistry> {
 
-  public RegistryEventSilDTO2SilRegistryMapper(DataCipherService dataCipherService, RegistryMappingService mappingService) {
+  private final DataCipherService dataCipherService;
+
+  public RegistryEventSilDTO2SilRegistryMapper(DataCipherService dataCipherService) {
     this.dataCipherService = dataCipherService;
-    this.mappingService = mappingService;
   }
 
-  public List<SilRegistry> mapToSilRegistry(RegistryEventSilDTO dto) {
-    return mappingService.mapRegistries(dto,
-      RegistryEventSilDTO::getIuv,
-      RegistryEventSilDTO::getNav,
-      (d, iuv, nav) -> SilRegistry.builder()
+  @Override
+  protected String getIuv(RegistryEventSilDTO dto) {
+    return dto.getIuv();
+  }
+
+  @Override
+  protected String getNav(RegistryEventSilDTO dto) {
+    return dto.getNav();
+  }
+
+  @Override
+  protected SilRegistry build(RegistryEventSilDTO dto, String iuv, String nav) {
+    return SilRegistry.builder()
       .eventId(dto.getRegistryId())
       .dateTime(dto.getDateTime())
       .traceId(dto.getTraceId())
@@ -35,6 +40,6 @@ public class RegistryEventSilDTO2SilRegistryMapper {
       .grantorId(dto.getGrantorId())
       .outcome(dto.getOutcome())
       .bodyCiphered(dataCipherService.encrypt(dto.getBody()))
-      .build());
+      .build();
   }
 }
