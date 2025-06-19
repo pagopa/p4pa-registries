@@ -17,8 +17,8 @@ public abstract class BaseRegistryMapper<T, R> {
     int maxSize = Math.max(iuvs.length, navs.length);
     maxSize = Math.max(1, maxSize);
 
-    Stream<String> iuvStream = Utilities.streamAndExtend(iuvs, maxSize, getPadding());
-    Stream<String> navStream = Utilities.streamAndExtend(navs, maxSize, getPadding());
+    Stream<String> iuvStream = Utilities.streamAndExtend(iuvs, maxSize, null);
+    Stream<String> navStream = Utilities.streamAndExtend(navs, maxSize, null);
 
     return StreamUtils.zip(iuvStream, navStream, (iuv, nav) -> build(dto, iuv, nav))
       .toList();
@@ -29,10 +29,6 @@ public abstract class BaseRegistryMapper<T, R> {
   protected abstract String getNav(T dto);
 
   protected abstract R build(T dto, String iuv, String nav);
-
-  protected String getPadding() {
-    return null;
-  }
 
 }
 
