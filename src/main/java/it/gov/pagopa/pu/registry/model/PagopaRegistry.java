@@ -22,6 +22,7 @@ import java.time.OffsetDateTime;
 public class PagopaRegistry implements Serializable {
 
   @Id
+  @NotNull
   private String eventId;
   @NotNull
   private OffsetDateTime dateTime;

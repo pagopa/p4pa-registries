@@ -1,5 +1,10 @@
 package it.gov.pagopa.pu.registry.dto;
 
+import it.gov.pagopa.pu.registry.enums.RegistryEventCategory;
+import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
+import it.gov.pagopa.pu.registry.enums.RegistryOutcome;
+import it.gov.pagopa.pu.registry.enums.RegistryPagopaEventType;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,13 +17,17 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegistryEventPagoPaDTO {
+  @NotNull
   private String registryId;
   private String registryOrigin;
   private String registryType;
+  @NotNull
   private OffsetDateTime dateTime;
+  @NotNull
   private String traceId;
   private String brokerStationId;
   private String brokerFiscalCode;
+  @NotNull
   private String orgFiscalCode;
   private String iuv;
   private String nav;
@@ -26,11 +35,17 @@ public class RegistryEventPagoPaDTO {
   private String pspId;
   private String pspChannelId;
   private String paymentMethod;
-  private String eventCategory;
-  private String eventType;
-  private String eventSubType;
+  @NotNull
+  private RegistryEventCategory eventCategory;
+  @NotNull
+  private RegistryPagopaEventType eventType;
+  @NotNull
+  private RegistryEventSubType eventSubType;
+  @NotNull
   private String requestorId;
+  @NotNull
   private String grantorId;
-  private String outcome;
+  @NotNull
+  private RegistryOutcome outcome;
   private String body;
 }

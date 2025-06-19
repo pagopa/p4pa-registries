@@ -1,18 +1,20 @@
 package it.gov.pagopa.pu.registry.mapper.pagopa;
 
 import it.gov.pagopa.pu.registry.dto.RegistryEventPagoPaDTO;
+import it.gov.pagopa.pu.registry.enums.RegistryEventCategory;
+import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
+import it.gov.pagopa.pu.registry.enums.RegistryOutcome;
+import it.gov.pagopa.pu.registry.enums.RegistryPagopaEventType;
 import it.gov.pagopa.pu.registry.model.PagopaRegistry;
 import it.gov.pagopa.pu.registry.service.DataCipherService;
 import it.gov.pagopa.pu.registry.utils.TestUtils;
+import org.apache.commons.lang3.function.TriFunction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.ArgumentCaptor;
 import uk.co.jemos.podam.api.PodamFactory;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -20,83 +22,87 @@ import static org.mockito.Mockito.*;
 class RegistryEventPagoPaDTO2PagoPaRegistryMapperTest {
 
   private DataCipherService dataCipherService;
+  private RegistryMappingService mappingService;
   private RegistryEventPagoPaDTO2PagoPaRegistryMapper mapper;
   private final PodamFactory podamFactory = TestUtils.getPodamFactory();
 
   @BeforeEach
   void setUp() {
     dataCipherService = mock(DataCipherService.class);
-    mapper = new RegistryEventPagoPaDTO2PagoPaRegistryMapper(dataCipherService);
+    mappingService = mock(RegistryMappingService.class);
+    mapper = new RegistryEventPagoPaDTO2PagoPaRegistryMapper(dataCipherService, mappingService);
   }
 
   @Test
   void givenIuvAndNavEmptyWhenMapThenOk() {
-    // Given
     RegistryEventPagoPaDTO dto = podamFactory.manufacturePojo(RegistryEventPagoPaDTO.class);
     dto.setIuv(null);
     dto.setNav(null);
-    dto.setEventCategory("INTERNO");
-    dto.setEventType("paVerifyPaymentNotice");
-    dto.setEventSubType("REQ");
-    dto.setOutcome("OK");
-    when(dataCipherService.encrypt(anyString())).thenReturn("encryptedBody".getBytes());
+    dto.setEventCategory(RegistryEventCategory.INTERFACCIA);
+    dto.setEventType(RegistryPagopaEventType.paGetPaymentV2);
+    dto.setEventSubType(RegistryEventSubType.REQ);
+    dto.setOutcome(RegistryOutcome.OK);
+    dto.setBody("body");
 
-    // When
+    @SuppressWarnings("unchecked")
+    ArgumentCaptor<TriFunction<RegistryEventPagoPaDTO, String, String, PagopaRegistry>> captor =
+      ArgumentCaptor.forClass(TriFunction.class);
+
+    when(dataCipherService.encrypt("body")).thenReturn("encryptedBody".getBytes());
+
+    when(mappingService.mapRegistries(
+      eq(dto),
+      argThat(f -> f.apply(dto) == null),
+      argThat(f -> f.apply(dto) == null),
+      captor.capture()
+    )).thenAnswer(invocation -> {
+      TriFunction<RegistryEventPagoPaDTO, String, String, PagopaRegistry> builder = captor.getValue();
+      PagopaRegistry built = builder.apply(dto, null, null);
+      return List.of(built);
+    });
+
     List<PagopaRegistry> result = mapper.mapToPagoPaRegistry(dto);
 
-    // Then
     assertEquals(1, result.size());
-    PagopaRegistry registry = result.getFirst();
-    TestUtils.checkNotNullFields(registry, "iuv", "nav");
-    assertNull(registry.getIuv());
-    assertNull(registry.getNav());
+    PagopaRegistry resultRegistry = result.getFirst();
+    TestUtils.checkNotNullFields(resultRegistry, "iuv", "nav");
+    assertNull(resultRegistry.getIuv());
+    assertNull(resultRegistry.getNav());
   }
 
   @Test
-  void givenIuvAndNavListsEqualWhenMapThenOk() {
-    // Given
+  void givenIuvAndNavValuedWhenMapThenMappedCorrectly() {
     RegistryEventPagoPaDTO dto = podamFactory.manufacturePojo(RegistryEventPagoPaDTO.class);
-    dto.setIuv("01340000100000192, 01340000100000192");
-    dto.setNav("301340000100000191, 301340000100000191");
-    dto.setEventCategory("INTERNO");
-    dto.setEventType("paVerifyPaymentNotice");
-    dto.setEventSubType("REQ");
-    dto.setOutcome("OK");
-    when(dataCipherService.encrypt(anyString())).thenReturn("encryptedBody".getBytes());
+    dto.setEventCategory(RegistryEventCategory.INTERFACCIA);
+    dto.setEventType(RegistryPagopaEventType.paGetPaymentV2);
+    dto.setEventSubType(RegistryEventSubType.REQ);
+    dto.setOutcome(RegistryOutcome.OK);
+    dto.setBody("body");
 
-    // When
+    @SuppressWarnings("unchecked")
+    ArgumentCaptor<TriFunction<RegistryEventPagoPaDTO, String, String, PagopaRegistry>> captor =
+      ArgumentCaptor.forClass(TriFunction.class);
+
+    when(dataCipherService.encrypt("body")).thenReturn("encryptedBody".getBytes());
+
+    when(mappingService.mapRegistries(
+      eq(dto),
+      argThat(f -> dto.getIuv().equals(f.apply(dto))),
+      argThat(f -> dto.getNav().equals(f.apply(dto))),
+      captor.capture()
+    )).thenAnswer(invocation -> {
+      TriFunction<RegistryEventPagoPaDTO, String, String, PagopaRegistry> builder = captor.getValue();
+      PagopaRegistry built = builder.apply(dto, dto.getIuv(), dto.getNav());
+      return List.of(built);
+    });
+
     List<PagopaRegistry> result = mapper.mapToPagoPaRegistry(dto);
 
-    // Then
-    assertEquals(2, result.size());
-    result.forEach(TestUtils::checkNotNullFields);
+    assertEquals(1, result.size());
+    PagopaRegistry resultRegistry = result.getFirst();
+    TestUtils.checkNotNullFields(resultRegistry);
+    assertEquals(dto.getIuv(), resultRegistry.getIuv());
+    assertEquals(dto.getNav(), resultRegistry.getNav());
   }
 
-  @ParameterizedTest
-  @MethodSource("provideInvalidIuvNavCombinations")
-  void givenInvalidIuvNavCombinationsWhenMapThenThrowException(String iuv, String nav) {
-    RegistryEventPagoPaDTO dto = podamFactory.manufacturePojo(RegistryEventPagoPaDTO.class);
-    dto.setIuv(iuv);
-    dto.setNav(nav);
-    dto.setEventCategory("INTERNO");
-    dto.setEventType("paVerifyPaymentNotice");
-    dto.setEventSubType("REQ");
-    dto.setOutcome("OK");
-
-    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
-      mapper.mapToPagoPaRegistry(dto)
-    );
-
-    assertTrue(exception.getMessage().contains("does not match"));
-  }
-
-  private static Stream<Arguments> provideInvalidIuvNavCombinations() {
-    return Stream.of(
-      Arguments.of("01340000100000192, 01340000100000192", "301340000100000191"),
-      Arguments.of(" ", "301340000100000191"),
-      Arguments.of("01340000100000192", " "),
-      Arguments.of("01340000100000192", null),
-      Arguments.of(null, "301340000100000191")
-    );
-  }
 }
