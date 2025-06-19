@@ -5,6 +5,8 @@ import it.gov.pagopa.pu.registry.model.SilRegistry;
 import it.gov.pagopa.pu.registry.service.DataCipherService;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class RegistryEventSilDTO2SilRegistryMapper extends BaseRegistryMapper<RegistryEventSilDTO, SilRegistry> {
 
@@ -27,7 +29,8 @@ public class RegistryEventSilDTO2SilRegistryMapper extends BaseRegistryMapper<Re
   @Override
   protected SilRegistry build(RegistryEventSilDTO dto, String iuv, String nav) {
     return SilRegistry.builder()
-      .eventId(dto.getRegistryId())
+      .registryId(dto.getRegistryId() + Objects.requireNonNullElse(iuv, ""))
+      .registryOrigin(dto.getRegistryOrigin())
       .dateTime(dto.getDateTime())
       .traceId(dto.getTraceId())
       .brokerFiscalCode(dto.getBrokerFiscalCode())

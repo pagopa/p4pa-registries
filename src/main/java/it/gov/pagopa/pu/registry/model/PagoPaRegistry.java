@@ -19,11 +19,13 @@ import java.time.OffsetDateTime;
 @Builder
 @EqualsAndHashCode
 @ToString
-public class PagopaRegistry implements Serializable {
+public class PagoPaRegistry implements Serializable {
 
   @Id
   @NotNull
-  private String eventId;
+  private String registryId;
+  @NotNull
+  private String registryOrigin;
   @NotNull
   private OffsetDateTime dateTime;
   @NotNull

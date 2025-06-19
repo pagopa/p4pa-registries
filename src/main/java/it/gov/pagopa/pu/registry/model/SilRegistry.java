@@ -22,7 +22,9 @@ public class SilRegistry implements Serializable {
 
   @Id
   @NotNull
-  private String eventId;
+  private String registryId;
+  @NotNull
+  private String registryOrigin;
   @NotNull
   private OffsetDateTime dateTime;
   @NotNull
