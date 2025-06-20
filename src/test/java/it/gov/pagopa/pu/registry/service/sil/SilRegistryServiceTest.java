@@ -1,6 +1,7 @@
 package it.gov.pagopa.pu.registry.service.sil;
 
 import it.gov.pagopa.pu.registry.dto.RegistryEventSilDTO;
+import it.gov.pagopa.pu.registry.mapper.pagopa.RegistryEventSilDTO2SilRegistryMapper;
 import it.gov.pagopa.pu.registry.model.SilRegistry;
 import it.gov.pagopa.pu.registry.repository.SilRegistryRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -18,7 +19,7 @@ class SilRegistryServiceTest {
   @Mock
   private SilRegistryRepository repository;
   @Mock
-  private SilRegistryMapperService mapperService;
+  private RegistryEventSilDTO2SilRegistryMapper mapperService;
 
   private SilRegistryService service;
 
