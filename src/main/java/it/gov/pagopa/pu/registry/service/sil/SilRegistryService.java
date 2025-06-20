@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class SilRegistryService {
   @Transactional
   public void consumePaymentEvent(RegistryEventSilDTO event) {
     List<SilRegistry> registry = registryEventSilDTO2SilRegistryMapper.map(event);
-    if (registry == null || registry.isEmpty()) return;
+    if (CollectionUtils.isEmpty(registry)) return;
     silRegistryRepository.saveAll(registry);
   }
 
