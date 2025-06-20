@@ -1,6 +1,7 @@
 package it.gov.pagopa.pu.registry.service.pagopa;
 
 import it.gov.pagopa.pu.registry.dto.RegistryEventPagoPaDTO;
+import it.gov.pagopa.pu.registry.mapper.pagopa.RegistryEventPagoPaDTO2PagoPaRegistryMapper;
 import it.gov.pagopa.pu.registry.model.PagoPaRegistry;
 import it.gov.pagopa.pu.registry.repository.PagopaRegistryRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -18,18 +19,18 @@ class PagoPaRegistryServiceTest {
   @Mock
   private PagopaRegistryRepository repository;
   @Mock
-  private PagoPaRegistryMapperService mapperService;
+  private RegistryEventPagoPaDTO2PagoPaRegistryMapper mapper;
 
   private PagoPaRegistryService service;
 
   @BeforeEach
   void setUp() {
-    this.service = new PagoPaRegistryService(repository, mapperService);
+    this.service = new PagoPaRegistryService(repository, mapper);
   }
 
   @AfterEach
   void afterEach() {
-    Mockito.verifyNoMoreInteractions(mapperService, repository);
+    Mockito.verifyNoMoreInteractions(mapper, repository);
   }
 
   @Test
@@ -40,13 +41,13 @@ class PagoPaRegistryServiceTest {
       new PagoPaRegistry()
     );
 
-    Mockito.when(mapperService.map(Mockito.any(RegistryEventPagoPaDTO.class))).thenReturn(pagopaRegistries);
+    Mockito.when(mapper.map(Mockito.any(RegistryEventPagoPaDTO.class))).thenReturn(pagopaRegistries);
 
     // When
     this.service.consumePaymentEvent(Mockito.mock(RegistryEventPagoPaDTO.class));
 
     // Then
-    Mockito.verify(mapperService, Mockito.times(1))
+    Mockito.verify(mapper, Mockito.times(1))
       .map(Mockito.any(RegistryEventPagoPaDTO.class));
     Mockito.verify(repository, Mockito.times(1))
       .saveAll(Mockito.any());
