@@ -1,7 +1,7 @@
 package it.gov.pagopa.pu.registry.service.pagopa;
 
-import it.gov.pagopa.pu.registry.event.registry.dto.RegistryPagoPaEventDTO;
-import it.gov.pagopa.pu.registry.model.PagopaRegistry;
+import it.gov.pagopa.pu.registry.dto.RegistryEventPagoPaDTO;
+import it.gov.pagopa.pu.registry.model.PagoPaRegistry;
 import it.gov.pagopa.pu.registry.repository.PagopaRegistryRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +10,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 class PagoPaRegistryServiceTest {
@@ -33,15 +35,20 @@ class PagoPaRegistryServiceTest {
   @Test
   void whenConsumePaymentEventThenMapperAndRepositoryAreInvoked() {
     // Given
-    Mockito.when(mapperService.map(Mockito.any(RegistryPagoPaEventDTO.class))).thenReturn(new PagopaRegistry());
+    List<PagoPaRegistry> pagopaRegistries = List.of(
+      new PagoPaRegistry(),
+      new PagoPaRegistry()
+    );
+
+    Mockito.when(mapperService.map(Mockito.any(RegistryEventPagoPaDTO.class))).thenReturn(pagopaRegistries);
 
     // When
-    this.service.consumePaymentEvent(Mockito.mock(RegistryPagoPaEventDTO.class));
+    this.service.consumePaymentEvent(Mockito.mock(RegistryEventPagoPaDTO.class));
 
     // Then
     Mockito.verify(mapperService, Mockito.times(1))
-      .map(Mockito.any(RegistryPagoPaEventDTO.class));
+      .map(Mockito.any(RegistryEventPagoPaDTO.class));
     Mockito.verify(repository, Mockito.times(1))
-      .save(Mockito.any());
+      .saveAll(Mockito.any());
   }
 }

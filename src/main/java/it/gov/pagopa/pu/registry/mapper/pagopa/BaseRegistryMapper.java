@@ -20,7 +20,7 @@ public abstract class BaseRegistryMapper<T, R> {
     Stream<String> iuvStream = Utilities.streamAndExtend(iuvs, maxSize, null);
     Stream<String> navStream = Utilities.streamAndExtend(navs, maxSize, null);
 
-    return StreamUtils.zip(iuvStream, navStream, (iuv, nav) -> build(dto, iuv, nav))
+    return StreamUtils.zip(iuvStream, navStream, (iuv, nav) -> map(dto, iuv, nav))
       .toList();
   }
 
@@ -28,7 +28,7 @@ public abstract class BaseRegistryMapper<T, R> {
 
   protected abstract String getNav(T dto);
 
-  protected abstract R build(T dto, String iuv, String nav);
+  protected abstract R map(T dto, String iuv, String nav);
 
 }
 

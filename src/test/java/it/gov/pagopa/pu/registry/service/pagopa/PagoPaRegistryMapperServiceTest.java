@@ -1,13 +1,10 @@
 package it.gov.pagopa.pu.registry.service.pagopa;
 
+import it.gov.pagopa.pu.registry.dto.RegistryEventPagoPaDTO;
 import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
 import it.gov.pagopa.pu.registry.enums.RegistryPagopaEventType;
-import it.gov.pagopa.pu.registry.event.registry.dto.PaSendRTV2RequestEventDTO;
-import it.gov.pagopa.pu.registry.event.registry.dto.PaSendRTV2ResponseEventDTO;
-import it.gov.pagopa.pu.registry.event.registry.dto.RegistryPagoPaEventDTO;
-import it.gov.pagopa.pu.registry.mapper.pagopa.PaSendRTV2RequestEventDTO2PagopaRegistryMapper;
-import it.gov.pagopa.pu.registry.mapper.pagopa.PaSendRTV2ResponseEventDTO2PagopaRegistryMapper;
-import it.gov.pagopa.pu.registry.model.PagopaRegistry;
+import it.gov.pagopa.pu.registry.mapper.pagopa.RegistryEventPagoPaDTO2PagoPaRegistryMapper;
+import it.gov.pagopa.pu.registry.model.PagoPaRegistry;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
@@ -19,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,9 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class PagoPaRegistryMapperServiceTest {
   @Mock
-  private PaSendRTV2RequestEventDTO2PagopaRegistryMapper paSendRtvRequestMapperMock;
-  @Mock
-  private PaSendRTV2ResponseEventDTO2PagopaRegistryMapper paSendRtvResponseMapperMock;
+  private RegistryEventPagoPaDTO2PagoPaRegistryMapper registryEventPagoPaDTO2PagoPaRegistryMapperMock;
 
   private PagoPaRegistryMapperService service;
   private Validator validator;
@@ -37,104 +33,105 @@ class PagoPaRegistryMapperServiceTest {
   void setUp() {
     validator = Validation.buildDefaultValidatorFactory().getValidator();
     service = new PagoPaRegistryMapperService(
-      paSendRtvRequestMapperMock,
-      paSendRtvResponseMapperMock
+      registryEventPagoPaDTO2PagoPaRegistryMapperMock
     );
   }
 
   @AfterEach
   void afterEach() {
-    Mockito.verifyNoMoreInteractions(paSendRtvRequestMapperMock, paSendRtvResponseMapperMock);
+    Mockito.verifyNoMoreInteractions(registryEventPagoPaDTO2PagoPaRegistryMapperMock);
   }
 
   @Test
   void givenPaSendRTVRequestEventWhenMappedThenInvokesExpectedMapper() {
     // Given
-    PaSendRTV2RequestEventDTO dto = new PaSendRTV2RequestEventDTO();
+    RegistryEventPagoPaDTO dto = new RegistryEventPagoPaDTO();
     dto.setEventType(RegistryPagopaEventType.paSendRTV2);
     dto.setEventSubType(RegistryEventSubType.REQ);
-    dto.setBody(new PaSendRTV2RequestEventDTO.Body());
-    PagopaRegistry registry = new PagopaRegistry();
+    dto.setBody("{}");
+    List<PagoPaRegistry> registries = List.of(new PagoPaRegistry());
 
-    Mockito.when(paSendRtvRequestMapperMock.map(Mockito.same(dto)))
-      .thenReturn(registry);
+    Mockito.when(registryEventPagoPaDTO2PagoPaRegistryMapperMock.map(Mockito.same(dto)))
+      .thenReturn(registries);
 
     // When
-    PagopaRegistry result = this.service.map(dto);
+    List<PagoPaRegistry> result = this.service.map(dto);
 
     // Then
-    assertSame(registry, result);
+    assertSame(registries, result);
   }
 
   @Test
   void givenPaSendRTVResponseEventWhenMappedThenInvokesExpectedMapper() {
     // Given
-    PaSendRTV2ResponseEventDTO dto = new PaSendRTV2ResponseEventDTO();
+    RegistryEventPagoPaDTO dto = new RegistryEventPagoPaDTO();
     dto.setEventType(RegistryPagopaEventType.paSendRTV2);
     dto.setEventSubType(RegistryEventSubType.RESP);
-    dto.setBody(new PaSendRTV2ResponseEventDTO.Body());
-    PagopaRegistry registry = new PagopaRegistry();
+    dto.setBody("{}");
+    List<PagoPaRegistry> registries = List.of(new PagoPaRegistry());
 
-    Mockito.when(paSendRtvResponseMapperMock.map(Mockito.same(dto)))
-      .thenReturn(registry);
+    Mockito.when(registryEventPagoPaDTO2PagoPaRegistryMapperMock.map(Mockito.same(dto)))
+      .thenReturn(registries);
 
     // When
-    PagopaRegistry result = this.service.map(dto);
+    List<PagoPaRegistry> result = this.service.map(dto);
 
     // Then
-    assertSame(registry, result);
+    assertSame(registries, result);
   }
 
   @Test
   void givenUnknownEventWhenMappedThenReturnsNull() {
     // Given
-    RegistryPagoPaEventDTO<Object> dto = new RegistryPagoPaEventDTO<>();
+    RegistryEventPagoPaDTO dto = new RegistryEventPagoPaDTO();
     dto.setEventType(RegistryPagopaEventType.paSendRTV2);
-    dto.setBody(new Object());
+    dto.setBody("{}");
 
     // When
-    PagopaRegistry result = this.service.map(dto);
+    List<PagoPaRegistry> result = this.service.map(dto);
 
     // Then
-    assertSame(null, result);
-  }
-
-  @Test
-  void givenNullEventWhenMappedThenThrows() {
-    // Then
-    assertThrows(NullPointerException.class, () -> this.service.map(null));
+    assertNotNull(result);
+    assertEquals(0, result.size());
+    Mockito.verify(registryEventPagoPaDTO2PagoPaRegistryMapperMock, Mockito.times(1))
+      .map(Mockito.any(RegistryEventPagoPaDTO.class));
   }
 
   @Test
   void givenNullPayloadWhenMappedThenReturnsNull() {
     // Given
-    RegistryPagoPaEventDTO<Object> dto = new RegistryPagoPaEventDTO<>();
+    RegistryEventPagoPaDTO dto = new RegistryEventPagoPaDTO();
     dto.setEventType(RegistryPagopaEventType.paSendRTV2);
     dto.setBody(null);
 
     // When
-    PagopaRegistry result = this.service.map(dto);
-    Set<ConstraintViolation<RegistryPagoPaEventDTO<Object>>> violations = validator.validate(dto);
+    List<PagoPaRegistry> result = this.service.map(dto);
+    Set<ConstraintViolation<RegistryEventPagoPaDTO>> violations = validator.validate(dto);
 
     // Then
     assertFalse(violations.isEmpty());
-    assertTrue(violations.stream().anyMatch(constraintViolation -> "body".equals(constraintViolation.getPropertyPath().toString())));
-    assertNull(result);
+    assertNotNull(result);
+    assertEquals(0, result.size());
+    Mockito.verify(registryEventPagoPaDTO2PagoPaRegistryMapperMock, Mockito.times(1))
+      .map(Mockito.any(RegistryEventPagoPaDTO.class));
   }
 
   @Test
   void givenNullEventTypeWhenMappedThenReturnsNull() {
     // Given
-    RegistryPagoPaEventDTO<Object> dto = new RegistryPagoPaEventDTO<>();
-    dto.setBody(new Object());
+    RegistryEventPagoPaDTO dto = new RegistryEventPagoPaDTO();
+    dto.setBody("{}");
 
     // When
-    PagopaRegistry result = this.service.map(dto);
-    Set<ConstraintViolation<RegistryPagoPaEventDTO<Object>>> violations = validator.validate(dto);
+    List<PagoPaRegistry> result = this.service.map(dto);
+    Set<ConstraintViolation<RegistryEventPagoPaDTO>> violations = validator.validate(dto);
 
     // Then
     assertFalse(violations.isEmpty());
     assertTrue(violations.stream().anyMatch(constraintViolation -> "eventType".equals(constraintViolation.getPropertyPath().toString())));
-    assertNull(result);
+    assertNotNull(result);
+    assertEquals(0, result.size());
+    Mockito.verify(registryEventPagoPaDTO2PagoPaRegistryMapperMock, Mockito.times(1))
+      .map(Mockito.any(RegistryEventPagoPaDTO.class));
   }
 }
