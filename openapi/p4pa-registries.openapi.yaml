@@ -7,31 +7,42 @@ servers:
   - url: "http://localhost:8080/registries"
     description: Generated server url
 paths:
-  /api/v1/greet:
+  /pagopa-registries/{eventId}:
     get:
-      summary: "Hello World"
-      description: "Sample endpoint that return greetings"
+      tags:
+        - pagopaRegistry
+      operationId: getPagopaRegistry
+      parameters:
+        - name: eventId
+          in: path
+          required: true
+          schema:
+            type: string
       responses:
-        '200':
-          description: "Success"
+        "200":
+          description: Ok
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Hello, World!"
+                $ref: "#/components/schemas/PagopaRegistryDTO"
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
         '500':
-          description: "Internal Server Error"
+          description: Internal Server Error
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                    example: "Internal Server Error"
+                $ref: '#/components/schemas/ErrorDTO'
 security:
   - BearerAuth: [ ]
 components:
@@ -40,6 +51,57 @@ components:
       type: http
       scheme: bearer
   schemas:
+    PagopaRegistryDTO:
+      type: object
+      properties:
+        eventId:
+          type: string
+        dateTime:
+          type: string
+          format: date-time
+        traceId:
+          type: string
+        brokerStationId:
+          type: string
+        orgFiscalCode:
+          type: string
+        iuv:
+          type: string
+        nav:
+          type: string
+        ccp:
+          type: string
+        pspId:
+          type: string
+        pspChannelId:
+          type: string
+        paymentMethod:
+          type: string
+        eventCategory:
+          type: 'RegistryEventCategory'
+        eventType:
+          type: 'RegistryPagopaEventType'
+        eventSubType:
+          type: 'RegistryEventSubType'
+        requestorId:
+          type: string
+        grantorId:
+          type: string
+        outcome:
+          type: 'RegistryOutcome'
+        body:
+          type: string
+      required:
+        - dateTime
+        - eventCategory
+        - eventId
+        - eventSubType
+        - eventType
+        - grantorId
+        - orgFiscalCode
+        - outcome
+        - requestorId
+        - traceId
     ErrorDTO:
       type: object
       required:
