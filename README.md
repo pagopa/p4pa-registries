@@ -100,7 +100,7 @@ See [application.yml](src/main/resources/application.yml) for each configurable 
 | KAFKA_CONFIG_SECURITY_PROTOCOL                   | Security protocol                                                  | SASL_SSL |
 | KAFKA_CONFIG_MAX_REQUEST_SIZE                    | Max request size                                                   | 1000000  |
 
-###### 📤 KAFKA CONSUMERS
+###### 📥 KAFKA CONSUMERS
 | ENV                                                | DESCRIPTION                                                                                    | DEFAULT                                            |
 |----------------------------------------------------|------------------------------------------------------------------------------------------------|----------------------------------------------------|
 | KAFKA_CONSUMER_CONFIG_AUTO_COMMIT                  | True if the acknowledgement of the message is implicit if there are not errors                 | true                                               |
