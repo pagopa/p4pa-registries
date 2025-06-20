@@ -1,8 +1,9 @@
 package it.gov.pagopa.pu.registry.model;
 
+import it.gov.pagopa.pu.registry.enums.RegistryEventCategory;
 import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
 import it.gov.pagopa.pu.registry.enums.RegistryOutcome;
-import it.gov.pagopa.pu.registry.enums.RegistrySilEventType;
+import it.gov.pagopa.pu.registry.enums.RegistryPagopaEventType;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -11,14 +12,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 import java.time.OffsetDateTime;
 
-@Document(collection = "sil_registry")
+@Document(collection = "pagopa_registry")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
 @EqualsAndHashCode
 @ToString
-public class SilRegistry implements Serializable {
+public class PagoPaRegistry implements Serializable {
 
   @Id
   @NotNull
@@ -29,14 +30,19 @@ public class SilRegistry implements Serializable {
   private OffsetDateTime dateTime;
   @NotNull
   private String traceId;
-  @NotNull
-  private String brokerFiscalCode;
+  private String brokerStationId;
   @NotNull
   private String orgFiscalCode;
   private String iuv;
   private String nav;
+  private String ccp;
+  private String pspId;
+  private String pspChannelId;
+  private String paymentMethod;
   @NotNull
-  private RegistrySilEventType eventType;
+  private RegistryEventCategory eventCategory;
+  @NotNull
+  private RegistryPagopaEventType eventType;
   @NotNull
   private RegistryEventSubType eventSubType;
   @NotNull

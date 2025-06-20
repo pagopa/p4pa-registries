@@ -1,30 +1,25 @@
-package it.gov.pagopa.pu.registry.model;
+package it.gov.pagopa.pu.registry.dto;
 
 import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
 import it.gov.pagopa.pu.registry.enums.RegistryOutcome;
 import it.gov.pagopa.pu.registry.enums.RegistrySilEventType;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
 import java.time.OffsetDateTime;
 
-@Document(collection = "sil_registry")
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
-@Builder
-@EqualsAndHashCode
-@ToString
-public class SilRegistry implements Serializable {
-
-  @Id
+@Builder(toBuilder = true)
+@NoArgsConstructor
+@AllArgsConstructor
+public class RegistryEventSilDTO {
   @NotNull
   private String registryId;
-  @NotNull
   private String registryOrigin;
+  private String registryType;
   @NotNull
   private OffsetDateTime dateTime;
   @NotNull
@@ -45,5 +40,5 @@ public class SilRegistry implements Serializable {
   private String grantorId;
   @NotNull
   private RegistryOutcome outcome;
-  private byte[] bodyCiphered;
+  private String body;
 }

@@ -558,7 +558,7 @@
     },
     "/crud/pagopa-registries" : {
       "get" : {
-        "tags" : [ "pagopa-registry-entity-controller" ],
+        "tags" : [ "pago-pa-registry-entity-controller" ],
         "description" : "get-pagoparegistry",
         "operationId" : "crud-get-pagoparegistrys",
         "parameters" : [ {
@@ -599,12 +599,12 @@
             "content" : {
               "application/hal+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/PagedModelPagopaRegistry"
+                  "$ref" : "#/components/schemas/PagedModelPagoPaRegistry"
                 }
               },
               "application/x-spring-data-compact+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/PagedModelPagopaRegistry"
+                  "$ref" : "#/components/schemas/PagedModelPagoPaRegistry"
                 }
               },
               "text/uri-list" : {
@@ -617,14 +617,14 @@
         }
       },
       "post" : {
-        "tags" : [ "pagopa-registry-entity-controller" ],
+        "tags" : [ "pago-pa-registry-entity-controller" ],
         "description" : "create-pagoparegistry",
         "operationId" : "crud-create-pagoparegistry",
         "requestBody" : {
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/PagopaRegistryRequestBody"
+                "$ref" : "#/components/schemas/PagoPaRegistryRequestBody"
               }
             }
           },
@@ -636,7 +636,7 @@
             "content" : {
               "application/hal+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/PagopaRegistry"
+                  "$ref" : "#/components/schemas/PagoPaRegistry"
                 }
               }
             }
@@ -646,7 +646,7 @@
     },
     "/crud/pagopa-registries/{id}" : {
       "get" : {
-        "tags" : [ "pagopa-registry-entity-controller" ],
+        "tags" : [ "pago-pa-registry-entity-controller" ],
         "description" : "get-pagoparegistry",
         "operationId" : "crud-get-pagoparegistry",
         "parameters" : [ {
@@ -663,7 +663,7 @@
             "content" : {
               "application/hal+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/PagopaRegistry"
+                  "$ref" : "#/components/schemas/PagoPaRegistry"
                 }
               }
             }
@@ -674,7 +674,7 @@
         }
       },
       "put" : {
-        "tags" : [ "pagopa-registry-entity-controller" ],
+        "tags" : [ "pago-pa-registry-entity-controller" ],
         "description" : "update-pagoparegistry",
         "operationId" : "crud-update-pagoparegistry",
         "parameters" : [ {
@@ -689,7 +689,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/PagopaRegistryRequestBody"
+                "$ref" : "#/components/schemas/PagoPaRegistryRequestBody"
               }
             }
           },
@@ -701,7 +701,7 @@
             "content" : {
               "application/hal+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/PagopaRegistry"
+                  "$ref" : "#/components/schemas/PagoPaRegistry"
                 }
               }
             }
@@ -711,7 +711,7 @@
             "content" : {
               "application/hal+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/PagopaRegistry"
+                  "$ref" : "#/components/schemas/PagoPaRegistry"
                 }
               }
             }
@@ -722,7 +722,7 @@
         }
       },
       "delete" : {
-        "tags" : [ "pagopa-registry-entity-controller" ],
+        "tags" : [ "pago-pa-registry-entity-controller" ],
         "description" : "delete-pagoparegistry",
         "operationId" : "crud-delete-pagoparegistry",
         "parameters" : [ {
@@ -743,7 +743,7 @@
         }
       },
       "patch" : {
-        "tags" : [ "pagopa-registry-entity-controller" ],
+        "tags" : [ "pago-pa-registry-entity-controller" ],
         "description" : "patch-pagoparegistry",
         "operationId" : "crud-patch-pagoparegistry",
         "parameters" : [ {
@@ -758,7 +758,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/PagopaRegistryRequestBody"
+                "$ref" : "#/components/schemas/PagoPaRegistryRequestBody"
               }
             }
           },
@@ -770,7 +770,7 @@
             "content" : {
               "application/hal+json" : {
                 "schema" : {
-                  "$ref" : "#/components/schemas/PagopaRegistry"
+                  "$ref" : "#/components/schemas/PagoPaRegistry"
                 }
               }
             }
@@ -1213,6 +1213,10 @@
           }
         }
       },
+      "PaymentEventType" : {
+        "type" : "string",
+        "enum" : [ "DP_CREATED", "DP_UPDATED", "DP_CANCELLED", "DPI_ADDED", "DPI_UPDATED", "DPI_CANCELLED", "DPI_EXPIRED", "DPI_REPORTED", "RT_RECEIVED", "SYNC_ERROR", "IO_NOTIFIED", "SEND_NOTIFICATION_CREATED", "SEND_NOTIFICATION_ERROR", "SEND_NOTIFICATION_DATE" ]
+      },
       "PageMetadata" : {
         "type" : "object",
         "properties" : {
@@ -1234,6 +1238,10 @@
           }
         }
       },
+      "RegistryEventCategory" : {
+        "type" : "string",
+        "enum" : [ "INTERNO", "INTERFACCIA" ]
+      },
       "RegistryEventSubType" : {
         "type" : "string",
         "enum" : [ "REQ", "RESP" ]
@@ -1242,21 +1250,13 @@
         "type" : "string",
         "enum" : [ "OK", "KO" ]
       },
-      "RegistrySilEventType" : {
-        "type" : "string",
-        "enum" : [ "paaSILAutorizzaImportFlusso", "paaSILChiediStatoImportFlusso", "paaSILImportaDovuto", "paaSILPrenotaExportFlusso", "paaSILPrenotaExportFlussoIncrementaleConRicevuta", "paaSILChiediStatoExportFlusso", "paaSILInviaDovuti", "paaSILVerificaAvviso", "paaSILChiediPagati", "paaSILChiediPagatiConRicevuta", "paaSILInviaCarrelloDovuti", "paaSILChiediEsitoCarrelloDovuti", "pivotSILAutorizzaImportFlusso", "pivotSILChiediStatoImportFlusso", "pivotSILAutorizzaImportFlussoTesoreria", "pivotSILChiediStatoImportFlussoTesoreria", "pivotSILPrenotaExportFlussoRiconciliazione", "pivotSILChiediStatoExportFlussoRiconciliazione", "pivotSILChiediAccertamento", "attualizzazioneImporti", "notificaPagamento" ]
-      },
-      "RegistryEventCategory" : {
-        "type" : "string",
-        "enum" : [ "INTERNO", "INTERFACCIA" ]
-      },
       "RegistryPagopaEventType" : {
         "type" : "string",
         "enum" : [ "paVerifyPaymentNotice", "paGetPaymentV2", "paSendRTV2", "newDebtPosition", "createPosition", "updatePosition", "deletePosition", "fetchPaymentReporting" ]
       },
-      "PaymentEventType" : {
+      "RegistrySilEventType" : {
         "type" : "string",
-        "enum" : [ "DP_CREATED", "DP_UPDATED", "DP_CANCELLED", "DPI_ADDED", "DPI_UPDATED", "DPI_CANCELLED", "DPI_EXPIRED", "DPI_REPORTED", "RT_RECEIVED", "SYNC_ERROR", "IO_NOTIFIED", "SEND_NOTIFICATION_CREATED", "SEND_NOTIFICATION_ERROR", "SEND_NOTIFICATION_DATE" ]
+        "enum" : [ "paaSILAutorizzaImportFlusso", "paaSILChiediStatoImportFlusso", "paaSILImportaDovuto", "paaSILPrenotaExportFlusso", "paaSILPrenotaExportFlussoIncrementaleConRicevuta", "paaSILChiediStatoExportFlusso", "paaSILInviaDovuti", "paaSILVerificaAvviso", "paaSILChiediPagati", "paaSILChiediPagatiConRicevuta", "paaSILInviaCarrelloDovuti", "paaSILChiediEsitoCarrelloDovuti", "pivotSILAutorizzaImportFlusso", "pivotSILChiediStatoImportFlusso", "pivotSILAutorizzaImportFlussoTesoreria", "pivotSILChiediStatoImportFlussoTesoreria", "pivotSILPrenotaExportFlussoRiconciliazione", "pivotSILChiediStatoExportFlussoRiconciliazione", "pivotSILChiediAccertamento", "attualizzazioneImporti", "notificaPagamento" ]
       },
       "DebtPositionRegistryRequestBody" : {
         "type" : "object",
@@ -1325,10 +1325,13 @@
           }
         }
       },
-      "PagopaRegistryRequestBody" : {
+      "PagoPaRegistryRequestBody" : {
         "type" : "object",
         "properties" : {
-          "eventId" : {
+          "registryId" : {
+            "type" : "string"
+          },
+          "registryOrigin" : {
             "type" : "string"
           },
           "dateTime" : {
@@ -1385,12 +1388,15 @@
             "format" : "byte"
           }
         },
-        "required" : [ "dateTime", "eventCategory", "eventSubType", "eventType", "grantorId", "orgFiscalCode", "outcome", "requestorId", "traceId" ]
+        "required" : [ "dateTime", "eventCategory", "eventSubType", "eventType", "grantorId", "orgFiscalCode", "outcome", "registryId", "registryOrigin", "requestorId", "traceId" ]
       },
       "SilRegistryRequestBody" : {
         "type" : "object",
         "properties" : {
-          "eventId" : {
+          "registryId" : {
+            "type" : "string"
+          },
+          "registryOrigin" : {
             "type" : "string"
           },
           "dateTime" : {
@@ -1432,166 +1438,7 @@
             "format" : "byte"
           }
         },
-        "required" : [ "brokerFiscalCode", "dateTime", "eventId", "eventSubType", "eventType", "grantorId", "orgFiscalCode", "outcome", "requestorId", "traceId" ]
-      },
-      "SilRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "eventId" : {
-            "type" : "string"
-          },
-          "dateTime" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
-          "traceId" : {
-            "type" : "string"
-          },
-          "brokerFiscalCode" : {
-            "type" : "string"
-          },
-          "orgFiscalCode" : {
-            "type" : "string"
-          },
-          "iuv" : {
-            "type" : "string"
-          },
-          "nav" : {
-            "type" : "string"
-          },
-          "eventType" : {
-            "$ref" : "#/components/schemas/RegistrySilEventType"
-          },
-          "eventSubType" : {
-            "$ref" : "#/components/schemas/RegistryEventSubType"
-          },
-          "requestorId" : {
-            "type" : "string"
-          },
-          "grantorId" : {
-            "type" : "string"
-          },
-          "outcome" : {
-            "$ref" : "#/components/schemas/RegistryOutcome"
-          },
-          "bodyCiphered" : {
-            "type" : "string",
-            "format" : "byte"
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          }
-        },
-        "required" : [ "brokerFiscalCode", "dateTime", "eventId", "eventSubType", "eventType", "grantorId", "orgFiscalCode", "outcome", "requestorId", "traceId" ]
-      },
-      "PagedModelSilRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "_embedded" : {
-            "type" : "object",
-            "properties" : {
-              "silRegistries" : {
-                "type" : "array",
-                "items" : {
-                  "$ref" : "#/components/schemas/SilRegistry"
-                }
-              }
-            }
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          },
-          "page" : {
-            "$ref" : "#/components/schemas/PageMetadata"
-          }
-        }
-      },
-      "PagopaRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "eventId" : {
-            "type" : "string"
-          },
-          "dateTime" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
-          "traceId" : {
-            "type" : "string"
-          },
-          "brokerStationId" : {
-            "type" : "string"
-          },
-          "orgFiscalCode" : {
-            "type" : "string"
-          },
-          "iuv" : {
-            "type" : "string"
-          },
-          "nav" : {
-            "type" : "string"
-          },
-          "ccp" : {
-            "type" : "string"
-          },
-          "pspId" : {
-            "type" : "string"
-          },
-          "pspChannelId" : {
-            "type" : "string"
-          },
-          "paymentMethod" : {
-            "type" : "string"
-          },
-          "eventCategory" : {
-            "$ref" : "#/components/schemas/RegistryEventCategory"
-          },
-          "eventType" : {
-            "$ref" : "#/components/schemas/RegistryPagopaEventType"
-          },
-          "eventSubType" : {
-            "$ref" : "#/components/schemas/RegistryEventSubType"
-          },
-          "requestorId" : {
-            "type" : "string"
-          },
-          "grantorId" : {
-            "type" : "string"
-          },
-          "outcome" : {
-            "$ref" : "#/components/schemas/RegistryOutcome"
-          },
-          "bodyCiphered" : {
-            "type" : "string",
-            "format" : "byte"
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          }
-        },
-        "required" : [ "dateTime", "eventCategory", "eventSubType", "eventType", "grantorId", "orgFiscalCode", "outcome", "requestorId", "traceId" ]
-      },
-      "PagedModelPagopaRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "_embedded" : {
-            "type" : "object",
-            "properties" : {
-              "pagopaRegistries" : {
-                "type" : "array",
-                "items" : {
-                  "$ref" : "#/components/schemas/PagopaRegistry"
-                }
-              }
-            }
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          },
-          "page" : {
-            "$ref" : "#/components/schemas/PageMetadata"
-          }
-        }
+        "required" : [ "brokerFiscalCode", "dateTime", "eventSubType", "eventType", "grantorId", "orgFiscalCode", "outcome", "registryId", "registryOrigin", "requestorId", "traceId" ]
       },
       "InstallmentRegistry" : {
         "type" : "object",
@@ -1669,6 +1516,171 @@
           },
           "_links" : {
             "$ref" : "#/components/schemas/Links"
+          }
+        }
+      },
+      "PagoPaRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "registryId" : {
+            "type" : "string"
+          },
+          "registryOrigin" : {
+            "type" : "string"
+          },
+          "dateTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "traceId" : {
+            "type" : "string"
+          },
+          "brokerStationId" : {
+            "type" : "string"
+          },
+          "orgFiscalCode" : {
+            "type" : "string"
+          },
+          "iuv" : {
+            "type" : "string"
+          },
+          "nav" : {
+            "type" : "string"
+          },
+          "ccp" : {
+            "type" : "string"
+          },
+          "pspId" : {
+            "type" : "string"
+          },
+          "pspChannelId" : {
+            "type" : "string"
+          },
+          "paymentMethod" : {
+            "type" : "string"
+          },
+          "eventCategory" : {
+            "$ref" : "#/components/schemas/RegistryEventCategory"
+          },
+          "eventType" : {
+            "$ref" : "#/components/schemas/RegistryPagopaEventType"
+          },
+          "eventSubType" : {
+            "$ref" : "#/components/schemas/RegistryEventSubType"
+          },
+          "requestorId" : {
+            "type" : "string"
+          },
+          "grantorId" : {
+            "type" : "string"
+          },
+          "outcome" : {
+            "$ref" : "#/components/schemas/RegistryOutcome"
+          },
+          "bodyCiphered" : {
+            "type" : "string",
+            "format" : "byte"
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          }
+        },
+        "required" : [ "dateTime", "eventCategory", "eventSubType", "eventType", "grantorId", "orgFiscalCode", "outcome", "registryId", "registryOrigin", "requestorId", "traceId" ]
+      },
+      "PagedModelPagoPaRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "_embedded" : {
+            "type" : "object",
+            "properties" : {
+              "pagoPaRegistries" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/PagoPaRegistry"
+                }
+              }
+            }
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "page" : {
+            "$ref" : "#/components/schemas/PageMetadata"
+          }
+        }
+      },
+      "SilRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "registryId" : {
+            "type" : "string"
+          },
+          "registryOrigin" : {
+            "type" : "string"
+          },
+          "dateTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "traceId" : {
+            "type" : "string"
+          },
+          "brokerFiscalCode" : {
+            "type" : "string"
+          },
+          "orgFiscalCode" : {
+            "type" : "string"
+          },
+          "iuv" : {
+            "type" : "string"
+          },
+          "nav" : {
+            "type" : "string"
+          },
+          "eventType" : {
+            "$ref" : "#/components/schemas/RegistrySilEventType"
+          },
+          "eventSubType" : {
+            "$ref" : "#/components/schemas/RegistryEventSubType"
+          },
+          "requestorId" : {
+            "type" : "string"
+          },
+          "grantorId" : {
+            "type" : "string"
+          },
+          "outcome" : {
+            "$ref" : "#/components/schemas/RegistryOutcome"
+          },
+          "bodyCiphered" : {
+            "type" : "string",
+            "format" : "byte"
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          }
+        },
+        "required" : [ "brokerFiscalCode", "dateTime", "eventSubType", "eventType", "grantorId", "orgFiscalCode", "outcome", "registryId", "registryOrigin", "requestorId", "traceId" ]
+      },
+      "PagedModelSilRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "_embedded" : {
+            "type" : "object",
+            "properties" : {
+              "silRegistries" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/SilRegistry"
+                }
+              }
+            }
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "page" : {
+            "$ref" : "#/components/schemas/PageMetadata"
           }
         }
       },
