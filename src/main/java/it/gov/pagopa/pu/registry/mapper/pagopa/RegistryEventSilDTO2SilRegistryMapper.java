@@ -27,7 +27,7 @@ public class RegistryEventSilDTO2SilRegistryMapper extends BaseRegistryMapper<Re
   }
 
   @Override
-  protected SilRegistry build(RegistryEventSilDTO dto, String iuv, String nav) {
+  protected SilRegistry map(RegistryEventSilDTO dto, String iuv, String nav) {
     return SilRegistry.builder()
       .registryId(dto.getRegistryId() + Objects.requireNonNullElse(iuv, ""))
       .registryOrigin(dto.getRegistryOrigin())

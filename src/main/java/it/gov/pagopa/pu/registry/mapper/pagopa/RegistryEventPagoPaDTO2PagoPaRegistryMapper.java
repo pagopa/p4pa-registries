@@ -27,7 +27,7 @@ public class RegistryEventPagoPaDTO2PagoPaRegistryMapper extends BaseRegistryMap
   }
 
   @Override
-  protected PagoPaRegistry build(RegistryEventPagoPaDTO dto, String iuv, String nav) {
+  protected PagoPaRegistry map(RegistryEventPagoPaDTO dto, String iuv, String nav) {
     return PagoPaRegistry.builder()
       .registryId(dto.getRegistryId() + Objects.requireNonNullElse(iuv, ""))
       .registryOrigin(dto.getRegistryOrigin())
