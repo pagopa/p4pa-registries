@@ -1,6 +1,6 @@
 package it.gov.pagopa.pu.registry.repository;
 
-import it.gov.pagopa.pu.registry.enums.RegistryPagopaEventType;
+import it.gov.pagopa.pu.registry.enums.RegistryPagoPaEventType;
 import it.gov.pagopa.pu.registry.model.PagoPaRegistry;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +11,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import java.time.OffsetDateTime;
 
 @RepositoryRestResource(path = "pagopa-registries")
-public interface PagopaRegistryRepository extends MongoRepository<PagoPaRegistry, String> {
+public interface PagoPaRegistryRepository extends MongoRepository<PagoPaRegistry, String> {
 
   @Query("{" +
     "    $and: [" +
@@ -22,7 +22,7 @@ public interface PagopaRegistryRepository extends MongoRepository<PagoPaRegistry
     "        { $or: [{ $expr: { $eq: ['?4', 'null'] }}, { iuv: ?4 }] }" +
     "    ] }")
   Page<PagoPaRegistry> searchByFilters(
-    RegistryPagopaEventType eventType,
+    RegistryPagoPaEventType eventType,
     OffsetDateTime startDate,
     OffsetDateTime endDate,
     String orgFiscalCode,

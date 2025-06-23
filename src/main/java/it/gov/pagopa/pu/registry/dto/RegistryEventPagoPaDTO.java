@@ -3,7 +3,7 @@ package it.gov.pagopa.pu.registry.dto;
 import it.gov.pagopa.pu.registry.enums.RegistryEventCategory;
 import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
 import it.gov.pagopa.pu.registry.enums.RegistryOutcome;
-import it.gov.pagopa.pu.registry.enums.RegistryPagopaEventType;
+import it.gov.pagopa.pu.registry.enums.RegistryPagoPaEventType;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,7 +38,7 @@ public class RegistryEventPagoPaDTO {
   @NotNull
   private RegistryEventCategory eventCategory;
   @NotNull
-  private RegistryPagopaEventType eventType;
+  private RegistryPagoPaEventType eventType;
   @NotNull
   private RegistryEventSubType eventSubType;
   @NotNull

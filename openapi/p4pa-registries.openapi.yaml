@@ -10,8 +10,8 @@ paths:
   /pagopa-registries/{registryId}:
     get:
       tags:
-        - pagopaRegistry
-      operationId: getPagopaRegistry
+        - pagoPaRegistry
+      operationId: getPagoPaRegistry
       parameters:
         - name: registryId
           in: path
@@ -80,7 +80,7 @@ components:
         eventCategory:
           type: 'RegistryEventCategory'
         eventType:
-          type: 'RegistryPagopaEventType'
+          type: 'RegistryPagoPaEventType'
         eventSubType:
           type: 'RegistryEventSubType'
         requestorId:
