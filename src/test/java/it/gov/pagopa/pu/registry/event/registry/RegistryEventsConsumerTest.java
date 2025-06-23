@@ -21,6 +21,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
@@ -112,6 +113,47 @@ class RegistryEventsConsumerTest {
     assertEquals(silEventDTO.getEventType(), capturedEvent.getEventType());
     assertEquals(silEventDTO.getEventSubType(), capturedEvent.getEventSubType());
     Mockito.verify(pagoPaRegistryService, Mockito.never()).consumePaymentEvent(Mockito.any());
+  }
+
+  @Test
+  void whenAcceptUnknownRegistryEventThenNoServiceIsCalled() {
+    // Given
+    RegistryEventDTO eventDTO = new RegistryEventDTO();
+    eventDTO.setRegistryId(UUID.randomUUID().toString());
+    eventDTO.setRegistryOrigin("test-origin");
+    eventDTO.setRegistryType("test-type");
+    eventDTO.setTraceId(UUID.randomUUID().toString());
+    eventDTO.setEventType(null);
+
+    // When
+    consumer.accept(eventDTO);
+
+    // Then
+    Mockito.verify(pagoPaRegistryService, Mockito.never()).consumePaymentEvent(Mockito.any());
+    Mockito.verify(silRegistryService, Mockito.never()).consumePaymentEvent(Mockito.any());
+  }
+
+  @Test
+  void whenPagoPaRegistryServiceThrowsErrorThenItDoesntFail() throws JsonProcessingException {
+    // Given
+    RegistryEventPagoPaDTO pagoPaEventDTO = new RegistryEventPagoPaDTO();
+    pagoPaEventDTO.setRegistryId(UUID.randomUUID().toString());
+    pagoPaEventDTO.setRegistryOrigin("test-origin");
+    pagoPaEventDTO.setRegistryType("test-type");
+    pagoPaEventDTO.setTraceId(UUID.randomUUID().toString());
+    pagoPaEventDTO.setBrokerStationId("broker-station-id");
+    pagoPaEventDTO.setEventType(RegistryEventType.paSendRTV2);
+    pagoPaEventDTO.setEventSubType(RegistryEventSubType.REQ);
+    pagoPaEventDTO.setBody("{}");
+
+    String json = objectMapper.writeValueAsString(pagoPaEventDTO);
+    RegistryEventDTO eventDTO = objectMapper.readValue(json, RegistryEventDTO.class);
+
+    Mockito.doThrow(RuntimeException.class).when(pagoPaRegistryService).consumePaymentEvent(Mockito.any(RegistryEventPagoPaDTO.class));
+
+    // Then
+    assertDoesNotThrow(() -> consumer.accept(eventDTO));
+    Mockito.verify(silRegistryService, Mockito.never()).consumePaymentEvent(Mockito.any());
   }
 
 
