@@ -1,8 +1,8 @@
 package it.gov.pagopa.pu.registry.model;
 
 import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
-import it.gov.pagopa.pu.registry.enums.RegistryEventType;
 import it.gov.pagopa.pu.registry.enums.RegistryOutcome;
+import it.gov.pagopa.pu.registry.enums.RegistrySilEventType;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -36,7 +36,7 @@ public class SilRegistry implements Serializable {
   private String iuv;
   private String nav;
   @NotNull
-  private RegistryEventType eventType;
+  private RegistrySilEventType eventType;
   @NotNull
   private RegistryEventSubType eventSubType;
   @NotNull

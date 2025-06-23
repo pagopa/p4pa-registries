@@ -3,13 +3,15 @@ package it.gov.pagopa.pu.registry.event.registry;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.gov.pagopa.pu.registry.config.json.JsonConfig;
-import it.gov.pagopa.pu.registry.dto.RegistryEventDTO;
 import it.gov.pagopa.pu.registry.dto.RegistryEventPagoPaDTO;
 import it.gov.pagopa.pu.registry.dto.RegistryEventSilDTO;
+import it.gov.pagopa.pu.registry.dto.RegistryInterfaceEventDTO;
 import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
-import it.gov.pagopa.pu.registry.enums.RegistryEventType;
+import it.gov.pagopa.pu.registry.enums.RegistryPagopaEventType;
+import it.gov.pagopa.pu.registry.enums.RegistrySilEventType;
 import it.gov.pagopa.pu.registry.service.pagopa.PagoPaRegistryService;
 import it.gov.pagopa.pu.registry.service.sil.SilRegistryService;
+import it.gov.pagopa.pu.registry.utils.Constants;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -55,15 +57,15 @@ class RegistryEventsConsumerTest {
     RegistryEventPagoPaDTO pagoPaEventDTO = new RegistryEventPagoPaDTO();
     pagoPaEventDTO.setRegistryId(UUID.randomUUID().toString());
     pagoPaEventDTO.setRegistryOrigin("test-origin");
-    pagoPaEventDTO.setRegistryType("test-type");
+    pagoPaEventDTO.setRegistryType(Constants.PAGOPA_REGISTRY_TYPE);
     pagoPaEventDTO.setTraceId(UUID.randomUUID().toString());
     pagoPaEventDTO.setBrokerStationId("broker-station-id");
-    pagoPaEventDTO.setEventType(RegistryEventType.paSendRTV2);
+    pagoPaEventDTO.setEventType(RegistryPagopaEventType.paSendRTV2);
     pagoPaEventDTO.setEventSubType(RegistryEventSubType.REQ);
     pagoPaEventDTO.setBody("{}");
 
     String json = objectMapper.writeValueAsString(pagoPaEventDTO);
-    RegistryEventDTO eventDTO = objectMapper.readValue(json, RegistryEventDTO.class);
+    RegistryInterfaceEventDTO eventDTO = objectMapper.readValue(json, RegistryInterfaceEventDTO.class);
 
     // When
     consumer.accept(eventDTO);
@@ -88,15 +90,15 @@ class RegistryEventsConsumerTest {
     RegistryEventSilDTO silEventDTO = new RegistryEventSilDTO();
     silEventDTO.setRegistryId(UUID.randomUUID().toString());
     silEventDTO.setRegistryOrigin("test-origin");
-    silEventDTO.setRegistryType("test-type");
+    silEventDTO.setRegistryType(Constants.SIL_REGISTRY_TYPE);
     silEventDTO.setTraceId(UUID.randomUUID().toString());
-    silEventDTO.setEventType(RegistryEventType.paaSILAutorizzaImportFlusso);
+    silEventDTO.setEventType(RegistrySilEventType.paaSILAutorizzaImportFlusso);
     silEventDTO.setEventSubType(RegistryEventSubType.REQ);
     silEventDTO.setBrokerFiscalCode("broker-fiscal-code");
     silEventDTO.setBody("{}");
 
     String json = objectMapper.writeValueAsString(silEventDTO);
-    RegistryEventDTO eventDTO = objectMapper.readValue(json, RegistryEventDTO.class);
+    RegistryInterfaceEventDTO eventDTO = objectMapper.readValue(json, RegistryInterfaceEventDTO.class);
 
     // When
     consumer.accept(eventDTO);
@@ -118,12 +120,11 @@ class RegistryEventsConsumerTest {
   @Test
   void whenAcceptUnknownRegistryEventThenNoServiceIsCalled() {
     // Given
-    RegistryEventDTO eventDTO = new RegistryEventDTO();
+    RegistryInterfaceEventDTO eventDTO = new RegistryInterfaceEventDTO();
     eventDTO.setRegistryId(UUID.randomUUID().toString());
     eventDTO.setRegistryOrigin("test-origin");
-    eventDTO.setRegistryType("test-type");
+    eventDTO.setRegistryType(null);
     eventDTO.setTraceId(UUID.randomUUID().toString());
-    eventDTO.setEventType(null);
 
     // When
     consumer.accept(eventDTO);
@@ -139,15 +140,15 @@ class RegistryEventsConsumerTest {
     RegistryEventPagoPaDTO pagoPaEventDTO = new RegistryEventPagoPaDTO();
     pagoPaEventDTO.setRegistryId(UUID.randomUUID().toString());
     pagoPaEventDTO.setRegistryOrigin("test-origin");
-    pagoPaEventDTO.setRegistryType("test-type");
+    pagoPaEventDTO.setRegistryType(Constants.PAGOPA_REGISTRY_TYPE);
     pagoPaEventDTO.setTraceId(UUID.randomUUID().toString());
     pagoPaEventDTO.setBrokerStationId("broker-station-id");
-    pagoPaEventDTO.setEventType(RegistryEventType.paSendRTV2);
+    pagoPaEventDTO.setEventType(RegistryPagopaEventType.paSendRTV2);
     pagoPaEventDTO.setEventSubType(RegistryEventSubType.REQ);
     pagoPaEventDTO.setBody("{}");
 
     String json = objectMapper.writeValueAsString(pagoPaEventDTO);
-    RegistryEventDTO eventDTO = objectMapper.readValue(json, RegistryEventDTO.class);
+    RegistryInterfaceEventDTO eventDTO = objectMapper.readValue(json, RegistryInterfaceEventDTO.class);
 
     Mockito.doThrow(RuntimeException.class).when(pagoPaRegistryService).consumePaymentEvent(Mockito.any(RegistryEventPagoPaDTO.class));
 

@@ -2,8 +2,8 @@ package it.gov.pagopa.pu.registry.model;
 
 import it.gov.pagopa.pu.registry.enums.RegistryEventCategory;
 import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
-import it.gov.pagopa.pu.registry.enums.RegistryEventType;
 import it.gov.pagopa.pu.registry.enums.RegistryOutcome;
+import it.gov.pagopa.pu.registry.enums.RegistryPagopaEventType;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -42,7 +42,7 @@ public class PagoPaRegistry implements Serializable {
   @NotNull
   private RegistryEventCategory eventCategory;
   @NotNull
-  private RegistryEventType eventType;
+  private RegistryPagopaEventType eventType;
   @NotNull
   private RegistryEventSubType eventSubType;
   @NotNull

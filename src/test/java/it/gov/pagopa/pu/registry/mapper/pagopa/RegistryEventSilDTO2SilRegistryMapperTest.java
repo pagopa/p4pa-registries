@@ -2,8 +2,8 @@ package it.gov.pagopa.pu.registry.mapper.pagopa;
 
 import it.gov.pagopa.pu.registry.dto.RegistryEventSilDTO;
 import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
-import it.gov.pagopa.pu.registry.enums.RegistryEventType;
 import it.gov.pagopa.pu.registry.enums.RegistryOutcome;
+import it.gov.pagopa.pu.registry.enums.RegistrySilEventType;
 import it.gov.pagopa.pu.registry.model.SilRegistry;
 import it.gov.pagopa.pu.registry.service.DataCipherService;
 import it.gov.pagopa.pu.registry.utils.TestUtils;
@@ -35,7 +35,7 @@ class RegistryEventSilDTO2SilRegistryMapperTest {
     RegistryEventSilDTO dto = podamFactory.manufacturePojo(RegistryEventSilDTO.class);
     dto.setIuv(null);
     dto.setNav(null);
-    dto.setEventType(RegistryEventType.paaSILChiediPagatiConRicevuta);
+    dto.setEventType(RegistrySilEventType.paaSILChiediPagatiConRicevuta);
     dto.setEventSubType(RegistryEventSubType.REQ);
     dto.setOutcome(RegistryOutcome.OK);
     dto.setBody("body");
@@ -55,7 +55,7 @@ class RegistryEventSilDTO2SilRegistryMapperTest {
   @Test
   void givenIuvAndNavValuedWhenMapThenMappedCorrectly() {
     RegistryEventSilDTO dto = podamFactory.manufacturePojo(RegistryEventSilDTO.class);
-    dto.setEventType(RegistryEventType.paaSILChiediPagatiConRicevuta);
+    dto.setEventType(RegistrySilEventType.paaSILChiediPagatiConRicevuta);
     dto.setEventSubType(RegistryEventSubType.REQ);
     dto.setOutcome(RegistryOutcome.OK);
     dto.setBody("body");

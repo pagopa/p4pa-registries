@@ -28,8 +28,8 @@
     "p4pa-payhub-registries-evh": {
       "address": "p4pa-payhub-registries-evh",
       "messages": {
-        "RegistryEventDTO": {
-          "$ref": "#/components/messages/RegistryEventDTO"
+        "RegistryInterfaceEventDTO": {
+          "$ref": "#/components/messages/RegistryInterfaceEventDTO"
         }
       },
       "bindings": {
@@ -1091,63 +1091,6 @@
           "\"INTERNO\""
         ]
       },
-      "RegistryEventDTO": {
-        "discriminator": "eventType",
-        "title": "RegistryEventDTO",
-        "type": "object",
-        "properties": {
-          "dateTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "eventSubType": {
-            "$ref": "#/components/schemas/RegistryEventSubType"
-          },
-          "eventType": {
-            "$ref": "#/components/schemas/RegistryEventType"
-          },
-          "grantorId": {
-            "type": "string"
-          },
-          "registryId": {
-            "type": "string"
-          },
-          "registryOrigin": {
-            "type": "string"
-          },
-          "registryType": {
-            "type": "string"
-          },
-          "requestorId": {
-            "type": "string"
-          },
-          "traceId": {
-            "type": "string"
-          }
-        },
-        "examples": [
-          {
-            "dateTime": "2015-07-20T15:49:04-07:00",
-            "eventSubType": "REQ",
-            "eventType": "paVerifyPaymentNotice",
-            "grantorId": "string",
-            "registryId": "string",
-            "registryOrigin": "string",
-            "registryType": "string",
-            "requestorId": "string",
-            "traceId": "string"
-          }
-        ],
-        "required": [
-          "dateTime",
-          "eventSubType",
-          "eventType",
-          "grantorId",
-          "registryId",
-          "requestorId",
-          "traceId"
-        ]
-      },
       "RegistryEventPagoPaDTO": {
         "type": "object",
         "examples": [
@@ -1184,12 +1127,13 @@
           "orgFiscalCode",
           "outcome",
           "registryId",
+          "registryType",
           "requestorId",
           "traceId"
         ],
         "allOf": [
           {
-            "$ref": "#/components/schemas/RegistryEventDTO"
+            "$ref": "#/components/schemas/RegistryInterfaceEventDTO"
           },
           {
             "type": "object",
@@ -1208,6 +1152,9 @@
               },
               "eventCategory": {
                 "$ref": "#/components/schemas/RegistryEventCategory"
+              },
+              "eventType": {
+                "$ref": "#/components/schemas/RegistryPagopaEventType"
               },
               "iuv": {
                 "type": "string"
@@ -1242,7 +1189,7 @@
             "brokerFiscalCode": "string",
             "dateTime": "2015-07-20T15:49:04-07:00",
             "eventSubType": "REQ",
-            "eventType": "paVerifyPaymentNotice",
+            "eventType": "paaSILAutorizzaImportFlusso",
             "grantorId": "string",
             "iuv": "string",
             "nav": "string",
@@ -1264,12 +1211,13 @@
           "orgFiscalCode",
           "outcome",
           "registryId",
+          "registryType",
           "requestorId",
           "traceId"
         ],
         "allOf": [
           {
-            "$ref": "#/components/schemas/RegistryEventDTO"
+            "$ref": "#/components/schemas/RegistryInterfaceEventDTO"
           },
           {
             "type": "object",
@@ -1279,6 +1227,9 @@
               },
               "brokerFiscalCode": {
                 "type": "string"
+              },
+              "eventType": {
+                "$ref": "#/components/schemas/RegistrySilEventType"
               },
               "iuv": {
                 "type": "string"
@@ -1307,8 +1258,72 @@
           "\"REQ\""
         ]
       },
-      "RegistryEventType": {
-        "title": "RegistryEventType",
+      "RegistryInterfaceEventDTO": {
+        "discriminator": "registryType",
+        "title": "RegistryInterfaceEventDTO",
+        "type": "object",
+        "properties": {
+          "dateTime": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "eventSubType": {
+            "$ref": "#/components/schemas/RegistryEventSubType"
+          },
+          "grantorId": {
+            "type": "string"
+          },
+          "registryId": {
+            "type": "string"
+          },
+          "registryOrigin": {
+            "type": "string"
+          },
+          "registryType": {
+            "type": "string"
+          },
+          "requestorId": {
+            "type": "string"
+          },
+          "traceId": {
+            "type": "string"
+          }
+        },
+        "examples": [
+          {
+            "dateTime": "2015-07-20T15:49:04-07:00",
+            "eventSubType": "\"REQ\"",
+            "grantorId": "string",
+            "registryId": "string",
+            "registryOrigin": "string",
+            "registryType": "string",
+            "requestorId": "string",
+            "traceId": "string"
+          }
+        ],
+        "required": [
+          "dateTime",
+          "eventSubType",
+          "grantorId",
+          "registryId",
+          "registryType",
+          "requestorId",
+          "traceId"
+        ]
+      },
+      "RegistryOutcome": {
+        "title": "RegistryOutcome",
+        "type": "string",
+        "enum": [
+          "OK",
+          "KO"
+        ],
+        "examples": [
+          "\"OK\""
+        ]
+      },
+      "RegistryPagopaEventType": {
+        "title": "RegistryPagopaEventType",
         "type": "string",
         "enum": [
           "paVerifyPaymentNotice",
@@ -1318,7 +1333,16 @@
           "createPosition",
           "updatePosition",
           "deletePosition",
-          "fetchPaymentReporting",
+          "fetchPaymentReporting"
+        ],
+        "examples": [
+          "\"paVerifyPaymentNotice\""
+        ]
+      },
+      "RegistrySilEventType": {
+        "title": "RegistrySilEventType",
+        "type": "string",
+        "enum": [
           "paaSILAutorizzaImportFlusso",
           "paaSILChiediStatoImportFlusso",
           "paaSILImportaDovuto",
@@ -1342,18 +1366,7 @@
           "notificaPagamento"
         ],
         "examples": [
-          "\"paVerifyPaymentNotice\""
-        ]
-      },
-      "RegistryOutcome": {
-        "title": "RegistryOutcome",
-        "type": "string",
-        "enum": [
-          "OK",
-          "KO"
-        ],
-        "examples": [
-          "\"OK\""
+          "\"paaSILAutorizzaImportFlusso\""
         ]
       },
       "TransferDTO": {
@@ -1471,7 +1484,7 @@
           "kafka": { }
         }
       },
-      "RegistryEventDTO": {
+      "RegistryInterfaceEventDTO": {
         "headers": {
           "$ref": "#/components/schemas/HeadersNotDocumented"
         },
@@ -1480,7 +1493,7 @@
           "schema": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/RegistryEventDTO"
+                "$ref": "#/components/schemas/RegistryInterfaceEventDTO"
               },
               {
                 "$ref": "#/components/schemas/RegistryEventPagoPaDTO"
@@ -1491,8 +1504,8 @@
             ]
           }
         },
-        "name": "RegistryEventDTO",
-        "title": "RegistryEventDTO",
+        "name": "RegistryInterfaceEventDTO",
+        "title": "RegistryInterfaceEventDTO",
         "bindings": {
           "kafka": { }
         }
@@ -1526,7 +1539,7 @@
       },
       "messages": [
         {
-          "$ref": "#/channels/p4pa-payhub-registries-evh/messages/RegistryEventDTO"
+          "$ref": "#/channels/p4pa-payhub-registries-evh/messages/RegistryInterfaceEventDTO"
         }
       ]
     }

@@ -2,6 +2,7 @@ package it.gov.pagopa.pu.registry.dto;
 
 import it.gov.pagopa.pu.registry.enums.RegistryEventCategory;
 import it.gov.pagopa.pu.registry.enums.RegistryOutcome;
+import it.gov.pagopa.pu.registry.enums.RegistryPagopaEventType;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +15,9 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegistryEventPagoPaDTO extends RegistryEventDTO {
+public class RegistryEventPagoPaDTO extends RegistryInterfaceEventDTO {
+  @NotNull
+  private RegistryPagopaEventType eventType;
   private String brokerStationId;
   private String brokerFiscalCode;
   @NotNull
