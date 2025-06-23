@@ -17,7 +17,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class RegistryEventPagoPaDTO extends RegistryInterfaceEventDTO {
   @NotNull
-  private RegistryPagopaEventType eventType;
+  private RegistryPagoPaEventType eventType;
   private String brokerStationId;
   private String brokerFiscalCode;
   @NotNull

@@ -3,7 +3,7 @@ package it.gov.pagopa.pu.registry.service.pagopa;
 import it.gov.pagopa.pu.registry.dto.RegistryEventPagoPaDTO;
 import it.gov.pagopa.pu.registry.mapper.pagopa.RegistryEventPagoPaDTO2PagoPaRegistryMapper;
 import it.gov.pagopa.pu.registry.model.PagoPaRegistry;
-import it.gov.pagopa.pu.registry.repository.PagopaRegistryRepository;
+import it.gov.pagopa.pu.registry.repository.PagoPaRegistryRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ import java.util.List;
 @ExtendWith(MockitoExtension.class)
 class PagoPaRegistryServiceTest {
   @Mock
-  private PagopaRegistryRepository repository;
+  private PagoPaRegistryRepository repository;
   @Mock
   private RegistryEventPagoPaDTO2PagoPaRegistryMapper mapper;
 

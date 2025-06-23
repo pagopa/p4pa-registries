@@ -1154,7 +1154,7 @@
                 "$ref": "#/components/schemas/RegistryEventCategory"
               },
               "eventType": {
-                "$ref": "#/components/schemas/RegistryPagopaEventType"
+                "$ref": "#/components/schemas/RegistryPagoPaEventType"
               },
               "iuv": {
                 "type": "string"
@@ -1322,8 +1322,8 @@
           "\"OK\""
         ]
       },
-      "RegistryPagopaEventType": {
-        "title": "RegistryPagopaEventType",
+      "RegistryPagoPaEventType": {
+        "title": "RegistryPagoPaEventType",
         "type": "string",
         "enum": [
           "paVerifyPaymentNotice",

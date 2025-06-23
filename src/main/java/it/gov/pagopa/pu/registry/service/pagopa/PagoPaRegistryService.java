@@ -3,7 +3,7 @@ package it.gov.pagopa.pu.registry.service.pagopa;
 import it.gov.pagopa.pu.registry.dto.RegistryEventPagoPaDTO;
 import it.gov.pagopa.pu.registry.mapper.pagopa.RegistryEventPagoPaDTO2PagoPaRegistryMapper;
 import it.gov.pagopa.pu.registry.model.PagoPaRegistry;
-import it.gov.pagopa.pu.registry.repository.PagopaRegistryRepository;
+import it.gov.pagopa.pu.registry.repository.PagoPaRegistryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PagoPaRegistryService {
 
-  private final PagopaRegistryRepository pagopaRegistryRepository;
+  private final PagoPaRegistryRepository pagopaRegistryRepository;
   private final RegistryEventPagoPaDTO2PagoPaRegistryMapper registryEventPagoPaDTO2PagoPaRegistryMapper;
 
   @Transactional
