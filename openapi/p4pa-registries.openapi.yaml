@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.1
 info:
   title: API Documentation
   description: OpenAPI documentation
@@ -7,13 +7,13 @@ servers:
   - url: "http://localhost:8080/registries"
     description: Generated server url
 paths:
-  /pagopa-registries/{eventId}:
+  /pagopa-registries/{registryId}:
     get:
       tags:
         - pagopaRegistry
       operationId: getPagopaRegistry
       parameters:
-        - name: eventId
+        - name: registryId
           in: path
           required: true
           schema:
@@ -24,7 +24,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/PagoPaRegistryDTO"
+                $ref: '#/components/schemas/PagoPaRegistryDTO'
         "400":
           description: Bad request
           content:
@@ -54,7 +54,7 @@ components:
     PagoPaRegistryDTO:
       type: object
       properties:
-        eventId:
+        registryId:
           type: string
         dateTime:
           type: string
