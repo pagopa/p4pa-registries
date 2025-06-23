@@ -13,14 +13,14 @@ import java.time.OffsetDateTime;
 @RepositoryRestResource(path = "pagopa-registries")
 public interface PagoPaRegistryRepository extends MongoRepository<PagoPaRegistry, String> {
 
-  @Query("{" +
+  @Query(value = "{" +
     "    $and: [" +
     "        { $or: [{ $expr: { $eq: ['?0', 'null'] }}, { eventType: ?0 }] }," +
     "        { $or: [{ $expr: { $eq: ['?1', 'null'] }}, { dateTime: { $gte: ?1 } }] }," +
     "        { $or: [{ $expr: { $eq: ['?2', 'null'] }}, { dateTime: { $lte: ?2 } }] }," +
     "        { $or: [{ $expr: { $eq: ['?3', 'null'] }}, { orgFiscalCode: ?3 }] }," +
     "        { $or: [{ $expr: { $eq: ['?4', 'null'] }}, { iuv: ?4 }] }" +
-    "    ] }")
+    "    ] }", fields = "{bodyCiphered:  0}")
   Page<PagoPaRegistry> searchByFilters(
     RegistryPagoPaEventType eventType,
     OffsetDateTime startDate,
