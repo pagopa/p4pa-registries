@@ -1113,7 +1113,7 @@
             "pspId": "string",
             "registryId": "string",
             "registryOrigin": "string",
-            "registryType": "string",
+            "registryType": "REGISTRY_PAGOPA",
             "requestorId": "string",
             "traceId": "string"
           }
@@ -1197,7 +1197,7 @@
             "outcome": "OK",
             "registryId": "string",
             "registryOrigin": "string",
-            "registryType": "string",
+            "registryType": "REGISTRY_PAGOPA",
             "requestorId": "string",
             "traceId": "string"
           }
@@ -1280,7 +1280,7 @@
             "type": "string"
           },
           "registryType": {
-            "type": "string"
+            "$ref": "#/components/schemas/RegistryType"
           },
           "requestorId": {
             "type": "string"
@@ -1296,7 +1296,7 @@
             "grantorId": "string",
             "registryId": "string",
             "registryOrigin": "string",
-            "registryType": "string",
+            "registryType": "REGISTRY_PAGOPA",
             "requestorId": "string",
             "traceId": "string"
           }
@@ -1367,6 +1367,17 @@
         ],
         "examples": [
           "\"paaSILAutorizzaImportFlusso\""
+        ]
+      },
+      "RegistryType": {
+        "title": "RegistryType",
+        "type": "string",
+        "enum": [
+          "REGISTRY_PAGOPA",
+          "REGISTRY_SIL"
+        ],
+        "examples": [
+          "\"REGISTRY_PAGOPA\""
         ]
       },
       "TransferDTO": {

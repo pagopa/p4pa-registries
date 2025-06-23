@@ -9,9 +9,9 @@ import it.gov.pagopa.pu.registry.dto.RegistryInterfaceEventDTO;
 import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
 import it.gov.pagopa.pu.registry.enums.RegistryPagopaEventType;
 import it.gov.pagopa.pu.registry.enums.RegistrySilEventType;
+import it.gov.pagopa.pu.registry.enums.RegistryType;
 import it.gov.pagopa.pu.registry.service.pagopa.PagoPaRegistryService;
 import it.gov.pagopa.pu.registry.service.sil.SilRegistryService;
-import it.gov.pagopa.pu.registry.utils.Constants;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,7 +57,7 @@ class RegistryEventsConsumerTest {
     RegistryEventPagoPaDTO pagoPaEventDTO = new RegistryEventPagoPaDTO();
     pagoPaEventDTO.setRegistryId(UUID.randomUUID().toString());
     pagoPaEventDTO.setRegistryOrigin("test-origin");
-    pagoPaEventDTO.setRegistryType(Constants.PAGOPA_REGISTRY_TYPE);
+    pagoPaEventDTO.setRegistryType(RegistryType.REGISTRY_PAGOPA);
     pagoPaEventDTO.setTraceId(UUID.randomUUID().toString());
     pagoPaEventDTO.setBrokerStationId("broker-station-id");
     pagoPaEventDTO.setEventType(RegistryPagopaEventType.paSendRTV2);
@@ -90,7 +90,7 @@ class RegistryEventsConsumerTest {
     RegistryEventSilDTO silEventDTO = new RegistryEventSilDTO();
     silEventDTO.setRegistryId(UUID.randomUUID().toString());
     silEventDTO.setRegistryOrigin("test-origin");
-    silEventDTO.setRegistryType(Constants.SIL_REGISTRY_TYPE);
+    silEventDTO.setRegistryType(RegistryType.REGISTRY_SIL);
     silEventDTO.setTraceId(UUID.randomUUID().toString());
     silEventDTO.setEventType(RegistrySilEventType.paaSILAutorizzaImportFlusso);
     silEventDTO.setEventSubType(RegistryEventSubType.REQ);
@@ -140,7 +140,7 @@ class RegistryEventsConsumerTest {
     RegistryEventPagoPaDTO pagoPaEventDTO = new RegistryEventPagoPaDTO();
     pagoPaEventDTO.setRegistryId(UUID.randomUUID().toString());
     pagoPaEventDTO.setRegistryOrigin("test-origin");
-    pagoPaEventDTO.setRegistryType(Constants.PAGOPA_REGISTRY_TYPE);
+    pagoPaEventDTO.setRegistryType(RegistryType.REGISTRY_PAGOPA);
     pagoPaEventDTO.setTraceId(UUID.randomUUID().toString());
     pagoPaEventDTO.setBrokerStationId("broker-station-id");
     pagoPaEventDTO.setEventType(RegistryPagopaEventType.paSendRTV2);

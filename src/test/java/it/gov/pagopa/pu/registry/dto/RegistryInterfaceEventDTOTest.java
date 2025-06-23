@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.gov.pagopa.pu.registry.config.json.JsonConfig;
 import it.gov.pagopa.pu.registry.enums.*;
-import it.gov.pagopa.pu.registry.utils.Constants;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.util.StringUtils;
@@ -20,8 +19,8 @@ import java.util.stream.Stream;
 class RegistryInterfaceEventDTOTest {
 
   private final Map<String, Class<? extends RegistryInterfaceEventDTO>> enum2ExpectedModel = Map.ofEntries(
-    Map.entry(Constants.PAGOPA_REGISTRY_TYPE, RegistryEventPagoPaDTO.class),
-    Map.entry(Constants.SIL_REGISTRY_TYPE, RegistryEventSilDTO.class)
+    Map.entry(RegistryType.REGISTRY_PAGOPA.name(), RegistryEventPagoPaDTO.class),
+    Map.entry(RegistryType.REGISTRY_SIL.name(), RegistryEventSilDTO.class)
   );
 
   private final ObjectMapper objectMapper = new JsonConfig().objectMapper();
@@ -57,7 +56,7 @@ class RegistryInterfaceEventDTOTest {
     RegistryEventPagoPaDTO expectedEvent = RegistryEventPagoPaDTO.builder()
       .registryId("registry123")
       .registryOrigin("test-origin")
-      .registryType(Constants.PAGOPA_REGISTRY_TYPE)
+      .registryType(RegistryType.REGISTRY_PAGOPA)
       .dateTime(OffsetDateTime.now())
       .traceId("trace123")
       .eventType(RegistryPagopaEventType.paVerifyPaymentNotice)
@@ -90,7 +89,7 @@ class RegistryInterfaceEventDTOTest {
     RegistryEventSilDTO expectedEvent = RegistryEventSilDTO.builder()
       .registryId("registry456")
       .registryOrigin("sil-origin")
-      .registryType(Constants.SIL_REGISTRY_TYPE)
+      .registryType(RegistryType.REGISTRY_SIL)
       .dateTime(OffsetDateTime.now())
       .traceId("trace456")
       .eventType(RegistrySilEventType.paaSILAutorizzaImportFlusso)
@@ -157,7 +156,7 @@ class RegistryInterfaceEventDTOTest {
 
       Assertions.assertInstanceOf(expectedClass, result,
         String.format("Event type %s should deserialize to %s", entry.getKey(), expectedClass.getSimpleName()));
-      Assertions.assertEquals(entry.getKey(), result.getRegistryType());
+      Assertions.assertEquals(RegistryType.valueOf(entry.getKey()), result.getRegistryType());
     }
   }
 
@@ -166,7 +165,7 @@ class RegistryInterfaceEventDTOTest {
   void testPagoPaRequiredFields() throws JsonProcessingException {
     RegistryEventPagoPaDTO event = RegistryEventPagoPaDTO.builder()
       .registryId("registry123")
-      .registryType(Constants.PAGOPA_REGISTRY_TYPE)
+      .registryType(RegistryType.REGISTRY_PAGOPA)
       .dateTime(OffsetDateTime.now())
       .traceId("trace123")
       .eventType(RegistryPagopaEventType.paVerifyPaymentNotice)
@@ -190,7 +189,7 @@ class RegistryInterfaceEventDTOTest {
   void testSilRequiredFields() throws JsonProcessingException {
     RegistryEventSilDTO event = RegistryEventSilDTO.builder()
       .registryId("registry456")
-      .registryType(Constants.SIL_REGISTRY_TYPE)
+      .registryType(RegistryType.REGISTRY_SIL)
       .dateTime(OffsetDateTime.now())
       .traceId("trace456")
       .eventType(RegistrySilEventType.paaSILAutorizzaImportFlusso)
@@ -215,7 +214,7 @@ class RegistryInterfaceEventDTOTest {
     RegistryEventPagoPaDTO event = RegistryEventPagoPaDTO.builder()
       .registryId("registry123")
       .registryOrigin("origin")
-      .registryType(Constants.PAGOPA_REGISTRY_TYPE)
+      .registryType(RegistryType.REGISTRY_PAGOPA)
       .dateTime(OffsetDateTime.now())
       .traceId("trace123")
       .eventType(RegistryPagopaEventType.paGetPaymentV2)
@@ -250,7 +249,7 @@ class RegistryInterfaceEventDTOTest {
     RegistryEventSilDTO event = RegistryEventSilDTO.builder()
       .registryId("registry456")
       .registryOrigin("sil-origin")
-      .registryType(Constants.SIL_REGISTRY_TYPE)
+      .registryType(RegistryType.REGISTRY_SIL)
       .dateTime(OffsetDateTime.now())
       .traceId("trace456")
       .eventType(RegistrySilEventType.pivotSILAutorizzaImportFlusso)

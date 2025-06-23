@@ -3,7 +3,7 @@ package it.gov.pagopa.pu.registry.dto;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
-import it.gov.pagopa.pu.registry.utils.Constants;
+import it.gov.pagopa.pu.registry.enums.RegistryType;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,15 +24,15 @@ import java.time.OffsetDateTime;
   visible = true
 )
 @JsonSubTypes({
-  @JsonSubTypes.Type(value = RegistryEventPagoPaDTO.class, name = Constants.PAGOPA_REGISTRY_TYPE),
-  @JsonSubTypes.Type(value = RegistryEventSilDTO.class, names = Constants.SIL_REGISTRY_TYPE)
+  @JsonSubTypes.Type(value = RegistryEventPagoPaDTO.class, name = "REGISTRY_PAGOPA"),
+  @JsonSubTypes.Type(value = RegistryEventSilDTO.class, names = "REGISTRY_SIL")
 })
 public class RegistryInterfaceEventDTO {
   @NotNull
   private String registryId;
   private String registryOrigin;
   @NotNull
-  private String registryType;
+  private RegistryType registryType;
   @NotNull
   private OffsetDateTime dateTime;
   @NotNull

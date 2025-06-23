@@ -8,8 +8,5 @@ public class Constants {
 
   public static final ZoneId ZONEID = ZoneId.of("Europe/Rome");
 
-  public static final String PAGOPA_REGISTRY_TYPE = "REGISTRY_PAGOPA";
-  public static final String SIL_REGISTRY_TYPE = "REGISTRY_SIL";
-
 }
 
