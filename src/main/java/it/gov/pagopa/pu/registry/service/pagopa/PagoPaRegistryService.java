@@ -2,19 +2,19 @@ package it.gov.pagopa.pu.registry.service.pagopa;
 
 import it.gov.pagopa.pu.registry.dto.RegistryEventPagoPaDTO;
 import it.gov.pagopa.pu.registry.dto.generated.PagoPaRegistryDTO;
-import it.gov.pagopa.pu.registry.exception.ApplicationRestException;
 import it.gov.pagopa.pu.registry.mapper.pagopa.RegistryEventPagoPaDTO2PagoPaRegistryMapper;
 import it.gov.pagopa.pu.registry.model.PagoPaRegistry;
 import it.gov.pagopa.pu.registry.repository.PagoPaRegistryRepository;
 import it.gov.pagopa.pu.registry.service.DataCipherService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -33,14 +33,14 @@ public class PagoPaRegistryService {
   }
 
   public PagoPaRegistryDTO getPagoPaRegistry(String registryId) {
-    var opt = pagopaRegistryRepository.findById(registryId);
+    Optional<PagoPaRegistry> opt = pagopaRegistryRepository.findById(registryId);
 
     if (opt.isEmpty()) {
       log.error("No registry found with id: {}", registryId);
-      throw new ApplicationRestException("No registry found with id: " + registryId, HttpStatus.NOT_FOUND);
+      throw new ResourceNotFoundException("No registry found with id: " + registryId);
     }
 
-    var entity = opt.get();
+    PagoPaRegistry entity = opt.get();
 
     return PagoPaRegistryDTO.builder()
         .registryId(entity.getRegistryId())

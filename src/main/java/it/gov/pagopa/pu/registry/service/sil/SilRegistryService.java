@@ -2,19 +2,19 @@ package it.gov.pagopa.pu.registry.service.sil;
 
 import it.gov.pagopa.pu.registry.dto.RegistryEventSilDTO;
 import it.gov.pagopa.pu.registry.dto.generated.SilRegistryDTO;
-import it.gov.pagopa.pu.registry.exception.ApplicationRestException;
 import it.gov.pagopa.pu.registry.mapper.pagopa.RegistryEventSilDTO2SilRegistryMapper;
 import it.gov.pagopa.pu.registry.model.SilRegistry;
 import it.gov.pagopa.pu.registry.repository.SilRegistryRepository;
 import it.gov.pagopa.pu.registry.service.DataCipherService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -33,14 +33,14 @@ public class SilRegistryService {
   }
 
   public SilRegistryDTO getSilRegistry(String registryId) {
-    var opt = silRegistryRepository.findById(registryId);
+    Optional<SilRegistry> opt = silRegistryRepository.findById(registryId);
 
     if (opt.isEmpty()) {
       log.error("No registry found with id: {}", registryId);
-      throw new ApplicationRestException("No registry found with id: " + registryId, HttpStatus.NOT_FOUND);
+      throw new ResourceNotFoundException("No registry found with id: " + registryId);
     }
 
-    var entity = opt.get();
+    SilRegistry entity = opt.get();
 
     return SilRegistryDTO.builder()
         .registryId(entity.getRegistryId())

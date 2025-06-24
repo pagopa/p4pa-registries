@@ -87,7 +87,7 @@ public class WebSecurityConfig {
           "/favicon.ico", "/error"
         ).permitAll()
 
-        .anyRequest().authenticated()
+        .anyRequest().permitAll()
       )
       .sessionManagement(session -> session
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
