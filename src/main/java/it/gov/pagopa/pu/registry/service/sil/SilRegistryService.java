@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -33,14 +32,8 @@ public class SilRegistryService {
   }
 
   public SilRegistryDTO getSilRegistry(String registryId) {
-    Optional<SilRegistry> opt = silRegistryRepository.findById(registryId);
-
-    if (opt.isEmpty()) {
-      log.error("No registry found with id: {}", registryId);
-      throw new ResourceNotFoundException("No registry found with id: " + registryId);
-    }
-
-    SilRegistry entity = opt.get();
+    SilRegistry entity = silRegistryRepository.findById(registryId)
+        .orElseThrow(() -> new ResourceNotFoundException("No registry found with id: " + registryId));
 
     return SilRegistryDTO.builder()
         .registryId(entity.getRegistryId())

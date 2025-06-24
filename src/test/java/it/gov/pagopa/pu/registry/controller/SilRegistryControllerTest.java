@@ -15,12 +15,12 @@ import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(MockitoExtension.class)
 class SilRegistryControllerTest {
   @Mock
-  private SilRegistryService service;
+  private SilRegistryService serviceMock;
   private SilRegistryController controller;
 
   @BeforeEach
   void setUp() {
-    this.controller = new SilRegistryController(service);
+    this.controller = new SilRegistryController(serviceMock);
   }
 
   @Test
@@ -28,7 +28,7 @@ class SilRegistryControllerTest {
     // Given
     SilRegistryDTO dto = new SilRegistryDTO();
 
-    Mockito.when(service.getSilRegistry("id123"))
+    Mockito.when(serviceMock.getSilRegistry("id123"))
       .thenReturn(dto);
 
     // When
@@ -41,7 +41,7 @@ class SilRegistryControllerTest {
 
   @Test
   void shouldReturnNotFoundWhenRegistryDoesNotExist() {
-    Mockito.when(service.getSilRegistry("id123"))
+    Mockito.when(serviceMock.getSilRegistry("id123"))
       .thenThrow(ResourceNotFoundException.class);
 
     // Then

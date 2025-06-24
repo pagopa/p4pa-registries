@@ -31,22 +31,22 @@ import static org.mockito.ArgumentMatchers.any;
 @ExtendWith(MockitoExtension.class)
 class SilRegistryServiceTest {
   @Mock
-  private SilRegistryRepository repository;
+  private SilRegistryRepository repositoryMock;
   @Mock
-  private RegistryEventSilDTO2SilRegistryMapper mapperService;
+  private RegistryEventSilDTO2SilRegistryMapper mapperServiceMock;
   @Mock
-  private DataCipherService dataCipherService;
+  private DataCipherService dataCipherServiceMock;
 
   private SilRegistryService service;
 
   @BeforeEach
   void setUp() {
-    this.service =new SilRegistryService(repository, mapperService, dataCipherService);
+    this.service =new SilRegistryService(repositoryMock, mapperServiceMock, dataCipherServiceMock);
   }
 
   @AfterEach
   void afterEach() {
-    Mockito.verifyNoMoreInteractions(mapperService, repository, dataCipherService);
+    Mockito.verifyNoMoreInteractions(mapperServiceMock, repositoryMock, dataCipherServiceMock);
   }
 
   @Test
@@ -57,15 +57,15 @@ class SilRegistryServiceTest {
       new SilRegistry()
     );
 
-    Mockito.when(mapperService.map(Mockito.any(RegistryEventSilDTO.class))).thenReturn(registries);
+    Mockito.when(mapperServiceMock.map(Mockito.any(RegistryEventSilDTO.class))).thenReturn(registries);
 
     // When
     this.service.consumePaymentEvent(Mockito.mock(RegistryEventSilDTO.class));
 
     // Then
-    Mockito.verify(mapperService, Mockito.times(1))
+    Mockito.verify(mapperServiceMock, Mockito.times(1))
       .map(Mockito.any(RegistryEventSilDTO.class));
-    Mockito.verify(repository, Mockito.times(1))
+    Mockito.verify(repositoryMock, Mockito.times(1))
       .saveAll(Mockito.any());
   }
 
@@ -75,9 +75,9 @@ class SilRegistryServiceTest {
     SilRegistry testEntity = getMockedSilRegistry(UUID.randomUUID().toString());
     testEntity.setBodyCiphered("test".getBytes(StandardCharsets.UTF_8));
 
-    Mockito.when(repository.findById(testEntity.getRegistryId()))
+    Mockito.when(repositoryMock.findById(testEntity.getRegistryId()))
       .thenReturn(Optional.of(testEntity));
-    Mockito.when(dataCipherService.decrypt(testEntity.getBodyCiphered()))
+    Mockito.when(dataCipherServiceMock.decrypt(testEntity.getBodyCiphered()))
       .thenReturn("test");
 
     // When
@@ -99,22 +99,22 @@ class SilRegistryServiceTest {
     assertThat(result.getOutcome()).isEqualTo(testEntity.getOutcome());
     assertThat(result.getBody()).isEqualTo("test");
 
-    Mockito.verify(repository, Mockito.times(1)).findById(testEntity.getRegistryId());
-    Mockito.verify(dataCipherService, Mockito.times(1)).decrypt(testEntity.getBodyCiphered());
+    Mockito.verify(repositoryMock, Mockito.times(1)).findById(testEntity.getRegistryId());
+    Mockito.verify(dataCipherServiceMock, Mockito.times(1)).decrypt(testEntity.getBodyCiphered());
   }
 
   @Test
   void shouldThrowWhenRegistryDoesNotExists() {
     // Given
-    Mockito.when(repository.findById("id123"))
+    Mockito.when(repositoryMock.findById("id123"))
       .thenReturn(Optional.empty());
 
     // Then
     assertThrows(ResourceNotFoundException.class, () -> {
       service.getSilRegistry("id123");
     });
-    Mockito.verify(repository, Mockito.times(1)).findById("id123");
-    Mockito.verify(dataCipherService, Mockito.never()).decrypt(any());
+    Mockito.verify(repositoryMock, Mockito.times(1)).findById("id123");
+    Mockito.verify(dataCipherServiceMock, Mockito.never()).decrypt(any());
   }
 
   private SilRegistry getMockedSilRegistry(String id) {

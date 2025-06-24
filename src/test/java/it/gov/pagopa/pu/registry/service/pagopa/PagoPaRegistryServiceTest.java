@@ -32,22 +32,22 @@ import static org.mockito.ArgumentMatchers.any;
 @ExtendWith(MockitoExtension.class)
 class PagoPaRegistryServiceTest {
   @Mock
-  private PagoPaRegistryRepository repository;
+  private PagoPaRegistryRepository repositoryMock;
   @Mock
-  private RegistryEventPagoPaDTO2PagoPaRegistryMapper mapper;
+  private RegistryEventPagoPaDTO2PagoPaRegistryMapper mapperMock;
   @Mock
-  private DataCipherService dataCipherService;
+  private DataCipherService dataCipherServiceMock;
 
   private PagoPaRegistryService service;
 
   @BeforeEach
   void setUp() {
-    this.service = new PagoPaRegistryService(repository, mapper, dataCipherService);
+    this.service = new PagoPaRegistryService(repositoryMock, mapperMock, dataCipherServiceMock);
   }
 
   @AfterEach
   void afterEach() {
-    Mockito.verifyNoMoreInteractions(mapper, repository, dataCipherService);
+    Mockito.verifyNoMoreInteractions(mapperMock, repositoryMock, dataCipherServiceMock);
   }
 
   @Test
@@ -58,15 +58,15 @@ class PagoPaRegistryServiceTest {
       new PagoPaRegistry()
     );
 
-    Mockito.when(mapper.map(any(RegistryEventPagoPaDTO.class))).thenReturn(pagopaRegistries);
+    Mockito.when(mapperMock.map(any(RegistryEventPagoPaDTO.class))).thenReturn(pagopaRegistries);
 
     // When
     this.service.consumePaymentEvent(Mockito.mock(RegistryEventPagoPaDTO.class));
 
     // Then
-    Mockito.verify(mapper, Mockito.times(1))
+    Mockito.verify(mapperMock, Mockito.times(1))
       .map(any(RegistryEventPagoPaDTO.class));
-    Mockito.verify(repository, Mockito.times(1))
+    Mockito.verify(repositoryMock, Mockito.times(1))
       .saveAll(any());
   }
 
@@ -76,9 +76,9 @@ class PagoPaRegistryServiceTest {
     PagoPaRegistry testEntity = getMockedPagoPaRegistry(UUID.randomUUID().toString());
     testEntity.setBodyCiphered("test".getBytes(StandardCharsets.UTF_8));
 
-    Mockito.when(repository.findById(testEntity.getRegistryId()))
+    Mockito.when(repositoryMock.findById(testEntity.getRegistryId()))
       .thenReturn(Optional.of(testEntity));
-    Mockito.when(dataCipherService.decrypt(testEntity.getBodyCiphered()))
+    Mockito.when(dataCipherServiceMock.decrypt(testEntity.getBodyCiphered()))
       .thenReturn("test");
 
     // When
@@ -105,22 +105,22 @@ class PagoPaRegistryServiceTest {
     assertThat(result.getOutcome()).isEqualTo(testEntity.getOutcome());
     assertThat(result.getBody()).isEqualTo("test");
 
-    Mockito.verify(repository, Mockito.times(1)).findById(testEntity.getRegistryId());
-    Mockito.verify(dataCipherService, Mockito.times(1)).decrypt(testEntity.getBodyCiphered());
+    Mockito.verify(repositoryMock, Mockito.times(1)).findById(testEntity.getRegistryId());
+    Mockito.verify(dataCipherServiceMock, Mockito.times(1)).decrypt(testEntity.getBodyCiphered());
   }
 
   @Test
   void shouldThrowWhenRegistryDoesNotExists() {
     // Given
-    Mockito.when(repository.findById("id123"))
+    Mockito.when(repositoryMock.findById("id123"))
       .thenReturn(Optional.empty());
 
     // Then
     assertThrows(ResourceNotFoundException.class, () -> {
       service.getPagoPaRegistry("id123");
     });
-    Mockito.verify(repository, Mockito.times(1)).findById("id123");
-    Mockito.verify(dataCipherService, Mockito.never()).decrypt(any());
+    Mockito.verify(repositoryMock, Mockito.times(1)).findById("id123");
+    Mockito.verify(dataCipherServiceMock, Mockito.never()).decrypt(any());
   }
 
   private PagoPaRegistry getMockedPagoPaRegistry(String id) {

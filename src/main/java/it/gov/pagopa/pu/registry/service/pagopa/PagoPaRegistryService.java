@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -33,14 +32,8 @@ public class PagoPaRegistryService {
   }
 
   public PagoPaRegistryDTO getPagoPaRegistry(String registryId) {
-    Optional<PagoPaRegistry> opt = pagopaRegistryRepository.findById(registryId);
-
-    if (opt.isEmpty()) {
-      log.error("No registry found with id: {}", registryId);
-      throw new ResourceNotFoundException("No registry found with id: " + registryId);
-    }
-
-    PagoPaRegistry entity = opt.get();
+    PagoPaRegistry entity = pagopaRegistryRepository.findById(registryId)
+      .orElseThrow(() -> new ResourceNotFoundException("No registry found with id: " + registryId));
 
     return PagoPaRegistryDTO.builder()
         .registryId(entity.getRegistryId())
