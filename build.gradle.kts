@@ -155,6 +155,7 @@ openApiGenerate {
   typeMappings.set(mapOf(
     "RegistryEventCategory" to "it.gov.pagopa.pu.registry.enums.RegistryEventCategory",
     "RegistryPagoPaEventType" to "it.gov.pagopa.pu.registry.enums.RegistryPagoPaEventType",
+    "RegistrySilEventType" to "it.gov.pagopa.pu.registry.enums.RegistrySilEventType",
     "RegistryEventSubType" to "it.gov.pagopa.pu.registry.enums.RegistryEventSubType",
     "RegistryOutcome" to "it.gov.pagopa.pu.registry.enums.RegistryOutcome"
   ))

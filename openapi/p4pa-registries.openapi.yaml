@@ -4,7 +4,7 @@ info:
   description: OpenAPI documentation
   version: 1.0.0
 servers:
-  - url: "http://localhost:8080/registries"
+  - url: "http://localhost:8080"
     description: Generated server url
 paths:
   /pagopa-registries/{registryId}:
@@ -25,6 +25,42 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagoPaRegistryDTO'
+        "400":
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDTO'
+  /sil-registries/{registryId}:
+    get:
+      tags:
+        - silRegistry
+      operationId: getSilRegistry
+      parameters:
+        - name: registryId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SilRegistryDTO'
         "400":
           description: Bad request
           content:
@@ -92,9 +128,49 @@ components:
         body:
           type: string
       required:
+        - registryId
         - dateTime
         - eventCategory
-        - eventId
+        - eventSubType
+        - eventType
+        - grantorId
+        - orgFiscalCode
+        - outcome
+        - requestorId
+        - traceId
+    SilRegistryDTO:
+      type: object
+      properties:
+        registryId:
+          type: string
+        dateTime:
+          type: string
+          format: date-time
+        traceId:
+          type: string
+        brokerFiscalCode:
+          type: string
+        orgFiscalCode:
+          type: string
+        iuv:
+          type: string
+        nav:
+          type: string
+        eventType:
+          type: 'RegistrySilEventType'
+        eventSubType:
+          type: 'RegistryEventSubType'
+        requestorId:
+          type: string
+        grantorId:
+          type: string
+        outcome:
+          type: 'RegistryOutcome'
+        body:
+          type: string
+      required:
+        - registryId
+        - dateTime
         - eventSubType
         - eventType
         - grantorId

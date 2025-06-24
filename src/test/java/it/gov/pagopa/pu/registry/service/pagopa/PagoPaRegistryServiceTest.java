@@ -4,6 +4,7 @@ import it.gov.pagopa.pu.registry.dto.RegistryEventPagoPaDTO;
 import it.gov.pagopa.pu.registry.mapper.pagopa.RegistryEventPagoPaDTO2PagoPaRegistryMapper;
 import it.gov.pagopa.pu.registry.model.PagoPaRegistry;
 import it.gov.pagopa.pu.registry.repository.PagoPaRegistryRepository;
+import it.gov.pagopa.pu.registry.service.DataCipherService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,17 +21,19 @@ class PagoPaRegistryServiceTest {
   private PagoPaRegistryRepository repository;
   @Mock
   private RegistryEventPagoPaDTO2PagoPaRegistryMapper mapper;
+  @Mock
+  private DataCipherService dataCipherService;
 
   private PagoPaRegistryService service;
 
   @BeforeEach
   void setUp() {
-    this.service = new PagoPaRegistryService(repository, mapper);
+    this.service = new PagoPaRegistryService(repository, mapper, dataCipherService);
   }
 
   @AfterEach
   void afterEach() {
-    Mockito.verifyNoMoreInteractions(mapper, repository);
+    Mockito.verifyNoMoreInteractions(mapper, repository, dataCipherService);
   }
 
   @Test

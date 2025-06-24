@@ -7,7 +7,6 @@ import it.gov.pagopa.pu.registry.enums.RegistryPagoPaEventType;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
@@ -53,6 +52,4 @@ public class PagoPaRegistry implements Serializable {
   @NotNull
   private RegistryOutcome outcome;
   private byte[] bodyCiphered;
-  @Transient
-  private String body;
 }

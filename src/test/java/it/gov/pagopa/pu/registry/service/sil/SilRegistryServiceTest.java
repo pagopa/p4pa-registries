@@ -4,6 +4,7 @@ import it.gov.pagopa.pu.registry.dto.RegistryEventSilDTO;
 import it.gov.pagopa.pu.registry.mapper.pagopa.RegistryEventSilDTO2SilRegistryMapper;
 import it.gov.pagopa.pu.registry.model.SilRegistry;
 import it.gov.pagopa.pu.registry.repository.SilRegistryRepository;
+import it.gov.pagopa.pu.registry.service.DataCipherService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,17 +21,19 @@ class SilRegistryServiceTest {
   private SilRegistryRepository repository;
   @Mock
   private RegistryEventSilDTO2SilRegistryMapper mapperService;
+  @Mock
+  private DataCipherService dataCipherService;
 
   private SilRegistryService service;
 
   @BeforeEach
   void setUp() {
-    this.service = new SilRegistryService(repository, mapperService);
+    this.service =new SilRegistryService(repository, mapperService, dataCipherService);
   }
 
   @AfterEach
   void afterEach() {
-    Mockito.verifyNoMoreInteractions(mapperService, repository);
+    Mockito.verifyNoMoreInteractions(mapperService, repository, dataCipherService);
   }
 
   @Test
