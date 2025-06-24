@@ -152,6 +152,13 @@ openApiGenerate {
   outputDir.set("$projectDir/build/generated")
   apiPackage.set("it.gov.pagopa.pu.registry.controller.generated")
   modelPackage.set("it.gov.pagopa.pu.registry.dto.generated")
+  typeMappings.set(mapOf(
+    "RegistryEventCategory" to "it.gov.pagopa.pu.registry.enums.RegistryEventCategory",
+    "RegistryPagoPaEventType" to "it.gov.pagopa.pu.registry.enums.RegistryPagoPaEventType",
+    "RegistrySilEventType" to "it.gov.pagopa.pu.registry.enums.RegistrySilEventType",
+    "RegistryEventSubType" to "it.gov.pagopa.pu.registry.enums.RegistryEventSubType",
+    "RegistryOutcome" to "it.gov.pagopa.pu.registry.enums.RegistryOutcome"
+  ))
   configOptions.set(mapOf(
     "dateLibrary" to "java8",
     "requestMappingMode" to "api_interface",

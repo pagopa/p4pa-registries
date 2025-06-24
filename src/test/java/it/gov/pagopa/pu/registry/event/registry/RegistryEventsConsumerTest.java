@@ -7,7 +7,7 @@ import it.gov.pagopa.pu.registry.dto.RegistryEventPagoPaDTO;
 import it.gov.pagopa.pu.registry.dto.RegistryEventSilDTO;
 import it.gov.pagopa.pu.registry.dto.RegistryInterfaceEventDTO;
 import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
-import it.gov.pagopa.pu.registry.enums.RegistryPagopaEventType;
+import it.gov.pagopa.pu.registry.enums.RegistryPagoPaEventType;
 import it.gov.pagopa.pu.registry.enums.RegistrySilEventType;
 import it.gov.pagopa.pu.registry.enums.RegistryType;
 import it.gov.pagopa.pu.registry.service.pagopa.PagoPaRegistryService;
@@ -60,7 +60,7 @@ class RegistryEventsConsumerTest {
     pagoPaEventDTO.setRegistryType(RegistryType.REGISTRY_PAGOPA);
     pagoPaEventDTO.setTraceId(UUID.randomUUID().toString());
     pagoPaEventDTO.setBrokerStationId("broker-station-id");
-    pagoPaEventDTO.setEventType(RegistryPagopaEventType.paSendRTV2);
+    pagoPaEventDTO.setEventType(RegistryPagoPaEventType.paSendRTV2);
     pagoPaEventDTO.setEventSubType(RegistryEventSubType.REQ);
     pagoPaEventDTO.setBody("{}");
 
@@ -143,7 +143,7 @@ class RegistryEventsConsumerTest {
     pagoPaEventDTO.setRegistryType(RegistryType.REGISTRY_PAGOPA);
     pagoPaEventDTO.setTraceId(UUID.randomUUID().toString());
     pagoPaEventDTO.setBrokerStationId("broker-station-id");
-    pagoPaEventDTO.setEventType(RegistryPagopaEventType.paSendRTV2);
+    pagoPaEventDTO.setEventType(RegistryPagoPaEventType.paSendRTV2);
     pagoPaEventDTO.setEventSubType(RegistryEventSubType.REQ);
     pagoPaEventDTO.setBody("{}");
 
