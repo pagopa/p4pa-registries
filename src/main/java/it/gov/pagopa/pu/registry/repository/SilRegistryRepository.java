@@ -1,6 +1,6 @@
 package it.gov.pagopa.pu.registry.repository;
 
-import it.gov.pagopa.pu.registry.enums.RegistryPagoPaEventType;
+import it.gov.pagopa.pu.registry.enums.RegistrySilEventType;
 import it.gov.pagopa.pu.registry.model.SilRegistry;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +22,7 @@ public interface SilRegistryRepository extends MongoRepository<SilRegistry, Stri
     "        { $or: [{ $expr: { $eq: ['?4', 'null'] }}, { iuv: ?4 }] }" +
     "    ] }", fields = "{bodyCiphered:  0}")
   Page<SilRegistry> searchByFilters(
-    RegistryPagoPaEventType eventType,
+    RegistrySilEventType eventType,
     OffsetDateTime startDate,
     OffsetDateTime endDate,
     String orgFiscalCode,
