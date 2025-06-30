@@ -4,7 +4,7 @@ import it.gov.pagopa.pu.registry.dto.RegistryEventPagoPaDTO;
 import it.gov.pagopa.pu.registry.enums.RegistryEventCategory;
 import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
 import it.gov.pagopa.pu.registry.enums.RegistryOutcome;
-import it.gov.pagopa.pu.registry.enums.RegistryPagopaEventType;
+import it.gov.pagopa.pu.registry.enums.RegistryPagoPaEventType;
 import it.gov.pagopa.pu.registry.model.PagoPaRegistry;
 import it.gov.pagopa.pu.registry.service.DataCipherService;
 import it.gov.pagopa.pu.registry.utils.TestUtils;
@@ -37,7 +37,7 @@ class RegistryEventPagoPaDTO2PagoPaRegistryMapperTest {
     dto.setIuv(null);
     dto.setNav(null);
     dto.setEventCategory(RegistryEventCategory.INTERFACCIA);
-    dto.setEventType(RegistryPagopaEventType.paGetPaymentV2);
+    dto.setEventType(RegistryPagoPaEventType.paGetPaymentV2);
     dto.setEventSubType(RegistryEventSubType.REQ);
     dto.setOutcome(RegistryOutcome.OK);
     dto.setBody("body");
@@ -48,7 +48,7 @@ class RegistryEventPagoPaDTO2PagoPaRegistryMapperTest {
 
     assertEquals(1, result.size());
     PagoPaRegistry resultRegistry = result.getFirst();
-    TestUtils.checkNotNullFields(resultRegistry, "iuv", "nav");
+    TestUtils.checkNotNullFields(resultRegistry, "iuv", "nav", "body");
     assertEquals(dto.getRegistryId(), resultRegistry.getRegistryId());
     assertNull(resultRegistry.getIuv());
     assertNull(resultRegistry.getNav());
@@ -58,7 +58,7 @@ class RegistryEventPagoPaDTO2PagoPaRegistryMapperTest {
   void givenIuvAndNavValuedWhenMapThenMappedCorrectly() {
     RegistryEventPagoPaDTO dto = podamFactory.manufacturePojo(RegistryEventPagoPaDTO.class);
     dto.setEventCategory(RegistryEventCategory.INTERFACCIA);
-    dto.setEventType(RegistryPagopaEventType.paGetPaymentV2);
+    dto.setEventType(RegistryPagoPaEventType.paGetPaymentV2);
     dto.setEventSubType(RegistryEventSubType.REQ);
     dto.setOutcome(RegistryOutcome.OK);
     dto.setBody("body");
@@ -69,7 +69,7 @@ class RegistryEventPagoPaDTO2PagoPaRegistryMapperTest {
 
     assertEquals(1, result.size());
     PagoPaRegistry resultRegistry = result.getFirst();
-    TestUtils.checkNotNullFields(resultRegistry);
+    TestUtils.checkNotNullFields(resultRegistry, "body");
     assertEquals(dto.getRegistryId() + dto.getIuv(), resultRegistry.getRegistryId());
     assertEquals(dto.getIuv(), resultRegistry.getIuv());
     assertEquals(dto.getNav(), resultRegistry.getNav());
