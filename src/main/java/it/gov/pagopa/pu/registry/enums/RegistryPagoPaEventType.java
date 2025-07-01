@@ -13,6 +13,7 @@ public enum RegistryPagoPaEventType {
   createPosition,
   updatePosition,
   deletePosition,
-  fetchPaymentReporting;
+  fetchPaymentReporting,
+  ACA_paCreatePosition;
 
 }
