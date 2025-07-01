@@ -1333,7 +1333,8 @@
           "createPosition",
           "updatePosition",
           "deletePosition",
-          "fetchPaymentReporting"
+          "fetchPaymentReporting",
+          "ACA_paCreatePosition"
         ],
         "examples": [
           "\"paVerifyPaymentNotice\""
