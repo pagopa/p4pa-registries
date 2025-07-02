@@ -6,14 +6,15 @@ import lombok.Getter;
 @SuppressWarnings("java:S115") // Suppressing constant naming warning: this is required to match with the api name
 public enum RegistryPagoPaEventType {
 
-  paVerifyPaymentNotice,
-  paGetPaymentV2,
-  paSendRTV2,
-  newDebtPosition,
-  createPosition,
-  updatePosition,
-  deletePosition,
-  fetchPaymentReporting,
-  ACA_paCreatePosition;
+  PaForNode_paVerifyPaymentNotice,
+  PaForNode_paGetPaymentV2,
+  PaForNode_paSendRTV2,
 
+  ACA_newDebtPosition,
+
+  GPD_createPosition,
+  GPD_updatePosition,
+  GPD_deletePosition,
+
+  NodeForPa_fetchPaymentReporting
 }

@@ -126,7 +126,7 @@ class SilRegistryServiceTest {
       .orgFiscalCode("fiscalCode123")
       .iuv("iuv123")
       .nav("nav123")
-      .eventType(RegistrySilEventType.paaSILAutorizzaImportFlusso)
+      .eventType(RegistrySilEventType.PTDP_paaSILAutorizzaImportFlusso)
       .eventSubType(RegistryEventSubType.REQ)
       .requestorId("requestorId123")
       .grantorId("grantorId123")

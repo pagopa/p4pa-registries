@@ -1102,7 +1102,7 @@
             "dateTime": "2015-07-20T15:49:04-07:00",
             "eventCategory": "\"INTERNO\"",
             "eventSubType": "REQ",
-            "eventType": "paVerifyPaymentNotice",
+            "eventType": "PaForNode_paVerifyPaymentNotice",
             "grantorId": "string",
             "iuv": "string",
             "nav": "string",
@@ -1189,7 +1189,7 @@
             "brokerFiscalCode": "string",
             "dateTime": "2015-07-20T15:49:04-07:00",
             "eventSubType": "REQ",
-            "eventType": "paaSILAutorizzaImportFlusso",
+            "eventType": "PTDP_paaSILAutorizzaImportFlusso",
             "grantorId": "string",
             "iuv": "string",
             "nav": "string",
@@ -1326,48 +1326,35 @@
         "title": "RegistryPagoPaEventType",
         "type": "string",
         "enum": [
-          "paVerifyPaymentNotice",
-          "paGetPaymentV2",
-          "paSendRTV2",
-          "newDebtPosition",
-          "createPosition",
-          "updatePosition",
-          "deletePosition",
-          "fetchPaymentReporting",
-          "ACA_paCreatePosition"
+          "PaForNode_paVerifyPaymentNotice",
+          "PaForNode_paGetPaymentV2",
+          "PaForNode_paSendRTV2",
+          "ACA_newDebtPosition",
+          "GPD_createPosition",
+          "GPD_updatePosition",
+          "GPD_deletePosition",
+          "NodeForPa_fetchPaymentReporting"
         ],
         "examples": [
-          "\"paVerifyPaymentNotice\""
+          "\"PaForNode_paVerifyPaymentNotice\""
         ]
       },
       "RegistrySilEventType": {
         "title": "RegistrySilEventType",
         "type": "string",
         "enum": [
-          "paaSILAutorizzaImportFlusso",
-          "paaSILChiediStatoImportFlusso",
-          "paaSILImportaDovuto",
-          "paaSILPrenotaExportFlusso",
-          "paaSILPrenotaExportFlussoIncrementaleConRicevuta",
-          "paaSILChiediStatoExportFlusso",
-          "paaSILInviaDovuti",
-          "paaSILVerificaAvviso",
-          "paaSILChiediPagati",
-          "paaSILChiediPagatiConRicevuta",
-          "paaSILInviaCarrelloDovuti",
-          "paaSILChiediEsitoCarrelloDovuti",
-          "pivotSILAutorizzaImportFlusso",
-          "pivotSILChiediStatoImportFlusso",
-          "pivotSILAutorizzaImportFlussoTesoreria",
-          "pivotSILChiediStatoImportFlussoTesoreria",
-          "pivotSILPrenotaExportFlussoRiconciliazione",
-          "pivotSILChiediStatoExportFlussoRiconciliazione",
-          "pivotSILChiediAccertamento",
-          "attualizzazioneImporti",
-          "notificaPagamento"
+          "PTDP_paaSILAutorizzaImportFlusso",
+          "PTDP_paaSILImportaDovuto",
+          "PTDP_paaSILInviaDovuti",
+          "PTDP_paaSILInviaCarrelloDovuti",
+          "PTDP_paaSILVerificaAvviso",
+          "PTPR_pivotSILAutorizzaImportFlussoTesoreria",
+          "PTPR_pivotSILAutorizzaImportFlusso",
+          "SIL_attualizzazioneImporti",
+          "SIL_notificaPagamento"
         ],
         "examples": [
-          "\"paaSILAutorizzaImportFlusso\""
+          "\"PTDP_paaSILAutorizzaImportFlusso\""
         ]
       },
       "RegistryType": {

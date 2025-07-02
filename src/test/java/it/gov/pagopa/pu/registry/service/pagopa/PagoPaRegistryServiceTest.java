@@ -137,7 +137,7 @@ class PagoPaRegistryServiceTest {
       .pspChannelId("pspChannelId123")
       .paymentMethod("paymentMethod123")
       .eventCategory(RegistryEventCategory.INTERFACCIA)
-      .eventType(RegistryPagoPaEventType.paSendRTV2)
+      .eventType(RegistryPagoPaEventType.PaForNode_paSendRTV2)
       .eventSubType(RegistryEventSubType.REQ)
       .requestorId("requestorId123")
       .grantorId("grantorId123")
