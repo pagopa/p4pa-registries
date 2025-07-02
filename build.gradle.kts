@@ -168,6 +168,7 @@ openApiGenerate {
     "useBeanValidation" to "true",
     "generateConstructorWithAllArgs" to "true",
     "generatedConstructorWithRequiredArgs" to "true",
+    "enumPropertyNaming" to "original",
     "additionalModelTypeAnnotations" to "@lombok.experimental.SuperBuilder(toBuilder = true)"
   ))
 }
@@ -200,6 +201,7 @@ tasks.register<GenerateTask>("openApiGenerateWORKFLOWHUB") {
       "generateSupportingFiles" to "true",
       "generateConstructorWithAllArgs" to "true",
       "generatedConstructorWithRequiredArgs" to "true",
+      "enumPropertyNaming" to "original",
       "additionalModelTypeAnnotations" to "@lombok.experimental.SuperBuilder(toBuilder = true)"
     )
   )

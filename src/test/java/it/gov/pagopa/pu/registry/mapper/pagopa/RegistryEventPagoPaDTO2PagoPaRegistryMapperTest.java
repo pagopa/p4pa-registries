@@ -37,7 +37,7 @@ class RegistryEventPagoPaDTO2PagoPaRegistryMapperTest {
     dto.setIuv(null);
     dto.setNav(null);
     dto.setEventCategory(RegistryEventCategory.INTERFACCIA);
-    dto.setEventType(RegistryPagoPaEventType.paGetPaymentV2);
+    dto.setEventType(RegistryPagoPaEventType.PaForNode_paGetPaymentV2);
     dto.setEventSubType(RegistryEventSubType.REQ);
     dto.setOutcome(RegistryOutcome.OK);
     dto.setBody("body");
@@ -58,7 +58,7 @@ class RegistryEventPagoPaDTO2PagoPaRegistryMapperTest {
   void givenIuvAndNavValuedWhenMapThenMappedCorrectly() {
     RegistryEventPagoPaDTO dto = podamFactory.manufacturePojo(RegistryEventPagoPaDTO.class);
     dto.setEventCategory(RegistryEventCategory.INTERFACCIA);
-    dto.setEventType(RegistryPagoPaEventType.paGetPaymentV2);
+    dto.setEventType(RegistryPagoPaEventType.PaForNode_paGetPaymentV2);
     dto.setEventSubType(RegistryEventSubType.REQ);
     dto.setOutcome(RegistryOutcome.OK);
     dto.setBody("body");

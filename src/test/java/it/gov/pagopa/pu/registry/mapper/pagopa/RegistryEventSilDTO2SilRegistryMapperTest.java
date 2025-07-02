@@ -35,7 +35,7 @@ class RegistryEventSilDTO2SilRegistryMapperTest {
     RegistryEventSilDTO dto = podamFactory.manufacturePojo(RegistryEventSilDTO.class);
     dto.setIuv(null);
     dto.setNav(null);
-    dto.setEventType(RegistrySilEventType.paaSILChiediPagatiConRicevuta);
+    dto.setEventType(RegistrySilEventType.PTDP_paaSILAutorizzaImportFlusso);
     dto.setEventSubType(RegistryEventSubType.REQ);
     dto.setOutcome(RegistryOutcome.OK);
     dto.setBody("body");
@@ -55,7 +55,7 @@ class RegistryEventSilDTO2SilRegistryMapperTest {
   @Test
   void givenIuvAndNavValuedWhenMapThenMappedCorrectly() {
     RegistryEventSilDTO dto = podamFactory.manufacturePojo(RegistryEventSilDTO.class);
-    dto.setEventType(RegistrySilEventType.paaSILChiediPagatiConRicevuta);
+    dto.setEventType(RegistrySilEventType.PTDP_paaSILAutorizzaImportFlusso);
     dto.setEventSubType(RegistryEventSubType.REQ);
     dto.setOutcome(RegistryOutcome.OK);
     dto.setBody("body");

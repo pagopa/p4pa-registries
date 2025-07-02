@@ -6,26 +6,15 @@ import lombok.Getter;
 @SuppressWarnings("java:S115") // Suppressing constant naming warning: this is required to match with the api name
 public enum RegistrySilEventType {
 
-  paaSILAutorizzaImportFlusso,
-  paaSILChiediStatoImportFlusso,
-  paaSILImportaDovuto,
-  paaSILPrenotaExportFlusso,
-  paaSILPrenotaExportFlussoIncrementaleConRicevuta,
-  paaSILChiediStatoExportFlusso,
-  paaSILInviaDovuti,
-  paaSILVerificaAvviso,
-  paaSILChiediPagati,
-  paaSILChiediPagatiConRicevuta,
-  paaSILInviaCarrelloDovuti,
-  paaSILChiediEsitoCarrelloDovuti,
-  pivotSILAutorizzaImportFlusso,
-  pivotSILChiediStatoImportFlusso,
-  pivotSILAutorizzaImportFlussoTesoreria,
-  pivotSILChiediStatoImportFlussoTesoreria,
-  pivotSILPrenotaExportFlussoRiconciliazione,
-  pivotSILChiediStatoExportFlussoRiconciliazione,
-  pivotSILChiediAccertamento,
-  attualizzazioneImporti,
-  notificaPagamento;
+  PTDP_paaSILAutorizzaImportFlusso,
+  PTDP_paaSILImportaDovuto,
+  PTDP_paaSILInviaDovuti,
+  PTDP_paaSILInviaCarrelloDovuti,
+  PTDP_paaSILVerificaAvviso,
 
+  PTPR_pivotSILAutorizzaImportFlussoTesoreria,
+  PTPR_pivotSILAutorizzaImportFlusso,
+
+  SIL_attualizzazioneImporti,
+  SIL_notificaPagamento
 }

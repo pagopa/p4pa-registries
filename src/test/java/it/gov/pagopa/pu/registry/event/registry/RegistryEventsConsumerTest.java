@@ -60,7 +60,7 @@ class RegistryEventsConsumerTest {
     pagoPaEventDTO.setRegistryType(RegistryType.REGISTRY_PAGOPA);
     pagoPaEventDTO.setTraceId(UUID.randomUUID().toString());
     pagoPaEventDTO.setBrokerStationId("broker-station-id");
-    pagoPaEventDTO.setEventType(RegistryPagoPaEventType.paSendRTV2);
+    pagoPaEventDTO.setEventType(RegistryPagoPaEventType.PaForNode_paSendRTV2);
     pagoPaEventDTO.setEventSubType(RegistryEventSubType.REQ);
     pagoPaEventDTO.setBody("{}");
 
@@ -92,7 +92,7 @@ class RegistryEventsConsumerTest {
     silEventDTO.setRegistryOrigin("test-origin");
     silEventDTO.setRegistryType(RegistryType.REGISTRY_SIL);
     silEventDTO.setTraceId(UUID.randomUUID().toString());
-    silEventDTO.setEventType(RegistrySilEventType.paaSILAutorizzaImportFlusso);
+    silEventDTO.setEventType(RegistrySilEventType.PTDP_paaSILAutorizzaImportFlusso);
     silEventDTO.setEventSubType(RegistryEventSubType.REQ);
     silEventDTO.setBrokerFiscalCode("broker-fiscal-code");
     silEventDTO.setBody("{}");
@@ -143,7 +143,7 @@ class RegistryEventsConsumerTest {
     pagoPaEventDTO.setRegistryType(RegistryType.REGISTRY_PAGOPA);
     pagoPaEventDTO.setTraceId(UUID.randomUUID().toString());
     pagoPaEventDTO.setBrokerStationId("broker-station-id");
-    pagoPaEventDTO.setEventType(RegistryPagoPaEventType.paSendRTV2);
+    pagoPaEventDTO.setEventType(RegistryPagoPaEventType.PaForNode_paSendRTV2);
     pagoPaEventDTO.setEventSubType(RegistryEventSubType.REQ);
     pagoPaEventDTO.setBody("{}");
 

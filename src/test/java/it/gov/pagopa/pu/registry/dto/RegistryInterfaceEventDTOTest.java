@@ -59,7 +59,7 @@ class RegistryInterfaceEventDTOTest {
       .registryType(RegistryType.REGISTRY_PAGOPA)
       .dateTime(OffsetDateTime.now())
       .traceId("trace123")
-      .eventType(RegistryPagoPaEventType.paVerifyPaymentNotice)
+      .eventType(RegistryPagoPaEventType.PaForNode_paVerifyPaymentNotice)
       .eventSubType(RegistryEventSubType.REQ)
       .requestorId("requestor123")
       .grantorId("grantor123")
@@ -92,7 +92,7 @@ class RegistryInterfaceEventDTOTest {
       .registryType(RegistryType.REGISTRY_SIL)
       .dateTime(OffsetDateTime.now())
       .traceId("trace456")
-      .eventType(RegistrySilEventType.paaSILAutorizzaImportFlusso)
+      .eventType(RegistrySilEventType.PTDP_paaSILAutorizzaImportFlusso)
       .eventSubType(RegistryEventSubType.REQ)
       .requestorId("requestor456")
       .grantorId("grantor456")
@@ -125,7 +125,7 @@ class RegistryInterfaceEventDTOTest {
             "registryType": "%s",
             "dateTime": "2025-01-01T12:00:00Z",
             "traceId": "test-trace",
-            "eventType": "paVerifyPaymentNotice",
+            "eventType": "PaForNode_paVerifyPaymentNotice",
             "eventSubType": "REQ",
             "requestorId": "test-requestor",
             "grantorId": "test-grantor",
@@ -141,7 +141,7 @@ class RegistryInterfaceEventDTOTest {
             "registryType": "%s",
             "dateTime": "2025-01-01T12:00:00Z",
             "traceId": "test-trace",
-            "eventType": "paaSILAutorizzaImportFlusso",
+            "eventType": "PTDP_paaSILAutorizzaImportFlusso",
             "eventSubType": "REQ",
             "requestorId": "test-requestor",
             "grantorId": "test-grantor",
@@ -168,7 +168,7 @@ class RegistryInterfaceEventDTOTest {
       .registryType(RegistryType.REGISTRY_PAGOPA)
       .dateTime(OffsetDateTime.now())
       .traceId("trace123")
-      .eventType(RegistryPagoPaEventType.paVerifyPaymentNotice)
+      .eventType(RegistryPagoPaEventType.PaForNode_paVerifyPaymentNotice)
       .eventSubType(RegistryEventSubType.REQ)
       .requestorId("requestor123")
       .grantorId("grantor123")
@@ -192,7 +192,7 @@ class RegistryInterfaceEventDTOTest {
       .registryType(RegistryType.REGISTRY_SIL)
       .dateTime(OffsetDateTime.now())
       .traceId("trace456")
-      .eventType(RegistrySilEventType.paaSILAutorizzaImportFlusso)
+      .eventType(RegistrySilEventType.PTDP_paaSILAutorizzaImportFlusso)
       .eventSubType(RegistryEventSubType.REQ)
       .requestorId("requestor456")
       .grantorId("grantor456")
@@ -217,7 +217,7 @@ class RegistryInterfaceEventDTOTest {
       .registryType(RegistryType.REGISTRY_PAGOPA)
       .dateTime(OffsetDateTime.now())
       .traceId("trace123")
-      .eventType(RegistryPagoPaEventType.paGetPaymentV2)
+      .eventType(RegistryPagoPaEventType.PaForNode_paGetPaymentV2)
       .eventSubType(RegistryEventSubType.REQ)
       .requestorId("requestor123")
       .grantorId("grantor123")
@@ -252,7 +252,7 @@ class RegistryInterfaceEventDTOTest {
       .registryType(RegistryType.REGISTRY_SIL)
       .dateTime(OffsetDateTime.now())
       .traceId("trace456")
-      .eventType(RegistrySilEventType.pivotSILAutorizzaImportFlusso)
+      .eventType(RegistrySilEventType.PTPR_pivotSILAutorizzaImportFlusso)
       .eventSubType(RegistryEventSubType.REQ)
       .requestorId("requestor456")
       .grantorId("grantor456")
