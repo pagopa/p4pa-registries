@@ -49,13 +49,13 @@ spring:
           content-type: "\${KAFKA_CONTENT_TYPE:application/json}"
           destination: "\${KAFKA_TOPIC_PAYMENTS:p4pa-payhub-payments-evh}"
           group: "\${KAFKA_PAYMENTS_REGISTRIES_GROUP_ID:p4pa-registries-consumer-group}"
-          consumer.auto-startup: "\${KAFKA_PAYMENTS_CONSUMER_ENABLED:false}"
+          consumer.auto-startup: "\${KAFKA_PAYMENTS_CONSUMER_ENABLED:true}"
         registryEventsConsumer-in-0:
           binder: kafka-registries-consumer
           content-type: "\${KAFKA_CONTENT_TYPE:application/json}"
           destination: "\${KAFKA_TOPIC_REGISTRIES:p4pa-payhub-registries-evh}"
           group: "\${KAFKA_REGISTRIES_GROUP_ID:p4pa-registries-consumer-group}"
-          consumer.auto-startup: "\${KAFKA_REGISTRIES_CONSUMER_ENABLED:false}"
+          consumer.auto-startup: "\${KAFKA_REGISTRIES_CONSUMER_ENABLED:true}"
       kafka:
         binder:
           auto-create-topics: false
