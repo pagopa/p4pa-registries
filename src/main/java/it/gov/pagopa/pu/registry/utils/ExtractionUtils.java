@@ -1,5 +1,7 @@
 package it.gov.pagopa.pu.registry.utils;
 
+import org.springframework.util.StringUtils;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -14,6 +16,10 @@ public class ExtractionUtils {
   private static final Pattern IUD_MATCH_PATTERN = Pattern.compile("IUD:\\s*([^;]*)\\s*(?:;|$)");
 
   public static Set<String> extractIudsFromDescription(String description) {
+    if(!StringUtils.hasText(description)){
+      return Set.of();
+    }
+
     Set<String> iuds = new HashSet<>();
     Matcher matcher = IUD_MATCH_PATTERN.matcher(description);
 
