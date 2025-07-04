@@ -21,6 +21,8 @@ public class RegistryEventsConsumer implements Consumer<RegistryInterfaceEventDT
 
   @Override
   public void accept(RegistryInterfaceEventDTO event) {
+    log.info("Consuming registry event {}", event.getRegistryId());
+
     try {
       switch (event) {
         case RegistryEventPagoPaDTO registryEventPagoPaDTO:

@@ -48,7 +48,7 @@ spring:
           binder: kafka-payments-consumer
           content-type: "\${KAFKA_CONTENT_TYPE:application/json}"
           destination: "\${KAFKA_TOPIC_PAYMENTS:p4pa-payhub-payments-evh}"
-          group: "\${KAFKA_PAYMENTS_REGISTRIES_GROUP_ID:p4pa-registries-consumer-group}"
+          group: "\${KAFKA_PAYMENTS_GROUP_ID:p4pa-payments-consumer-group}"
           consumer.auto-startup: "\${KAFKA_PAYMENTS_CONSUMER_ENABLED:true}"
         registryEventsConsumer-in-0:
           binder: kafka-registries-consumer
@@ -121,7 +121,7 @@ management:
       show-details: "\${HEALTH_ACTUATOR_SHOW_DETAILS:when-authorized}"
       group:
         readiness.include: "*"
-        liveness.include: livenessState,diskSpace,ping
+        liveness.include: livenessState,diskSpace,ping,binders
     prometheus:
       enabled: true
   metrics:
