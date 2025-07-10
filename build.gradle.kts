@@ -189,21 +189,21 @@ tasks.register<GenerateTask>("openApiGenerateWORKFLOWHUB") {
   invokerPackage.set("it.gov.pagopa.pu.workflowhub.generated")
   apiPackage.set("it.gov.pagopa.pu.workflowhub.controller.generated")
   modelPackage.set("it.gov.pagopa.pu.workflowhub.dto.generated")
-  configOptions.set(
-    mapOf(
-      "swaggerAnnotations" to "false",
-      "openApiNullable" to "false",
-      "dateLibrary" to "java8",
-      "serializableModel" to "true",
-      "useSpringBoot3" to "true",
-      "useJakartaEe" to "true",
-      "serializationLibrary" to "jackson",
-      "generateSupportingFiles" to "true",
-      "generateConstructorWithAllArgs" to "true",
-      "generatedConstructorWithRequiredArgs" to "true",
-      "enumPropertyNaming" to "original",
-      "additionalModelTypeAnnotations" to "@lombok.experimental.SuperBuilder(toBuilder = true)"
-    )
-  )
+  configOptions.set(mapOf(
+    "swaggerAnnotations" to "false",
+    "openApiNullable" to "false",
+    "dateLibrary" to "java8",
+    "serializableModel" to "true",
+    "useSpringBoot3" to "true",
+    "useJakartaEe" to "true",
+    "useOneOfInterfaces" to "true",
+    "useBeanValidation" to "true",
+    "serializationLibrary" to "jackson",
+    "generateSupportingFiles" to "true",
+    "generateConstructorWithAllArgs" to "true",
+    "generatedConstructorWithRequiredArgs" to "true",
+    "enumPropertyNaming" to "original",
+    "additionalModelTypeAnnotations" to "@lombok.experimental.SuperBuilder(toBuilder = true)"
+  ))
   library.set("resttemplate")
 }
