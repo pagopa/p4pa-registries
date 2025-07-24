@@ -688,6 +688,12 @@
             "type" : "string"
           }
         }, {
+          "name" : "outcome",
+          "in" : "query",
+          "schema" : {
+            "$ref" : "#/components/schemas/RegistryOutcome"
+          }
+        }, {
           "name" : "page",
           "in" : "query",
           "description" : "Zero-based page index (0..N)",
@@ -1128,6 +1134,12 @@
             "type" : "string"
           }
         }, {
+          "name" : "outcome",
+          "in" : "query",
+          "schema" : {
+            "$ref" : "#/components/schemas/RegistryOutcome"
+          }
+        }, {
           "name" : "page",
           "in" : "query",
           "description" : "Zero-based page index (0..N)",
@@ -1508,6 +1520,22 @@
           }
         }
       },
+      "RegistryEventCategory" : {
+        "type" : "string",
+        "enum" : [ "INTERNO", "INTERFACCIA" ]
+      },
+      "RegistryEventSubType" : {
+        "type" : "string",
+        "enum" : [ "REQ", "RESP" ]
+      },
+      "RegistryOutcome" : {
+        "type" : "string",
+        "enum" : [ "OK", "KO" ]
+      },
+      "RegistryPagoPaEventType" : {
+        "type" : "string",
+        "enum" : [ "PaForNode_paVerifyPaymentNotice", "PaForNode_paGetPaymentV2", "PaForNode_paSendRTV2", "ACA_newDebtPosition", "GPD_createPosition", "GPD_updatePosition", "GPD_deletePosition", "NodeForPa_fetchPaymentReporting" ]
+      },
       "PageMetadata" : {
         "type" : "object",
         "properties" : {
@@ -1528,22 +1556,6 @@
             "format" : "int64"
           }
         }
-      },
-      "RegistryEventCategory" : {
-        "type" : "string",
-        "enum" : [ "INTERNO", "INTERFACCIA" ]
-      },
-      "RegistryEventSubType" : {
-        "type" : "string",
-        "enum" : [ "REQ", "RESP" ]
-      },
-      "RegistryOutcome" : {
-        "type" : "string",
-        "enum" : [ "OK", "KO" ]
-      },
-      "RegistryPagoPaEventType" : {
-        "type" : "string",
-        "enum" : [ "PaForNode_paVerifyPaymentNotice", "PaForNode_paGetPaymentV2", "PaForNode_paSendRTV2", "ACA_newDebtPosition", "GPD_createPosition", "GPD_updatePosition", "GPD_deletePosition", "NodeForPa_fetchPaymentReporting" ]
       },
       "RegistrySilEventType" : {
         "type" : "string",
@@ -2023,82 +2035,6 @@
           }
         }
       },
-      "DebtPositionRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "eventId" : {
-            "type" : "string"
-          },
-          "eventType" : {
-            "$ref" : "#/components/schemas/PaymentEventType"
-          },
-          "eventDateTime" : {
-            "type" : "string",
-            "format" : "date-time"
-          },
-          "eventDescription" : {
-            "type" : "string"
-          },
-          "operatorExternalUserId" : {
-            "type" : "string"
-          },
-          "traceId" : {
-            "type" : "string"
-          },
-          "debtPositionId" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "organizationId" : {
-            "type" : "integer",
-            "format" : "int64"
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          }
-        }
-      },
-      "PagedModelDebtPositionRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "_embedded" : {
-            "type" : "object",
-            "properties" : {
-              "debtPositionRegistries" : {
-                "type" : "array",
-                "items" : {
-                  "$ref" : "#/components/schemas/DebtPositionRegistry"
-                }
-              }
-            }
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          },
-          "page" : {
-            "$ref" : "#/components/schemas/PageMetadata"
-          }
-        }
-      },
-      "CollectionModelDebtPositionRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "_embedded" : {
-            "type" : "object",
-            "properties" : {
-              "debtPositionRegistries" : {
-                "type" : "array",
-                "items" : {
-                  "$ref" : "#/components/schemas/DebtPositionRegistry"
-                }
-              }
-            }
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
-          }
-        }
-      },
       "InstallmentRegistry" : {
         "type" : "object",
         "properties" : {
@@ -2169,6 +2105,82 @@
                 "type" : "array",
                 "items" : {
                   "$ref" : "#/components/schemas/InstallmentRegistry"
+                }
+              }
+            }
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          }
+        }
+      },
+      "DebtPositionRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "eventId" : {
+            "type" : "string"
+          },
+          "eventType" : {
+            "$ref" : "#/components/schemas/PaymentEventType"
+          },
+          "eventDateTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "eventDescription" : {
+            "type" : "string"
+          },
+          "operatorExternalUserId" : {
+            "type" : "string"
+          },
+          "traceId" : {
+            "type" : "string"
+          },
+          "debtPositionId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "organizationId" : {
+            "type" : "integer",
+            "format" : "int64"
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          }
+        }
+      },
+      "PagedModelDebtPositionRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "_embedded" : {
+            "type" : "object",
+            "properties" : {
+              "debtPositionRegistries" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/DebtPositionRegistry"
+                }
+              }
+            }
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
+          },
+          "page" : {
+            "$ref" : "#/components/schemas/PageMetadata"
+          }
+        }
+      },
+      "CollectionModelDebtPositionRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "_embedded" : {
+            "type" : "object",
+            "properties" : {
+              "debtPositionRegistries" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/DebtPositionRegistry"
                 }
               }
             }

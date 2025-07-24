@@ -1,5 +1,6 @@
 package it.gov.pagopa.pu.registry.repository;
 
+import it.gov.pagopa.pu.registry.enums.RegistryOutcome;
 import it.gov.pagopa.pu.registry.enums.RegistrySilEventType;
 import it.gov.pagopa.pu.registry.model.SilRegistry;
 import org.springframework.data.domain.Page;
@@ -19,7 +20,8 @@ public interface SilRegistryRepository extends MongoRepository<SilRegistry, Stri
     "        { $or: [{ $expr: { $eq: ['?1', 'null'] }}, { dateTime: { $gte: ?1 } }] }," +
     "        { $or: [{ $expr: { $eq: ['?2', 'null'] }}, { dateTime: { $lte: ?2 } }] }," +
     "        { $or: [{ $expr: { $eq: ['?3', 'null'] }}, { orgFiscalCode: ?3 }] }," +
-    "        { $or: [{ $expr: { $eq: ['?4', 'null'] }}, { iuv: ?4 }] }" +
+    "        { $or: [{ $expr: { $eq: ['?4', 'null'] }}, { iuv: ?4 }] }," +
+    "        { $or: [{ $expr: { $eq: ['?5', 'null'] }}, { outcome: ?5 }] }" +
     "    ] }", fields = "{bodyCiphered:  0}")
   Page<SilRegistry> searchByFilters(
     RegistrySilEventType eventType,
@@ -27,6 +29,7 @@ public interface SilRegistryRepository extends MongoRepository<SilRegistry, Stri
     OffsetDateTime endDate,
     String orgFiscalCode,
     String iuv,
+    RegistryOutcome outcome,
     Pageable pageable
   );
 

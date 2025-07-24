@@ -167,6 +167,7 @@
                     "remittanceInformation": "string",
                     "sourceFlowName": "string",
                     "status": "TO_SYNC",
+                    "switchToExpired": true,
                     "syncStatus": {
                       "syncError": "string",
                       "syncStatusFrom": "TO_SYNC",
@@ -179,6 +180,7 @@
                         "creationDate": "2015-07-20T15:49:04-07:00",
                         "iban": "string",
                         "installmentId": 0,
+                        "mbdAttachment": "string",
                         "orgFiscalCode": "string",
                         "orgName": "string",
                         "postalIban": "string",
@@ -214,6 +216,13 @@
             "updateTraceId": "string",
             "validityDate": "2015-07-20"
           }
+        ],
+        "required": [
+          "debtPositionOrigin",
+          "debtPositionTypeOrgId",
+          "flagPuPagoPaPayment",
+          "organizationId",
+          "paymentOptions"
         ]
       },
       "DebtPositionEventDTO": {
@@ -277,6 +286,7 @@
                       "remittanceInformation": "string",
                       "sourceFlowName": "string",
                       "status": "TO_SYNC",
+                      "switchToExpired": true,
                       "syncStatus": {
                         "syncError": "string",
                         "syncStatusFrom": "TO_SYNC",
@@ -289,6 +299,7 @@
                           "creationDate": "2015-07-20T15:49:04-07:00",
                           "iban": "string",
                           "installmentId": 0,
+                          "mbdAttachment": "string",
                           "orgFiscalCode": "string",
                           "orgName": "string",
                           "postalIban": "string",
@@ -639,6 +650,9 @@
           "status": {
             "$ref": "#/components/schemas/InstallmentStatus"
           },
+          "switchToExpired": {
+            "type": "boolean"
+          },
           "syncStatus": {
             "$ref": "#/components/schemas/InstallmentSyncStatus"
           },
@@ -696,6 +710,7 @@
             "remittanceInformation": "string",
             "sourceFlowName": "string",
             "status": "TO_SYNC",
+            "switchToExpired": true,
             "syncStatus": {
               "syncError": "string",
               "syncStatusFrom": "TO_SYNC",
@@ -708,6 +723,7 @@
                 "creationDate": "2015-07-20T15:49:04-07:00",
                 "iban": "string",
                 "installmentId": 0,
+                "mbdAttachment": "string",
                 "orgFiscalCode": "string",
                 "orgName": "string",
                 "postalIban": "string",
@@ -726,6 +742,11 @@
             "updateOperatorExternalId": "string",
             "updateTraceId": "string"
           }
+        ],
+        "required": [
+          "amountCents",
+          "debtor",
+          "remittanceInformation"
         ]
       },
       "InstallmentStatus": {
@@ -766,6 +787,10 @@
             "syncStatusFrom": "\"TO_SYNC\"",
             "syncStatusTo": "\"TO_SYNC\""
           }
+        ],
+        "required": [
+          "syncStatusFrom",
+          "syncStatusTo"
         ]
       },
       "IoMessage": {
@@ -945,6 +970,7 @@
                 "remittanceInformation": "string",
                 "sourceFlowName": "string",
                 "status": "TO_SYNC",
+                "switchToExpired": true,
                 "syncStatus": {
                   "syncError": "string",
                   "syncStatusFrom": "TO_SYNC",
@@ -957,6 +983,7 @@
                     "creationDate": "2015-07-20T15:49:04-07:00",
                     "iban": "string",
                     "installmentId": 0,
+                    "mbdAttachment": "string",
                     "orgFiscalCode": "string",
                     "orgName": "string",
                     "postalIban": "string",
@@ -985,6 +1012,11 @@
             "updateOperatorExternalId": "string",
             "updateTraceId": "string"
           }
+        ],
+        "required": [
+          "installments",
+          "paymentOptionType",
+          "totalAmountCents"
         ]
       },
       "PaymentOptionStatus": {
@@ -1067,6 +1099,11 @@
             "postalCode": "string",
             "province": "string"
           }
+        ],
+        "required": [
+          "entityType",
+          "fiscalCode",
+          "fullName"
         ]
       },
       "PersonEntityType": {
@@ -1390,6 +1427,9 @@
             "type": "integer",
             "format": "int64"
           },
+          "mbdAttachment": {
+            "type": "string"
+          },
           "orgFiscalCode": {
             "type": "string"
           },
@@ -1437,6 +1477,7 @@
             "creationDate": "2015-07-20T15:49:04-07:00",
             "iban": "string",
             "installmentId": 0,
+            "mbdAttachment": "string",
             "orgFiscalCode": "string",
             "orgName": "string",
             "postalIban": "string",
@@ -1450,6 +1491,14 @@
             "updateOperatorExternalId": "string",
             "updateTraceId": "string"
           }
+        ],
+        "required": [
+          "amountCents",
+          "category",
+          "orgFiscalCode",
+          "orgName",
+          "remittanceInformation",
+          "transferIndex"
         ]
       }
     },
