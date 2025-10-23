@@ -33,14 +33,14 @@ spring:
           type: kafka
           environment:
             spring.cloud.stream.kafka.binder:
-              brokers: "\${KAFKA_BINDER_BROKER:}"
+              brokers: "\${KAFKA_PAYMENTS_BINDER_BROKER:\${KAFKA_BINDER_BROKER:}}"
               configuration:
                 sasl.jaas.config: "\${KAFKA_PAYMENTS_CONSUMER_SASL_JAAS_CONFIG:}"
         kafka-registries-consumer:
           type: kafka
           environment:
             spring.cloud.stream.kafka.binder:
-              brokers: "\${KAFKA_BINDER_BROKER:}"
+              brokers: "\${KAFKA_REGISTRIES_BINDER_BROKER:\${KAFKA_BINDER_BROKER:}}"
               configuration:
                 sasl.jaas.config: "\${KAFKA_REGISTRIES_CONSUMER_SASL_JAAS_CONFIG:}"
       bindings:
