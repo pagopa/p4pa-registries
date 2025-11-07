@@ -1,5 +1,6 @@
 package it.gov.pagopa.pu.registry.utils;
 
+import org.slf4j.MDC;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
@@ -26,6 +27,10 @@ public class Utilities {
       return Stream.concat(out, fillerStream);
     }
     return out;
+  }
+
+  public static String getTraceId(){
+    return MDC.get("traceId");
   }
 }
 
