@@ -5,14 +5,14 @@ import com.github.jk1.license.filter.*
 
 plugins {
   java
-  id("org.springframework.boot") version "3.5.6"
+  id("org.springframework.boot") version "4.0.0"
   id("io.spring.dependency-management") version "1.1.7"
   jacoco
-  id("org.sonarqube") version "6.3.1.5724"
-  id("com.github.ben-manes.versions") version "0.52.0"
-  id("org.openapi.generator") version "7.15.0"
+  id("org.sonarqube") version "7.2.1.6560"
+  id("com.github.ben-manes.versions") version "0.53.0"
+  id("org.openapi.generator") version "7.17.0"
   id("org.ajoberstar.grgit") version "5.3.2"
-  id("com.gorylenko.gradle-git-properties") version "2.5.3"
+  id("com.gorylenko.gradle-git-properties") version "2.5.4"
   id("com.github.jk1.dependency-license-report") version "3.0.1"
 }
 
@@ -36,7 +36,8 @@ configurations {
 }
 
 licenseReport {
-  renderers = arrayOf(XmlReportRenderer("third-party-libs.xml", "Back-End Libraries"))
+  renderers =
+    arrayOf(XmlReportRenderer("third-party-libs.xml", "Back-End Libraries"))
   outputDir = "$projectDir/dependency-licenses"
   filters = arrayOf(SpdxLicenseBundleNormalizer())
 }
@@ -48,16 +49,17 @@ repositories {
   mavenCentral()
 }
 
-val springDocOpenApiVersion = "2.8.13"
+val springDocOpenApiVersion = "3.0.0"
 val janinoVersion = "3.1.12"
-val openApiToolsVersion = "0.2.7"
-val springWolfAsyncApiVersion = "1.16.0"
-val micrometerVersion = "1.5.4"
-val httpClientVersion = "5.5"
-val bouncycastleVersion = "1.82"
+val openApiToolsVersion = "0.2.8"
+val springWolfAsyncApiVersion = "1.20.0"
+val micrometerVersion = "1.6.1"
+val httpClientVersion = "5.5.1"
+val bouncycastleVersion = "1.83"
 val podamVersion = "8.0.2.RELEASE"
-val commonsLang3Version = "3.19.0"
-val springCloudDepsVersion = "2025.0.0"
+val commonsLang3Version = "3.20.0"
+val springCloudDepsVersion = "2025.1.0"
+val lz4JavaVersion = "1.10.1"
 
 dependencyManagement {
   imports {
@@ -66,27 +68,33 @@ dependencyManagement {
 }
 
 dependencies {
-  implementation("org.springframework.boot:spring-boot-starter")
-  implementation("org.springframework.boot:spring-boot-starter-web")
+  implementation("org.springframework.boot:spring-boot-starter-webmvc")
+  implementation("org.springframework.boot:spring-boot-starter-opentelemetry")
+  implementation("org.springframework.boot:spring-boot-starter-restclient")
   implementation("org.springframework.boot:spring-boot-starter-validation")
-  implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
-  implementation ("org.bouncycastle:bcprov-jdk18on:${bouncycastleVersion}")
+  implementation("org.springframework.boot:spring-boot-starter-security-oauth2-resource-server")
+  implementation("org.bouncycastle:bcprov-jdk18on:${bouncycastleVersion}")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
   implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+  implementation("org.springframework.boot:spring-boot-starter-hateoas")
   implementation("org.springframework.boot:spring-boot-starter-data-rest")
-  implementation("org.springframework.cloud:spring-cloud-starter-stream-kafka")
+  implementation("org.springframework.cloud:spring-cloud-starter-stream-kafka") {
+    exclude(group = "org.lz4", module = "lz4-java")
+  }
+  implementation("at.yawk.lz4:lz4-java:$lz4JavaVersion")
   implementation("org.springframework.boot:spring-boot-starter-validation")
   implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocOpenApiVersion") {
     exclude(group = "org.apache.commons", module = "commons-lang3")
   }
-  implementation("org.apache.commons:commons-lang3:${commonsLang3Version}")
+  implementation("org.apache.commons:commons-lang3:$commonsLang3Version")
   implementation("org.codehaus.janino:janino:$janinoVersion")
-  implementation("io.github.springwolf:springwolf-kafka:${springWolfAsyncApiVersion}")
+  implementation("io.github.springwolf:springwolf-kafka:${springWolfAsyncApiVersion}") {
+    exclude(group = "org.lz4", module = "lz4-java")
+  }
   implementation("io.github.springwolf:springwolf-ui:${springWolfAsyncApiVersion}")
   implementation("io.github.springwolf:springwolf-cloud-stream:${springWolfAsyncApiVersion}")
   implementation("io.micrometer:micrometer-tracing-bridge-otel:$micrometerVersion")
   implementation("io.micrometer:micrometer-registry-prometheus")
-  implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
   implementation("org.openapitools:jackson-databind-nullable:$openApiToolsVersion")
   implementation("org.apache.httpcomponents.client5:httpclient5:$httpClientVersion")
 
@@ -95,10 +103,11 @@ dependencies {
   testAnnotationProcessor("org.projectlombok:lombok")
 
   //	Testing
-  testImplementation("org.springframework.boot:spring-boot-starter-test")
+  testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+  testImplementation("org.springframework.boot:spring-boot-starter-security-test")
   testImplementation("org.mockito:mockito-core")
   testImplementation("org.projectlombok:lombok")
-  testImplementation ("uk.co.jemos.podam:podam:${podamVersion}")
+  testImplementation("uk.co.jemos.podam:podam:${podamVersion}")
 }
 
 tasks.withType<Test> {
@@ -167,28 +176,35 @@ openApiGenerate {
   outputDir.set("$projectDir/build/generated")
   apiPackage.set("it.gov.pagopa.pu.registry.controller.generated")
   modelPackage.set("it.gov.pagopa.pu.registry.dto.generated")
-  typeMappings.set(mapOf(
-    "RegistryEventCategory" to "it.gov.pagopa.pu.registry.enums.RegistryEventCategory",
-    "RegistryPagoPaEventType" to "it.gov.pagopa.pu.registry.enums.RegistryPagoPaEventType",
-    "RegistrySilEventType" to "it.gov.pagopa.pu.registry.enums.RegistrySilEventType",
-    "RegistryEventSubType" to "it.gov.pagopa.pu.registry.enums.RegistryEventSubType",
-    "RegistryOutcome" to "it.gov.pagopa.pu.registry.enums.RegistryOutcome"
-  ))
-  configOptions.set(mapOf(
-    "dateLibrary" to "java8",
-    "requestMappingMode" to "api_interface",
-    "useSpringBoot3" to "true",
-    "interfaceOnly" to "true",
-    "useTags" to "true",
-    "useBeanValidation" to "true",
-    "generateConstructorWithAllArgs" to "true",
-    "generatedConstructorWithRequiredArgs" to "true",
-    "enumPropertyNaming" to "original",
-    "additionalModelTypeAnnotations" to "@lombok.experimental.SuperBuilder(toBuilder = true)"
-  ))
+  typeMappings.set(
+    mapOf(
+      "RegistryEventCategory" to "it.gov.pagopa.pu.registry.enums.RegistryEventCategory",
+      "RegistryPagoPaEventType" to "it.gov.pagopa.pu.registry.enums.RegistryPagoPaEventType",
+      "RegistrySilEventType" to "it.gov.pagopa.pu.registry.enums.RegistrySilEventType",
+      "RegistryEventSubType" to "it.gov.pagopa.pu.registry.enums.RegistryEventSubType",
+      "RegistryOutcome" to "it.gov.pagopa.pu.registry.enums.RegistryOutcome"
+    )
+  )
+  configOptions.set(
+    mapOf(
+      "dateLibrary" to "java8",
+      "requestMappingMode" to "api_interface",
+      "useSpringBoot3" to "true",
+      "interfaceOnly" to "true",
+      "useTags" to "true",
+      "useBeanValidation" to "true",
+      "generateConstructorWithAllArgs" to "true",
+      "generatedConstructorWithRequiredArgs" to "true",
+      "enumPropertyNaming" to "original",
+      "additionalModelTypeAnnotations" to "@lombok.experimental.SuperBuilder(toBuilder = true)"
+    )
+  )
 }
 
-var targetEnv = when (Objects.requireNonNullElse(System.getProperty("targetBranch"), grgit.branch.current().name)) {
+var targetEnv = when (Objects.requireNonNullElse(
+  System.getProperty("targetBranch"),
+  grgit.branch.current().name
+)) {
   "uat" -> "uat"
   "main" -> "main"
   else -> "develop"
@@ -204,21 +220,23 @@ tasks.register<GenerateTask>("openApiGenerateWORKFLOWHUB") {
   invokerPackage.set("it.gov.pagopa.pu.workflowhub.generated")
   apiPackage.set("it.gov.pagopa.pu.workflowhub.controller.generated")
   modelPackage.set("it.gov.pagopa.pu.workflowhub.dto.generated")
-  configOptions.set(mapOf(
-    "swaggerAnnotations" to "false",
-    "openApiNullable" to "false",
-    "dateLibrary" to "java8",
-    "serializableModel" to "true",
-    "useSpringBoot3" to "true",
-    "useJakartaEe" to "true",
-    "useOneOfInterfaces" to "true",
-    "useBeanValidation" to "true",
-    "serializationLibrary" to "jackson",
-    "generateSupportingFiles" to "true",
-    "generateConstructorWithAllArgs" to "true",
-    "generatedConstructorWithRequiredArgs" to "true",
-    "enumPropertyNaming" to "original",
-    "additionalModelTypeAnnotations" to "@lombok.experimental.SuperBuilder(toBuilder = true)"
-  ))
+  configOptions.set(
+    mapOf(
+      "swaggerAnnotations" to "false",
+      "openApiNullable" to "false",
+      "dateLibrary" to "java8",
+      "serializableModel" to "true",
+      "useSpringBoot3" to "true",
+      "useJakartaEe" to "true",
+      "useOneOfInterfaces" to "true",
+      "useBeanValidation" to "true",
+      "serializationLibrary" to "jackson",
+      "generateSupportingFiles" to "true",
+      "generateConstructorWithAllArgs" to "true",
+      "generatedConstructorWithRequiredArgs" to "true",
+      "enumPropertyNaming" to "original",
+      "additionalModelTypeAnnotations" to "@lombok.experimental.SuperBuilder(toBuilder = true)"
+    )
+  )
   library.set("resttemplate")
 }
