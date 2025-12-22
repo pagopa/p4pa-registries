@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrint;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.boot.webmvc.test.autoconfigure.MockMvcPrint;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
@@ -29,7 +29,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestPropertySource(properties = {
   "logging.level.org.springdoc.core.utils.SpringDocAnnotationsUtils=OFF",
   "springwolf.enabled=false",
-  "spring.cloud.stream.bindings.paymentsConsumer-in-0.consumer.auto-startup=false"
+  "spring.cloud.stream.bindings.paymentsConsumer-in-0.consumer.auto-startup=false",
+  "spring.cloud.stream.bindings.registryEventsConsumer-in-0.consumer.auto-startup=false"
 })
 @Slf4j
 class OpenApiGeneratorTest {
