@@ -20,11 +20,11 @@
     "description" : "the silRegistry API"
   } ],
   "paths" : {
-    "/debt-position-registries" : {
+    "/crud/debt-position-registries" : {
       "get" : {
         "tags" : [ "debt-position-registry-entity-controller" ],
         "description" : "get-debtpositionregistry",
-        "operationId" : "getCollectionResource-debtpositionregistry-get",
+        "operationId" : "crud-get-debtpositionregistrys",
         "parameters" : [ {
           "name" : "page",
           "in" : "query",
@@ -83,7 +83,7 @@
       "post" : {
         "tags" : [ "debt-position-registry-entity-controller" ],
         "description" : "create-debtpositionregistry",
-        "operationId" : "postCollectionResource-debtpositionregistry-post",
+        "operationId" : "crud-create-debtpositionregistry",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -108,10 +108,10 @@
         }
       }
     },
-    "/debt-position-registries/search/findAllByDebtPositionId" : {
+    "/crud/debt-position-registries/search/findAllByDebtPositionId" : {
       "get" : {
         "tags" : [ "debt-position-registry-search-controller" ],
-        "operationId" : "executeSearch-debtpositionregistry-get",
+        "operationId" : "crud-debt-position-registries-findAllByDebtPositionId",
         "parameters" : [ {
           "name" : "debtPositionId",
           "in" : "query",
@@ -137,11 +137,11 @@
         }
       }
     },
-    "/debt-position-registries/{id}" : {
+    "/crud/debt-position-registries/{id}" : {
       "get" : {
         "tags" : [ "debt-position-registry-entity-controller" ],
         "description" : "get-debtpositionregistry",
-        "operationId" : "getItemResource-debtpositionregistry-get",
+        "operationId" : "crud-get-debtpositionregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -169,7 +169,7 @@
       "put" : {
         "tags" : [ "debt-position-registry-entity-controller" ],
         "description" : "update-debtpositionregistry",
-        "operationId" : "putItemResource-debtpositionregistry-put",
+        "operationId" : "crud-update-debtpositionregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -217,7 +217,7 @@
       "delete" : {
         "tags" : [ "debt-position-registry-entity-controller" ],
         "description" : "delete-debtpositionregistry",
-        "operationId" : "deleteItemResource-debtpositionregistry-delete",
+        "operationId" : "crud-delete-debtpositionregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -238,7 +238,7 @@
       "patch" : {
         "tags" : [ "debt-position-registry-entity-controller" ],
         "description" : "patch-debtpositionregistry",
-        "operationId" : "patchItemResource-debtpositionregistry-patch",
+        "operationId" : "crud-patch-debtpositionregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -274,11 +274,11 @@
         }
       }
     },
-    "/installment-registries" : {
+    "/crud/installment-registries" : {
       "get" : {
         "tags" : [ "installment-registry-entity-controller" ],
         "description" : "get-installmentregistry",
-        "operationId" : "getCollectionResource-installmentregistry-get",
+        "operationId" : "crud-get-installmentregistrys",
         "parameters" : [ {
           "name" : "page",
           "in" : "query",
@@ -337,7 +337,7 @@
       "post" : {
         "tags" : [ "installment-registry-entity-controller" ],
         "description" : "create-installmentregistry",
-        "operationId" : "postCollectionResource-installmentregistry-post",
+        "operationId" : "crud-create-installmentregistry",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -362,10 +362,10 @@
         }
       }
     },
-    "/installment-registries/search/findAllByDebtPositionId" : {
+    "/crud/installment-registries/search/findAllByDebtPositionId" : {
       "get" : {
         "tags" : [ "installment-registry-search-controller" ],
-        "operationId" : "executeSearch-installmentregistry-get",
+        "operationId" : "crud-installment-registries-findAllByDebtPositionId",
         "parameters" : [ {
           "name" : "debtPositionId",
           "in" : "query",
@@ -391,10 +391,10 @@
         }
       }
     },
-    "/installment-registries/search/findAllByDebtPositionIdAndNav" : {
+    "/crud/installment-registries/search/findAllByDebtPositionIdAndNav" : {
       "get" : {
         "tags" : [ "installment-registry-search-controller" ],
-        "operationId" : "executeSearch-installmentregistry-get_1",
+        "operationId" : "crud-installment-registries-findAllByDebtPositionIdAndNav",
         "parameters" : [ {
           "name" : "debtPositionId",
           "in" : "query",
@@ -426,11 +426,11 @@
         }
       }
     },
-    "/installment-registries/{id}" : {
+    "/crud/installment-registries/{id}" : {
       "get" : {
         "tags" : [ "installment-registry-entity-controller" ],
         "description" : "get-installmentregistry",
-        "operationId" : "getItemResource-installmentregistry-get",
+        "operationId" : "crud-get-installmentregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -458,7 +458,7 @@
       "put" : {
         "tags" : [ "installment-registry-entity-controller" ],
         "description" : "update-installmentregistry",
-        "operationId" : "putItemResource-installmentregistry-put",
+        "operationId" : "crud-update-installmentregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -506,7 +506,7 @@
       "delete" : {
         "tags" : [ "installment-registry-entity-controller" ],
         "description" : "delete-installmentregistry",
-        "operationId" : "deleteItemResource-installmentregistry-delete",
+        "operationId" : "crud-delete-installmentregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -527,7 +527,7 @@
       "patch" : {
         "tags" : [ "installment-registry-entity-controller" ],
         "description" : "patch-installmentregistry",
-        "operationId" : "patchItemResource-installmentregistry-patch",
+        "operationId" : "crud-patch-installmentregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -563,11 +563,11 @@
         }
       }
     },
-    "/pagopa-registries" : {
+    "/crud/pagopa-registries" : {
       "get" : {
         "tags" : [ "pago-pa-registry-entity-controller" ],
         "description" : "get-pagoparegistry",
-        "operationId" : "getCollectionResource-pagoparegistry-get",
+        "operationId" : "crud-get-pagoparegistrys",
         "parameters" : [ {
           "name" : "page",
           "in" : "query",
@@ -626,7 +626,7 @@
       "post" : {
         "tags" : [ "pago-pa-registry-entity-controller" ],
         "description" : "create-pagoparegistry",
-        "operationId" : "postCollectionResource-pagoparegistry-post",
+        "operationId" : "crud-create-pagoparegistry",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -651,10 +651,10 @@
         }
       }
     },
-    "/pagopa-registries/search/searchByFilters" : {
+    "/crud/pagopa-registries/search/searchByFilters" : {
       "get" : {
         "tags" : [ "pago-pa-registry-search-controller" ],
-        "operationId" : "executeSearch-pagoparegistry-get",
+        "operationId" : "crud-pagopa-registries-searchByFilters",
         "parameters" : [ {
           "name" : "eventType",
           "in" : "query",
@@ -742,11 +742,11 @@
         }
       }
     },
-    "/pagopa-registries/{id}" : {
+    "/crud/pagopa-registries/{id}" : {
       "get" : {
         "tags" : [ "pago-pa-registry-entity-controller" ],
         "description" : "get-pagoparegistry",
-        "operationId" : "getItemResource-pagoparegistry-get",
+        "operationId" : "crud-get-pagoparegistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -774,7 +774,7 @@
       "put" : {
         "tags" : [ "pago-pa-registry-entity-controller" ],
         "description" : "update-pagoparegistry",
-        "operationId" : "putItemResource-pagoparegistry-put",
+        "operationId" : "crud-update-pagoparegistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -822,7 +822,7 @@
       "delete" : {
         "tags" : [ "pago-pa-registry-entity-controller" ],
         "description" : "delete-pagoparegistry",
-        "operationId" : "deleteItemResource-pagoparegistry-delete",
+        "operationId" : "crud-delete-pagoparegistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -843,7 +843,7 @@
       "patch" : {
         "tags" : [ "pago-pa-registry-entity-controller" ],
         "description" : "patch-pagoparegistry",
-        "operationId" : "patchItemResource-pagoparegistry-patch",
+        "operationId" : "crud-patch-pagoparegistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -879,10 +879,10 @@
         }
       }
     },
-    "/profile" : {
+    "/crud/profile" : {
       "get" : {
         "tags" : [ "profile-controller" ],
-        "operationId" : "listAllFormsOfMetadata",
+        "operationId" : "crud-profile-profiles",
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -897,10 +897,10 @@
         }
       }
     },
-    "/profile/debt-position-registries" : {
+    "/crud/profile/debt-position-registries" : {
       "get" : {
         "tags" : [ "profile-controller" ],
-        "operationId" : "descriptor",
+        "operationId" : "crud-profile-debt-position-registries",
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -925,10 +925,10 @@
         }
       }
     },
-    "/profile/installment-registries" : {
+    "/crud/profile/installment-registries" : {
       "get" : {
         "tags" : [ "profile-controller" ],
-        "operationId" : "descriptor_1",
+        "operationId" : "crud-profile-installment-registries",
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -953,10 +953,10 @@
         }
       }
     },
-    "/profile/pagopa-registries" : {
+    "/crud/profile/pagopa-registries" : {
       "get" : {
         "tags" : [ "profile-controller" ],
-        "operationId" : "descriptor_2",
+        "operationId" : "crud-profile-pagopa-registries",
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -981,10 +981,10 @@
         }
       }
     },
-    "/profile/sil-registries" : {
+    "/crud/profile/sil-registries" : {
       "get" : {
         "tags" : [ "profile-controller" ],
-        "operationId" : "descriptor_3",
+        "operationId" : "crud-profile-sil-registries",
         "responses" : {
           "200" : {
             "description" : "OK",
@@ -1009,11 +1009,11 @@
         }
       }
     },
-    "/sil-registries" : {
+    "/crud/sil-registries" : {
       "get" : {
         "tags" : [ "sil-registry-entity-controller" ],
         "description" : "get-silregistry",
-        "operationId" : "getCollectionResource-silregistry-get",
+        "operationId" : "crud-get-silregistrys",
         "parameters" : [ {
           "name" : "page",
           "in" : "query",
@@ -1072,7 +1072,7 @@
       "post" : {
         "tags" : [ "sil-registry-entity-controller" ],
         "description" : "create-silregistry",
-        "operationId" : "postCollectionResource-silregistry-post",
+        "operationId" : "crud-create-silregistry",
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -1097,10 +1097,10 @@
         }
       }
     },
-    "/sil-registries/search/searchByFilters" : {
+    "/crud/sil-registries/search/searchByFilters" : {
       "get" : {
         "tags" : [ "sil-registry-search-controller" ],
-        "operationId" : "executeSearch-silregistry-get",
+        "operationId" : "crud-sil-registries-searchByFilters",
         "parameters" : [ {
           "name" : "eventType",
           "in" : "query",
@@ -1188,11 +1188,11 @@
         }
       }
     },
-    "/sil-registries/{id}" : {
+    "/crud/sil-registries/{id}" : {
       "get" : {
         "tags" : [ "sil-registry-entity-controller" ],
         "description" : "get-silregistry",
-        "operationId" : "getItemResource-silregistry-get",
+        "operationId" : "crud-get-silregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1220,7 +1220,7 @@
       "put" : {
         "tags" : [ "sil-registry-entity-controller" ],
         "description" : "update-silregistry",
-        "operationId" : "putItemResource-silregistry-put",
+        "operationId" : "crud-update-silregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1268,7 +1268,7 @@
       "delete" : {
         "tags" : [ "sil-registry-entity-controller" ],
         "description" : "delete-silregistry",
-        "operationId" : "deleteItemResource-silregistry-delete",
+        "operationId" : "crud-delete-silregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1289,7 +1289,7 @@
       "patch" : {
         "tags" : [ "sil-registry-entity-controller" ],
         "description" : "patch-silregistry",
-        "operationId" : "patchItemResource-silregistry-patch",
+        "operationId" : "crud-patch-silregistry",
         "parameters" : [ {
           "name" : "id",
           "in" : "path",
@@ -1520,21 +1520,9 @@
           }
         }
       },
-      "RegistryEventCategory" : {
+      "PaymentEventType" : {
         "type" : "string",
-        "enum" : [ "INTERNO", "INTERFACCIA" ]
-      },
-      "RegistryEventSubType" : {
-        "type" : "string",
-        "enum" : [ "REQ", "RESP" ]
-      },
-      "RegistryOutcome" : {
-        "type" : "string",
-        "enum" : [ "OK", "KO" ]
-      },
-      "RegistryPagoPaEventType" : {
-        "type" : "string",
-        "enum" : [ "PaForNode_paVerifyPaymentNotice", "PaForNode_paGetPaymentV2", "PaForNode_paSendRTV2", "ACA_newDebtPosition", "GPD_createPosition", "GPD_updatePosition", "GPD_deletePosition", "NodeForPa_fetchPaymentReporting" ]
+        "enum" : [ "DP_CREATED", "DP_UPDATED", "DP_CANCELLED", "DPI_ADDED", "DPI_UPDATED", "DPI_CANCELLED", "DPI_EXPIRED", "DPI_REPORTED", "RT_RECEIVED", "SYNC_ERROR", "IO_NOTIFIED", "SEND_NOTIFICATION_CREATED", "SEND_NOTIFICATION_ERROR", "SEND_NOTIFICATION_DATE" ]
       },
       "PageMetadata" : {
         "type" : "object",
@@ -1557,13 +1545,25 @@
           }
         }
       },
-      "PaymentEventType" : {
+      "RegistryEventSubType" : {
         "type" : "string",
-        "enum" : [ "DP_CREATED", "DP_UPDATED", "DP_CANCELLED", "DPI_ADDED", "DPI_UPDATED", "DPI_CANCELLED", "DPI_EXPIRED", "DPI_REPORTED", "RT_RECEIVED", "SYNC_ERROR", "IO_NOTIFIED", "SEND_NOTIFICATION_CREATED", "SEND_NOTIFICATION_ERROR", "SEND_NOTIFICATION_DATE" ]
+        "enum" : [ "REQ", "RESP" ]
+      },
+      "RegistryOutcome" : {
+        "type" : "string",
+        "enum" : [ "OK", "KO" ]
       },
       "RegistrySilEventType" : {
         "type" : "string",
         "enum" : [ "PTDP_paaSILAutorizzaImportFlusso", "PTDP_paaSILImportaDovuto", "PTDP_paaSILInviaDovuti", "PTDP_paaSILInviaCarrelloDovuti", "PTDP_paaSILVerificaAvviso", "PTPR_pivotSILAutorizzaImportFlussoTesoreria", "PTPR_pivotSILAutorizzaImportFlusso", "SIL_attualizzazioneImporti", "SIL_notificaPagamento" ]
+      },
+      "RegistryEventCategory" : {
+        "type" : "string",
+        "enum" : [ "INTERNO", "INTERFACCIA" ]
+      },
+      "RegistryPagoPaEventType" : {
+        "type" : "string",
+        "enum" : [ "PaForNode_paVerifyPaymentNotice", "PaForNode_paGetPaymentV2", "PaForNode_paSendRTV2", "ACA_newDebtPosition", "GPD_createPosition", "GPD_updatePosition", "GPD_deletePosition", "NodeForPa_fetchPaymentReporting" ]
       },
       "DebtPositionRegistryRequestBody" : {
         "type" : "object",
@@ -1873,84 +1873,54 @@
         },
         "required" : [ "dateTime", "eventCategory", "eventSubType", "eventType", "grantorId", "orgFiscalCode", "outcome", "registryId", "requestorId", "traceId" ]
       },
-      "PagoPaRegistry" : {
+      "InstallmentRegistry" : {
         "type" : "object",
         "properties" : {
-          "registryId" : {
+          "eventId" : {
             "type" : "string"
           },
-          "registryOrigin" : {
-            "type" : "string"
+          "eventType" : {
+            "$ref" : "#/components/schemas/PaymentEventType"
           },
-          "dateTime" : {
+          "eventDateTime" : {
             "type" : "string",
             "format" : "date-time"
+          },
+          "eventDescription" : {
+            "type" : "string"
+          },
+          "operatorExternalUserId" : {
+            "type" : "string"
           },
           "traceId" : {
             "type" : "string"
           },
-          "brokerStationId" : {
-            "type" : "string"
+          "debtPositionId" : {
+            "type" : "integer",
+            "format" : "int64"
           },
-          "orgFiscalCode" : {
-            "type" : "string"
-          },
-          "iuv" : {
-            "type" : "string"
+          "organizationId" : {
+            "type" : "integer",
+            "format" : "int64"
           },
           "nav" : {
             "type" : "string"
           },
-          "ccp" : {
-            "type" : "string"
-          },
-          "pspId" : {
-            "type" : "string"
-          },
-          "pspChannelId" : {
-            "type" : "string"
-          },
-          "paymentMethod" : {
-            "type" : "string"
-          },
-          "eventCategory" : {
-            "$ref" : "#/components/schemas/RegistryEventCategory"
-          },
-          "eventType" : {
-            "$ref" : "#/components/schemas/RegistryPagoPaEventType"
-          },
-          "eventSubType" : {
-            "$ref" : "#/components/schemas/RegistryEventSubType"
-          },
-          "requestorId" : {
-            "type" : "string"
-          },
-          "grantorId" : {
-            "type" : "string"
-          },
-          "outcome" : {
-            "$ref" : "#/components/schemas/RegistryOutcome"
-          },
-          "bodyCiphered" : {
-            "type" : "string",
-            "format" : "byte"
-          },
           "_links" : {
             "$ref" : "#/components/schemas/Links"
           }
-        },
-        "required" : [ "dateTime", "eventCategory", "eventSubType", "eventType", "grantorId", "orgFiscalCode", "outcome", "registryId", "registryOrigin", "requestorId", "traceId" ]
+        }
       },
-      "PagedModelPagoPaRegistry" : {
+      "PagedModelInstallmentRegistry" : {
         "type" : "object",
         "properties" : {
           "_embedded" : {
             "type" : "object",
             "properties" : {
-              "pagoPaRegistries" : {
+              "installmentRegistries" : {
                 "type" : "array",
                 "items" : {
-                  "$ref" : "#/components/schemas/PagoPaRegistry"
+                  "$ref" : "#/components/schemas/InstallmentRegistry"
                 }
               }
             }
@@ -1960,6 +1930,25 @@
           },
           "page" : {
             "$ref" : "#/components/schemas/PageMetadata"
+          }
+        }
+      },
+      "CollectionModelInstallmentRegistry" : {
+        "type" : "object",
+        "properties" : {
+          "_embedded" : {
+            "type" : "object",
+            "properties" : {
+              "installmentRegistries" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/InstallmentRegistry"
+                }
+              }
+            }
+          },
+          "_links" : {
+            "$ref" : "#/components/schemas/Links"
           }
         }
       },
@@ -2114,54 +2103,84 @@
           }
         }
       },
-      "InstallmentRegistry" : {
+      "PagoPaRegistry" : {
         "type" : "object",
         "properties" : {
-          "eventId" : {
+          "registryId" : {
             "type" : "string"
           },
-          "eventType" : {
-            "$ref" : "#/components/schemas/PaymentEventType"
+          "registryOrigin" : {
+            "type" : "string"
           },
-          "eventDateTime" : {
+          "dateTime" : {
             "type" : "string",
             "format" : "date-time"
-          },
-          "eventDescription" : {
-            "type" : "string"
-          },
-          "operatorExternalUserId" : {
-            "type" : "string"
           },
           "traceId" : {
             "type" : "string"
           },
-          "debtPositionId" : {
-            "type" : "integer",
-            "format" : "int64"
+          "brokerStationId" : {
+            "type" : "string"
           },
-          "organizationId" : {
-            "type" : "integer",
-            "format" : "int64"
+          "orgFiscalCode" : {
+            "type" : "string"
+          },
+          "iuv" : {
+            "type" : "string"
           },
           "nav" : {
             "type" : "string"
           },
+          "ccp" : {
+            "type" : "string"
+          },
+          "pspId" : {
+            "type" : "string"
+          },
+          "pspChannelId" : {
+            "type" : "string"
+          },
+          "paymentMethod" : {
+            "type" : "string"
+          },
+          "eventCategory" : {
+            "$ref" : "#/components/schemas/RegistryEventCategory"
+          },
+          "eventType" : {
+            "$ref" : "#/components/schemas/RegistryPagoPaEventType"
+          },
+          "eventSubType" : {
+            "$ref" : "#/components/schemas/RegistryEventSubType"
+          },
+          "requestorId" : {
+            "type" : "string"
+          },
+          "grantorId" : {
+            "type" : "string"
+          },
+          "outcome" : {
+            "$ref" : "#/components/schemas/RegistryOutcome"
+          },
+          "bodyCiphered" : {
+            "type" : "string",
+            "format" : "byte"
+          },
           "_links" : {
             "$ref" : "#/components/schemas/Links"
           }
-        }
+        },
+        "required" : [ "dateTime", "eventCategory", "eventSubType", "eventType", "grantorId", "orgFiscalCode", "outcome", "registryId", "registryOrigin", "requestorId", "traceId" ]
       },
-      "PagedModelInstallmentRegistry" : {
+      "PagedModelPagoPaRegistry" : {
         "type" : "object",
         "properties" : {
           "_embedded" : {
             "type" : "object",
             "properties" : {
-              "installmentRegistries" : {
+              "pagoPaRegistries" : {
                 "type" : "array",
                 "items" : {
-                  "$ref" : "#/components/schemas/InstallmentRegistry"
+                  "$ref" : "#/components/schemas/PagoPaRegistry"
                 }
               }
             }
@@ -2171,25 +2190,6 @@
           },
           "page" : {
             "$ref" : "#/components/schemas/PageMetadata"
-          }
-        }
-      },
-      "CollectionModelInstallmentRegistry" : {
-        "type" : "object",
-        "properties" : {
-          "_embedded" : {
-            "type" : "object",
-            "properties" : {
-              "installmentRegistries" : {
-                "type" : "array",
-                "items" : {
-                  "$ref" : "#/components/schemas/InstallmentRegistry"
-                }
-              }
-            }
-          },
-          "_links" : {
-            "$ref" : "#/components/schemas/Links"
           }
         }
       },

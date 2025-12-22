@@ -9,6 +9,9 @@ spring:
   threads:
     virtual:
       enabled: "\${VIRTUAL_THREADS_ENABLED:true}"
+  data:
+    rest:
+      basePath: crud
   mongodb:
     uri: "\${MONGODB_URI:mongodb://localhost:27017}"
     database: "\${MONGODB_DBNAME:payhub}"
@@ -21,8 +24,6 @@ spring:
         maxConnectionLifeTimeMS: "\${MONGODB_CONNECTIONPOOL_MAX_CONNECTION_LIFE_MS:0}"
         maxConnectionIdleTimeMS: "\${MONGODB_CONNECTIONPOOL_MAX_CONNECTION_IDLE_MS:120000}"
         maxConnecting: "\${MONGODB_CONNECTIONPOOL_MAX_CONNECTING:2}"
-    rest:
-      basePath: crud
   cloud:
     function:
       definition: paymentsConsumer;registryEventsConsumer
