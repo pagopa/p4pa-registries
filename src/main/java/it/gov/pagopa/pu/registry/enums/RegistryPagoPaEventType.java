@@ -9,6 +9,7 @@ public enum RegistryPagoPaEventType {
   PaForNode_paVerifyPaymentNotice,
   PaForNode_paGetPaymentV2,
   PaForNode_paSendRTV2,
+  PaForNode_paDemandPaymentNotice,
 
   ACA_newDebtPosition,
 
