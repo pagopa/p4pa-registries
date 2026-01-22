@@ -13,6 +13,10 @@ public enum RegistryPagoPaEventType {
 
   ACA_newDebtPosition,
 
+  ACA_createPosition,
+  ACA_updatePosition,
+  ACA_deletePosition,
+
   GPD_createPosition,
   GPD_updatePosition,
   GPD_deletePosition,
