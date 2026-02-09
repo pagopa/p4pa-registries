@@ -30,7 +30,7 @@ public class MongoTooManyRequestsExceptionHandler {
       Long retryAfterMs = getRetryAfterMs(ex);
       return handleRequestRateTooLargeException(ex, request, retryAfterMs);
     } else {
-      return ControllerExceptionHandler.handleException(ex, request, HttpStatus.INTERNAL_SERVER_ERROR, ErrorDTO.CodeEnum.GENERIC_ERROR);
+      return ControllerExceptionHandler.handleException(ex, request, HttpStatus.INTERNAL_SERVER_ERROR, ErrorDTO.CategoryEnum.GENERIC_ERROR);
     }
   }
 
