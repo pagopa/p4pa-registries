@@ -3,12 +3,14 @@ package it.gov.pagopa.pu.registry.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
+@FieldNameConstants
 @SuperBuilder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
