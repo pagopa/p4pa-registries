@@ -26,7 +26,7 @@ class DebtPositionIoEventDTO2DebtPositionRegistryMapperTest {
   void map_shouldMapCorrectly_whenValidInput() {
     DebtPositionIoEventDTO dto = createValidDto();
     DebtPositionRegistry result = mapper.map(dto);
-    TestUtils.checkNotNullFields(result, "operatorExternalUserId");
+    TestUtils.checkNotNullFields(result, "operatorExternalUserId", "creationDate", "updateDate", "updateOperatorExternalId", "updateTraceId");
 
     assertEquals(dto.getEventId(), result.getEventId());
     assertEquals(dto.getEventType(), result.getEventType());

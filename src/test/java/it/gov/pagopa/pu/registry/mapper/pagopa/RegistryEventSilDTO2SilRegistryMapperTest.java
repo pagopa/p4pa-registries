@@ -46,7 +46,7 @@ class RegistryEventSilDTO2SilRegistryMapperTest {
 
     assertEquals(1, result.size());
     SilRegistry resultRegistry = result.getFirst();
-    TestUtils.checkNotNullFields(resultRegistry, "iuv", "nav");
+    TestUtils.checkNotNullFields(resultRegistry, "iuv", "nav", "creationDate", "updateDate", "updateOperatorExternalId", "updateTraceId");
     assertEquals(dto.getRegistryId(), resultRegistry.getRegistryId());
     assertNull(resultRegistry.getIuv());
     assertNull(resultRegistry.getNav());
@@ -66,7 +66,7 @@ class RegistryEventSilDTO2SilRegistryMapperTest {
 
     assertEquals(1, result.size());
     SilRegistry resultRegistry = result.getFirst();
-    TestUtils.checkNotNullFields(resultRegistry);
+    TestUtils.checkNotNullFields(resultRegistry, "creationDate", "updateDate", "updateOperatorExternalId", "updateTraceId");
     assertEquals(dto.getRegistryId() + dto.getIuv(), resultRegistry.getRegistryId());
     assertEquals(dto.getIuv(), resultRegistry.getIuv());
     assertEquals(dto.getNav(), resultRegistry.getNav());

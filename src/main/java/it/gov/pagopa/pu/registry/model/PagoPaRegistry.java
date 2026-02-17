@@ -9,7 +9,6 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.io.Serializable;
 import java.time.OffsetDateTime;
 
 @Document(collection = "pagopa_registry")
@@ -17,9 +16,8 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 @Data
 @Builder
-@EqualsAndHashCode
-@ToString
-public class PagoPaRegistry implements Serializable {
+@EqualsAndHashCode(callSuper = false)
+public class PagoPaRegistry extends BaseEntity {
 
   @Id
   @NotNull

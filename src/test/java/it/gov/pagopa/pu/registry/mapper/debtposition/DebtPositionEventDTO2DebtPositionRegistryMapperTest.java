@@ -22,7 +22,7 @@ class DebtPositionEventDTO2DebtPositionRegistryMapperTest {
     DebtPositionEventDTO dto = TestUtils.getPodamFactory().manufacturePojo(DebtPositionEventDTO.class);
 
     DebtPositionRegistry result = mapper.map(dto);
-    TestUtils.checkNotNullFields(result);
+    TestUtils.checkNotNullFields(result, "creationDate", "updateDate", "updateOperatorExternalId", "updateTraceId");
 
     assertEquals(dto.getEventId(), result.getEventId());
     assertEquals(dto.getEventType(), result.getEventType());
