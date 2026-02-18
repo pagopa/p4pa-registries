@@ -20,6 +20,20 @@ public class SecurityUtilsTest {
   @BeforeEach
   @AfterEach
   void clear() {
+    clearSecurityContext();
+  }
+
+  public static Jwt configureSecurityContext(String operatorExternalId) {
+    Jwt jwt = Jwt
+      .withTokenValue("TOKENHEADER.TOKENPAYLOAD.TOKENDIGEST")
+      .header("", "")
+      .claim("", "")
+      .build();
+    SecurityContextHolder.setContext(new SecurityContextImpl(new JwtAuthenticationToken(jwt, null, operatorExternalId)));
+    return jwt;
+  }
+
+  public static void clearSecurityContext() {
     SecurityContextHolder.clearContext();
   }
 
@@ -110,16 +124,6 @@ public class SecurityUtilsTest {
     Assertions.assertSame(principalName, result);
   }
 //endregion
-
-  public static Jwt configureSecurityContext(String operatorExternalId) {
-    Jwt jwt = Jwt
-      .withTokenValue("TOKENHEADER.TOKENPAYLOAD.TOKENDIGEST")
-      .header("", "")
-      .claim("", "")
-      .build();
-    SecurityContextHolder.setContext(new SecurityContextImpl(new JwtAuthenticationToken(jwt, null, operatorExternalId)));
-    return jwt;
-  }
 
   @Test
   void givenUriWhenRemovePiiFromURIThenOk(){

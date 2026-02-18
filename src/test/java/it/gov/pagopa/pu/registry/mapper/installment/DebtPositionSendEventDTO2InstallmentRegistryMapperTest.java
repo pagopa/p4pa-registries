@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DebtPositionSendEventDTO2InstallmentRegistryMapperTest {
+class DebtPositionSendEventDTO2InstallmentRegistryMapperTest {
 
   private DebtPositionSendEventDTO2InstallmentRegistryMapper mapper;
 
@@ -26,9 +26,11 @@ public class DebtPositionSendEventDTO2InstallmentRegistryMapperTest {
   void map_shouldMapCorrectly_whenValidInput() {
     DebtPositionSendEventDTO dto = createValidDto();
     List<InstallmentRegistry> result = mapper.map(dto);
-    result.forEach(installmentRegistry -> {
-      TestUtils.checkNotNullFields(installmentRegistry, "operatorExternalUserId");
-    });
+    result.forEach(installmentRegistry ->
+      TestUtils.checkNotNullFields(installmentRegistry,
+        "operatorExternalUserId",
+        "creationDate", "updateDate", "updateOperatorExternalId", "updateTraceId"
+      ));
 
     assertEquals(2, result.size());
     assertEquals(dto.getEventType(), result.getFirst().getEventType());

@@ -25,7 +25,7 @@ class DebtPositionEventDTO2InstallmentRegistryMapperTest {
   void map_shouldMapCorrectly_whenValidInput() {
     DebtPositionEventDTO dto = TestUtils.getPodamFactory().manufacturePojo(DebtPositionEventDTO.class);
     List<InstallmentRegistry> result = mapper.map(dto);
-    result.forEach(TestUtils::checkNotNullFields);
+    result.forEach(r -> TestUtils.checkNotNullFields(r , "creationDate", "updateDate", "updateOperatorExternalId", "updateTraceId"));
 
     assertEquals(25, result.size());
     assertNotNull(dto.getPayload().getPaymentOptions());
@@ -39,8 +39,8 @@ class DebtPositionEventDTO2InstallmentRegistryMapperTest {
 
     InstallmentDTO firstInstallmentDTO = dto.getPayload().getPaymentOptions().getFirst().getInstallments().get(0);
     InstallmentDTO secondInstallmentDTO = dto.getPayload().getPaymentOptions().getFirst().getInstallments().get(1);
-    TestUtils.checkNotNullFields(result.get(0));
-    TestUtils.checkNotNullFields(result.get(1));
+    TestUtils.checkNotNullFields(result.get(0), "creationDate", "updateDate", "updateOperatorExternalId", "updateTraceId");
+    TestUtils.checkNotNullFields(result.get(1), "creationDate", "updateDate", "updateOperatorExternalId", "updateTraceId");
     assertEquals(dto.getEventId() + "." + firstInstallmentDTO.getNav(), result.get(0).getEventId());
     assertEquals(firstInstallmentDTO.getNav(), result.get(0).getNav());
     assertEquals(firstInstallmentDTO.getUpdateOperatorExternalId(), result.get(0).getOperatorExternalUserId());
