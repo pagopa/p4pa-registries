@@ -5,7 +5,6 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.io.Serializable;
 import java.time.OffsetDateTime;
 
 @Document(collection = "installment_registry")
@@ -13,9 +12,8 @@ import java.time.OffsetDateTime;
 @NoArgsConstructor
 @Data
 @Builder
-@EqualsAndHashCode
-@ToString
-public class InstallmentRegistry implements Serializable {
+@EqualsAndHashCode(callSuper = false)
+public class InstallmentRegistry extends BaseEntity {
   @Id
   private String eventId;
   private PaymentEventType eventType;

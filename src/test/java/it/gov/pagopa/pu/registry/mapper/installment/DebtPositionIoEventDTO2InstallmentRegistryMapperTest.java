@@ -31,9 +31,11 @@ class DebtPositionIoEventDTO2InstallmentRegistryMapperTest {
     List<InstallmentRegistry> result = mapper.map(dto);
 
     // Then
-    result.forEach(installmentRegistry -> {
-      TestUtils.checkNotNullFields(installmentRegistry, "operatorExternalUserId");
-    });
+    result.forEach(installmentRegistry ->
+      TestUtils.checkNotNullFields(installmentRegistry,
+        "operatorExternalUserId",
+        "creationDate", "updateDate", "updateOperatorExternalId", "updateTraceId"
+      ));
 
     assertEquals(2, result.size());
     assertEquals(4, dto.getPayload().getMessages().size());
