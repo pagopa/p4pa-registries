@@ -33,7 +33,7 @@ public class SilRegistryService {
 
   public SilRegistryDTO getSilRegistry(String registryId) {
     SilRegistry entity = silRegistryRepository.findById(registryId)
-        .orElseThrow(() -> new ResourceNotFoundException("No registry found with id: " + registryId));
+        .orElseThrow(() -> new ResourceNotFoundException("[SIL_REGISTRY_NOT_FOUND] No registry found with id: " + registryId));
 
     return SilRegistryDTO.builder()
         .registryId(entity.getRegistryId())
