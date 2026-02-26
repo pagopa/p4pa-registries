@@ -33,7 +33,7 @@ public class PagoPaRegistryService {
 
   public PagoPaRegistryDTO getPagoPaRegistry(String registryId) {
     PagoPaRegistry entity = pagopaRegistryRepository.findById(registryId)
-      .orElseThrow(() -> new ResourceNotFoundException("No registry found with id: " + registryId));
+      .orElseThrow(() -> new ResourceNotFoundException("[PAGOPA_REGISTRY_NOT_FOUND] No registry found with id: " + registryId));
 
     return PagoPaRegistryDTO.builder()
         .registryId(entity.getRegistryId())
