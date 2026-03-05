@@ -57,6 +57,7 @@ val openApiToolsVersion = "0.2.9"
 val springWolfAsyncApiVersion = "1.20.0"
 val micrometerVersion = "1.6.3"
 val httpClientVersion = "5.6"
+val httpCoreVersion = "5.4.1"
 val bouncycastleVersion = "1.83"
 val podamVersion = "8.0.2.RELEASE"
 val commonsLang3Version = "3.20.0"
@@ -104,6 +105,7 @@ dependencies {
   implementation("io.micrometer:micrometer-registry-prometheus")
   implementation("org.openapitools:jackson-databind-nullable:$openApiToolsVersion")
   implementation("org.apache.httpcomponents.client5:httpclient5:$httpClientVersion")
+  implementation("org.apache.httpcomponents.core5:httpcore5:$httpCoreVersion")
 
   // CVE fix
   implementation("tools.jackson.core:jackson-core:$jackson3CoreVersion")
