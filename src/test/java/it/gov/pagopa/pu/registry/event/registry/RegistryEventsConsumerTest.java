@@ -11,6 +11,7 @@ import it.gov.pagopa.pu.registry.enums.RegistryPagoPaEventType;
 import it.gov.pagopa.pu.registry.enums.RegistrySilEventType;
 import it.gov.pagopa.pu.registry.enums.RegistryType;
 import it.gov.pagopa.pu.registry.service.pagopa.PagoPaRegistryService;
+import it.gov.pagopa.pu.registry.service.send.SendTimelineRegistryService;
 import it.gov.pagopa.pu.registry.service.sil.SilRegistryService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,6 +36,8 @@ class RegistryEventsConsumerTest {
   private PagoPaRegistryService pagoPaRegistryService;
   @Mock
   private SilRegistryService silRegistryService;
+  @Mock
+  private SendTimelineRegistryService sendTimelineRegistryService;
 
   private RegistryEventsConsumer consumer;
 
@@ -42,13 +45,14 @@ class RegistryEventsConsumerTest {
   void setUp() {
     consumer = new RegistryEventsConsumer(
         pagoPaRegistryService,
-        silRegistryService
+        silRegistryService,
+        sendTimelineRegistryService
     );
   }
 
   @AfterEach
   void afterEach() {
-    Mockito.verifyNoMoreInteractions(pagoPaRegistryService, silRegistryService);
+    Mockito.verifyNoMoreInteractions(pagoPaRegistryService, silRegistryService, sendTimelineRegistryService);
   }
 
   @Test

@@ -1,9 +1,7 @@
 package it.gov.pagopa.pu.registry.model;
 
-import it.gov.pagopa.pu.registry.enums.RegistryEventCategory;
 import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
 import it.gov.pagopa.pu.registry.enums.RegistryOutcome;
-import it.gov.pagopa.pu.registry.enums.RegistryPagoPaEventType;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -11,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.OffsetDateTime;
 
-@Document(collection = "pagopa_registry")
+@Document(collection = "send_timeline_event")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -34,9 +32,6 @@ public class SendTimelineRegistry extends BaseEntity {
   private String requestorId;
   @NotNull
   private String grantorId;
-
-  @NotNull
-  private RegistryEventCategory eventCategory;
 
   @NotNull
   private Long organizationId; //Codice interno a PU dell'ente a cui le notifiche fanno capo
