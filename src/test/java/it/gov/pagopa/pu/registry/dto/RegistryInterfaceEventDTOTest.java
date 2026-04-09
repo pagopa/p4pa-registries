@@ -20,7 +20,8 @@ class RegistryInterfaceEventDTOTest {
 
   private final Map<String, Class<? extends RegistryInterfaceEventDTO>> enum2ExpectedModel = Map.ofEntries(
     Map.entry(RegistryType.REGISTRY_PAGOPA.name(), RegistryEventPagoPaDTO.class),
-    Map.entry(RegistryType.REGISTRY_SIL.name(), RegistryEventSilDTO.class)
+    Map.entry(RegistryType.REGISTRY_SIL.name(), RegistryEventSilDTO.class),
+    Map.entry(RegistryType.REGISTRY_SEND.name(), RegistryEventSendTimelineDTO.class)
   );
 
   private final ObjectMapper objectMapper = new JsonConfig().objectMapper();

@@ -7,5 +7,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum RegistryType {
   REGISTRY_PAGOPA,
-  REGISTRY_SIL
+  REGISTRY_SIL,
+  REGISTRY_SEND
 }
