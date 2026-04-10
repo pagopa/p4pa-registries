@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.gov.pagopa.pu.registry.config.json.JsonConfig;
 import it.gov.pagopa.pu.registry.dto.RegistryEventPagoPaDTO;
+import it.gov.pagopa.pu.registry.dto.RegistryEventSendTimelineDTO;
 import it.gov.pagopa.pu.registry.dto.RegistryEventSilDTO;
 import it.gov.pagopa.pu.registry.dto.RegistryInterfaceEventDTO;
 import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
@@ -11,6 +12,7 @@ import it.gov.pagopa.pu.registry.enums.RegistryPagoPaEventType;
 import it.gov.pagopa.pu.registry.enums.RegistrySilEventType;
 import it.gov.pagopa.pu.registry.enums.RegistryType;
 import it.gov.pagopa.pu.registry.service.pagopa.PagoPaRegistryService;
+import it.gov.pagopa.pu.registry.service.send.SendTimelineRegistryService;
 import it.gov.pagopa.pu.registry.service.sil.SilRegistryService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,6 +37,8 @@ class RegistryEventsConsumerTest {
   private PagoPaRegistryService pagoPaRegistryService;
   @Mock
   private SilRegistryService silRegistryService;
+  @Mock
+  private SendTimelineRegistryService sendTimelineRegistryService;
 
   private RegistryEventsConsumer consumer;
 
@@ -42,13 +46,18 @@ class RegistryEventsConsumerTest {
   void setUp() {
     consumer = new RegistryEventsConsumer(
         pagoPaRegistryService,
-        silRegistryService
+        silRegistryService,
+        sendTimelineRegistryService
     );
   }
 
   @AfterEach
   void afterEach() {
-    Mockito.verifyNoMoreInteractions(pagoPaRegistryService, silRegistryService);
+    Mockito.verifyNoMoreInteractions(
+      pagoPaRegistryService,
+      silRegistryService,
+      sendTimelineRegistryService
+    );
   }
 
   @Test
@@ -82,6 +91,7 @@ class RegistryEventsConsumerTest {
     assertEquals(pagoPaEventDTO.getEventType(), capturedEvent.getEventType());
     assertEquals(pagoPaEventDTO.getEventSubType(), capturedEvent.getEventSubType());
     Mockito.verify(silRegistryService, Mockito.never()).consumePaymentEvent(Mockito.any());
+    Mockito.verify(sendTimelineRegistryService, Mockito.never()).consumeSendTimelineEvent(Mockito.any());
   }
 
   @Test
@@ -115,6 +125,46 @@ class RegistryEventsConsumerTest {
     assertEquals(silEventDTO.getEventType(), capturedEvent.getEventType());
     assertEquals(silEventDTO.getEventSubType(), capturedEvent.getEventSubType());
     Mockito.verify(pagoPaRegistryService, Mockito.never()).consumePaymentEvent(Mockito.any());
+    Mockito.verify(sendTimelineRegistryService, Mockito.never()).consumeSendTimelineEvent(Mockito.any());
+  }
+
+  @Test
+  void whenAcceptSendTimelineRegistryEventThenSendTimelineRegistryServiceIsCalled() throws JsonProcessingException {
+    // Given
+    RegistryEventSendTimelineDTO sendTimelineEventDTO = new RegistryEventSendTimelineDTO();
+    sendTimelineEventDTO.setRegistryId(UUID.randomUUID().toString());
+    sendTimelineEventDTO.setRegistryOrigin("test-origin");
+    sendTimelineEventDTO.setRegistryType(RegistryType.REGISTRY_SEND);
+    sendTimelineEventDTO.setTraceId(UUID.randomUUID().toString());
+    sendTimelineEventDTO.setEventType("eventType");
+    sendTimelineEventDTO.setOrganizationId(1L);
+    sendTimelineEventDTO.setIun("iun");
+    sendTimelineEventDTO.setNotificationRequestId("notificationRequestId");
+    sendTimelineEventDTO.setEventSubType(RegistryEventSubType.RESP);
+    sendTimelineEventDTO.setBody("{}");
+
+    String json = objectMapper.writeValueAsString(sendTimelineEventDTO);
+    RegistryInterfaceEventDTO eventDTO = objectMapper.readValue(json, RegistryInterfaceEventDTO.class);
+
+    // When
+    consumer.accept(eventDTO);
+
+    // Then
+    ArgumentCaptor<RegistryEventSendTimelineDTO> captor = ArgumentCaptor.forClass(RegistryEventSendTimelineDTO.class);
+    Mockito.verify(sendTimelineRegistryService).consumeSendTimelineEvent(captor.capture());
+    RegistryEventSendTimelineDTO capturedEvent = captor.getValue();
+    assertEquals(sendTimelineEventDTO.getRegistryId(), capturedEvent.getRegistryId());
+    assertEquals(sendTimelineEventDTO.getRegistryOrigin(), capturedEvent.getRegistryOrigin());
+    assertEquals(sendTimelineEventDTO.getRegistryType(), capturedEvent.getRegistryType());
+    assertEquals(sendTimelineEventDTO.getTraceId(), capturedEvent.getTraceId());
+    assertEquals(sendTimelineEventDTO.getEventType(), capturedEvent.getEventType());
+    assertEquals(sendTimelineEventDTO.getOrganizationId(), capturedEvent.getOrganizationId());
+    assertEquals(sendTimelineEventDTO.getIun(), capturedEvent.getIun());
+    assertEquals(sendTimelineEventDTO.getNotificationRequestId(), capturedEvent.getNotificationRequestId());
+    assertEquals(sendTimelineEventDTO.getEventSubType(), capturedEvent.getEventSubType());
+    assertEquals(sendTimelineEventDTO.getBody(), capturedEvent.getBody());
+    Mockito.verify(pagoPaRegistryService, Mockito.never()).consumePaymentEvent(Mockito.any());
+    Mockito.verify(silRegistryService, Mockito.never()).consumePaymentEvent(Mockito.any());
   }
 
   @Test

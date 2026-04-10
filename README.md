@@ -10,6 +10,7 @@ See [PU Microservice Architecture](https://pagopa.atlassian.net/wiki/spaces/SPAC
 * To handle the registry of interactions between PU and:
   * pagoPa's payment services;
   * Organizations' SILs.
+* To handle the timeline of SEND notification events.
 
 ## 🌐 APIs
 See [OpenAPI](openapi/generated.openapi.json), exposed through the following path:
@@ -50,6 +51,7 @@ See [log configured pattern](/src/main/resources/logback-spring.xml).
 * `installment_registry`
 * `pagopa_registry`
 * `sil_registry`
+* `send_timeline_event`
 
 ## 🔧 Configuration
 

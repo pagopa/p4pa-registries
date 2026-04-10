@@ -3,7 +3,9 @@ package it.gov.pagopa.pu.registry.event.registry;
 import it.gov.pagopa.pu.registry.dto.RegistryEventPagoPaDTO;
 import it.gov.pagopa.pu.registry.dto.RegistryEventSilDTO;
 import it.gov.pagopa.pu.registry.dto.RegistryInterfaceEventDTO;
+import it.gov.pagopa.pu.registry.dto.RegistryEventSendTimelineDTO;
 import it.gov.pagopa.pu.registry.service.pagopa.PagoPaRegistryService;
+import it.gov.pagopa.pu.registry.service.send.SendTimelineRegistryService;
 import it.gov.pagopa.pu.registry.service.sil.SilRegistryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,7 @@ public class RegistryEventsConsumer implements Consumer<RegistryInterfaceEventDT
 
   private final PagoPaRegistryService pagoPaRegistryService;
   private final SilRegistryService silRegistryService;
+  private final SendTimelineRegistryService sendTimelineRegistryService;
 
   @Override
   public void accept(RegistryInterfaceEventDTO event) {
@@ -30,6 +33,9 @@ public class RegistryEventsConsumer implements Consumer<RegistryInterfaceEventDT
           break;
         case RegistryEventSilDTO registryEventSilDTO:
           silRegistryService.consumePaymentEvent(registryEventSilDTO);
+          break;
+        case RegistryEventSendTimelineDTO registryEventSendTimelineDTO:
+          sendTimelineRegistryService.consumeSendTimelineEvent(registryEventSendTimelineDTO);
           break;
         default:
           log.warn("Unsupported event type: registryId={} registryOrigin={} registryType={} traceId={} eventSubType={}",
