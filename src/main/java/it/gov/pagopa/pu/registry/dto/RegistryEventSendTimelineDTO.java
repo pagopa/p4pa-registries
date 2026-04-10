@@ -25,7 +25,7 @@ public class RegistryEventSendTimelineDTO extends RegistryInterfaceEventDTO {
   @NotNull
   private String notificationRequestId;
   private String iun;
-  private Long recipientIndex;
+  private Integer recipientIndex;
   private String newStatus;
   @NotNull
   private RegistryOutcome outcome;
