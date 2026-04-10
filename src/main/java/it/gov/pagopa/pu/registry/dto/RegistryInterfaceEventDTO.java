@@ -24,7 +24,8 @@ import java.time.OffsetDateTime;
 )
 @JsonSubTypes({
   @JsonSubTypes.Type(value = RegistryEventPagoPaDTO.class, name = "REGISTRY_PAGOPA"),
-  @JsonSubTypes.Type(value = RegistryEventSilDTO.class, names = "REGISTRY_SIL")
+  @JsonSubTypes.Type(value = RegistryEventSilDTO.class, names = "REGISTRY_SIL"),
+  @JsonSubTypes.Type(value = RegistryEventSendTimelineDTO.class, names = "REGISTRY_SEND")
 })
 public class RegistryInterfaceEventDTO {
   @NotNull
