@@ -113,6 +113,36 @@ class RegistryInterfaceEventDTOTest {
   }
 
   @Test
+  void testSerializationSendTimeline() throws JsonProcessingException {
+    RegistryEventSendTimelineDTO expectedEvent = RegistryEventSendTimelineDTO.builder()
+      .registryId("registry456")
+      .registryOrigin("send-origin")
+      .registryType(RegistryType.REGISTRY_SEND)
+      .dateTime(OffsetDateTime.now())
+      .traceId("trace456")
+      .eventSubType(RegistryEventSubType.REQ)
+      .requestorId("requestor456")
+      .grantorId("grantor456")
+      .organizationId(1L)
+      .streamId("streamId")
+      .eventId("eventId")
+      .eventType("sentTimelineCategory")
+      .notificationRequestId("notificationRequestId")
+      .iun("iun")
+      .recipientIndex(1L)
+      .newStatus("newStatus")
+      .outcome(RegistryOutcome.OK)
+      .body("{\"flussoId\": \"FLUSSO123\", \"numeroRiga\": 1}")
+      .build();
+
+    String serialized = objectMapper.writeValueAsString(expectedEvent);
+    RegistryInterfaceEventDTO result = objectMapper.readValue(serialized, RegistryInterfaceEventDTO.class);
+
+    Assertions.assertEquals(expectedEvent, result);
+    Assertions.assertInstanceOf(RegistryEventSendTimelineDTO.class, result);
+  }
+
+  @Test
   void testDeserializationByEventType() throws JsonProcessingException {
     for (Map.Entry<String, Class<? extends RegistryInterfaceEventDTO>> entry : enum2ExpectedModel.entrySet()) {
       Class<? extends RegistryInterfaceEventDTO> expectedClass = entry.getValue();
@@ -135,7 +165,7 @@ class RegistryInterfaceEventDTOTest {
             "outcome": "OK"
           }
           """, entry.getKey());
-      } else {
+      } else if (expectedClass.equals(RegistryEventSilDTO.class)) {
         json = String.format("""
           {
             "registryId": "test-registry",
@@ -151,6 +181,23 @@ class RegistryInterfaceEventDTOTest {
             "outcome": "OK"
           }
           """, entry.getKey());
+      } else {
+        json = String.format("""
+          {
+            "registryId": "test-registry",
+            "registryType": "%s",
+            "dateTime": "2025-01-01T12:00:00Z",
+            "traceId": "test-trace",
+            "eventType": "sendTimelineEventCategory",
+            "eventSubType": "RESP",
+            "requestorId": "test-requestor",
+            "grantorId": "test-grantor",
+            "organizationId": "1",
+            "iun": "iun",
+            "notificationRequestId": "notificationRequestId",
+            "outcome": "OK"
+          }
+          """, entry.getKey());
       }
 
       RegistryInterfaceEventDTO result = objectMapper.readValue(json, RegistryInterfaceEventDTO.class);
@@ -160,7 +207,6 @@ class RegistryInterfaceEventDTOTest {
       Assertions.assertEquals(RegistryType.valueOf(entry.getKey()), result.getRegistryType());
     }
   }
-
 
   @Test
   void testPagoPaRequiredFields() throws JsonProcessingException {
@@ -207,6 +253,35 @@ class RegistryInterfaceEventDTOTest {
 
     Assertions.assertEquals(event.getBrokerFiscalCode(), result.getBrokerFiscalCode());
     Assertions.assertEquals(event.getOrgFiscalCode(), result.getOrgFiscalCode());
+    Assertions.assertEquals(event.getOutcome(), result.getOutcome());
+  }
+
+  @Test
+  void testSendTimelineRequiredFields() throws JsonProcessingException {
+    RegistryEventSendTimelineDTO event = RegistryEventSendTimelineDTO.builder()
+      .registryId("registry456")
+      .registryType(RegistryType.REGISTRY_SEND)
+      .dateTime(OffsetDateTime.now())
+      .traceId("trace456")
+      .eventSubType(RegistryEventSubType.RESP)
+      .requestorId("requestor456")
+      .grantorId("grantor456")
+      .organizationId(1L)
+      .streamId("streamId")
+      .eventId("eventId")
+      .eventType("sentTimelineCategory")
+      .notificationRequestId("notificationRequestId")
+      .outcome(RegistryOutcome.OK)
+      .build();
+
+    String json = objectMapper.writeValueAsString(event);
+    RegistryEventSendTimelineDTO result = objectMapper.readValue(json, RegistryEventSendTimelineDTO.class);
+
+    Assertions.assertEquals(event.getOrganizationId(), result.getOrganizationId());
+    Assertions.assertEquals(event.getStreamId(), result.getStreamId());
+    Assertions.assertEquals(event.getEventId(), result.getEventId());
+    Assertions.assertEquals(event.getEventType(), result.getEventType());
+    Assertions.assertEquals(event.getNotificationRequestId(), result.getNotificationRequestId());
     Assertions.assertEquals(event.getOutcome(), result.getOutcome());
   }
 
@@ -271,6 +346,39 @@ class RegistryInterfaceEventDTOTest {
     Assertions.assertEquals(event, result);
     Assertions.assertEquals("123456789012345678", result.getIuv());
     Assertions.assertEquals("3123456789012345678", result.getNav());
+  }
+
+  @Test
+  void testSendTimelineOptionalFields() throws JsonProcessingException {
+    RegistryEventSendTimelineDTO event = RegistryEventSendTimelineDTO.builder()
+      .registryId("registry456")
+      .registryOrigin("send-origin")
+      .registryType(RegistryType.REGISTRY_SEND)
+      .dateTime(OffsetDateTime.now())
+      .traceId("trace456")
+      .eventSubType(RegistryEventSubType.REQ)
+      .requestorId("requestor456")
+      .grantorId("grantor456")
+      .organizationId(1L)
+      .streamId("streamId")
+      .eventId("eventId")
+      .eventType("sentTimelineCategory")
+      .notificationRequestId("notificationRequestId")
+      .iun("iun")
+      .recipientIndex(1L)
+      .newStatus("newStatus")
+      .outcome(RegistryOutcome.OK)
+      .body("{\"flussoId\": \"FLUSSO123\", \"numeroRiga\": 1}")
+      .build();
+
+    String json = objectMapper.writeValueAsString(event);
+    RegistryEventSendTimelineDTO result = objectMapper.readValue(json, RegistryEventSendTimelineDTO.class);
+
+    Assertions.assertEquals(event, result);
+    Assertions.assertEquals(event.getIun(), result.getIun());
+    Assertions.assertEquals(event.getRecipientIndex(), result.getRecipientIndex());
+    Assertions.assertEquals(event.getNewStatus(), result.getNewStatus());
+    Assertions.assertEquals(event.getBody(), result.getBody());
   }
 
 }

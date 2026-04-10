@@ -15,19 +15,19 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 public class RegistryEventSendTimelineDTO extends RegistryInterfaceEventDTO {
   @NotNull
-  private Long organizationId; //Codice interno a PU dell'ente a cui le notifiche fanno capo
+  private Long organizationId;
   @NotNull
-  private String streamId; //Identificativo dello stream nel quale questo evento è stato inviato da SEND
+  private String streamId;
   @NotNull
-  private String eventId; //Identificativo dell'evento inviato da SEND
+  private String eventId;
   @NotNull
-  private String eventType; //Identificativo del tipo di evento: nel caso di interazioni con SEND rappresenta la categoria dell'evento
+  private String eventType;
   @NotNull
-  private String notificationRequestId; //Identificativo della richiesta di notifica SEND
-  private String iun; //IUN della notifica
+  private String notificationRequestId;
+  private String iun;
   private Long recipientIndex;
-  private String newStatus; //Nuovo passaggio di stato della notifica che questo evento rappresenta
-  private RegistryOutcome outcome; //OK/KO,
+  private String newStatus;
   @NotNull
-  private String body; //Corpo del messaggio scambiato
+  private RegistryOutcome outcome;
+  private String body;
 }
