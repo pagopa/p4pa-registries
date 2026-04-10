@@ -18,7 +18,7 @@ import uk.co.jemos.podam.api.PodamFactory;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class RegistrySendTemplateDTO2PSentTemplateRegistryMapperTest {
+class RegistrySendTemplateDTO2PSentTemplateRegistryMapperTest {
   @Mock
   private DataCipherService dataCipherServiceMock;
   @InjectMocks

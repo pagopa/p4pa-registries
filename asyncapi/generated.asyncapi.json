@@ -1258,7 +1258,6 @@
           }
         ],
         "required": [
-          "body",
           "dateTime",
           "eventId",
           "eventSubType",
@@ -1266,6 +1265,7 @@
           "grantorId",
           "notificationRequestId",
           "organizationId",
+          "outcome",
           "registryId",
           "registryType",
           "requestorId",
