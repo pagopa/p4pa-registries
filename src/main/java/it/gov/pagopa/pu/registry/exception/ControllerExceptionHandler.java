@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.hc.client5.http.HttpHostConnectException;
 import org.slf4j.event.Level;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -27,12 +29,16 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import tools.jackson.core.JacksonException;
 import tools.jackson.databind.DatabindException;
 
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
 @Slf4j
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ControllerExceptionHandler {
+
+  private static final String ERROR_MESSAGE_FORMAT = "[%s] %s";
 
   @ExceptionHandler({ValidationException.class, HttpMessageNotReadableException.class, MethodArgumentNotValidException.class, MethodArgumentTypeMismatchException.class, ConversionFailedException.class})
   public ResponseEntity<ErrorDTO> handleViolationException(Exception ex, HttpServletRequest request) {
@@ -46,10 +52,10 @@ public class ControllerExceptionHandler {
 
   @ExceptionHandler({ServletException.class, ErrorResponseException.class})
   public ResponseEntity<ErrorDTO> handleServletException(Exception ex, HttpServletRequest request) {
-    HttpStatusCode httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+    HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
     ErrorDTO.CategoryEnum errorCode = ErrorDTO.CategoryEnum.GENERIC_ERROR;
     if (ex instanceof ErrorResponse errorResponse) {
-      httpStatus = errorResponse.getStatusCode();
+      httpStatus = HttpStatus.valueOf((errorResponse.getStatusCode().value()));
       if (httpStatus.isSameCodeAs(HttpStatus.NOT_FOUND)) {
         errorCode = ErrorDTO.CategoryEnum.NOT_FOUND;
       } else if (httpStatus.is4xxClientError()) {
@@ -64,15 +70,21 @@ public class ControllerExceptionHandler {
     return handleException(ex, request, HttpStatus.INTERNAL_SERVER_ERROR, ErrorDTO.CategoryEnum.GENERIC_ERROR);
   }
 
-  static ResponseEntity<ErrorDTO> handleException(Exception ex, HttpServletRequest request, HttpStatusCode httpStatus, ErrorDTO.CategoryEnum errorEnum) {
+  static ResponseEntity<ErrorDTO> handleException(Exception ex, HttpServletRequest request, HttpStatus httpStatus, ErrorDTO.CategoryEnum errorEnum) {
     logException(ex, request, httpStatus);
 
-    String message = buildReturnedMessage(ex);
+    Pair<String, String> code2message = Optional.of(request.getRequestURI())
+      .filter(path -> path.contains("/crud/"))
+      .map(path -> buildCrudErrorMessage(path, httpStatus, ex))
+      .orElseGet(() -> buildReturnedMessage(ex));
+
+    String code = Objects.requireNonNullElse(code2message.getLeft(), errorEnum.getValue());
+    String message = code2message.getRight();
 
     return ResponseEntity
       .status(httpStatus)
       .contentType(MediaType.APPLICATION_JSON)
-      .body(new ErrorDTO(errorEnum, message, Utilities.getTraceId()));
+      .body(new ErrorDTO(errorEnum, code, String.format(ERROR_MESSAGE_FORMAT, code, message), Utilities.getTraceId()));
   }
 
   private static void logException(Exception ex, HttpServletRequest request, HttpStatusCode httpStatus) {
@@ -91,38 +103,55 @@ public class ControllerExceptionHandler {
     }
   }
 
-  private static String buildReturnedMessage(Exception ex) {
+  private static Pair<String, String> buildCrudErrorMessage(String requestPath, HttpStatus httpStatus, Exception ex) {
+    String entity = requestPath.split("/crud/")[1].split("/")[0].replaceAll("s$", "");
+    String entityCode = entity.replace("-", "_").toUpperCase();
+    return Pair.of(entityCode + "_" + httpStatus.name(), buildReturnedMessage(ex).getValue());
+  }
+
+  private static Pair<String, String> buildReturnedMessage(Exception ex) {
     switch (ex) {
       case HttpMessageNotReadableException httpMessageNotReadableException -> {
+        String errorMsg = "Required request body is missing";
         if (httpMessageNotReadableException.getCause() instanceof DatabindException jsonMappingException) {
-          return "Cannot parse body. " +
+          errorMsg = "Cannot parse body. " +
             jsonMappingException.getPath().stream()
               .map(JacksonException.Reference::getPropertyName)
               .collect(Collectors.joining(".")) +
             ": " + jsonMappingException.getOriginalMessage();
+        } else if (httpMessageNotReadableException.getCause() instanceof JacksonException jacksonException) {
+          errorMsg = "Cannot parse body. " + jacksonException.getOriginalMessage();
         }
-        return "Required request body is missing";
+        return Pair.of(ErrorDTO.CategoryEnum.BAD_REQUEST.name(), errorMsg);
       }
       case MethodArgumentNotValidException methodArgumentNotValidException -> {
-        return "Invalid request content." +
+        return Pair.of(ErrorDTO.CategoryEnum.BAD_REQUEST.name(),
+          "Invalid request content." +
           methodArgumentNotValidException.getBindingResult()
             .getAllErrors().stream()
             .map(e -> " " +
               (e instanceof FieldError fieldError ? fieldError.getField() : e.getObjectName()) +
               ": " + e.getDefaultMessage())
             .sorted()
-            .collect(Collectors.joining(";"));
+            .collect(Collectors.joining(";")));
       }
       case ConstraintViolationException constraintViolationException -> {
-        return "Invalid request content." +
+        return Pair.of(ErrorDTO.CategoryEnum.BAD_REQUEST.name(),
+          "Invalid request content." +
           constraintViolationException.getConstraintViolations()
             .stream()
             .map(e -> " " + e.getPropertyPath() + ": " + e.getMessage())
             .sorted()
-            .collect(Collectors.joining(";"));
+            .collect(Collectors.joining(";")));
+      }
+      case BaseBusinessException businessException -> {
+        return Pair.of(businessException.getCode(), businessException.getMessage());
       }
       default -> {
-        return ex.getMessage();
+        if (ex.getCause() instanceof HttpHostConnectException) {
+          return Pair.of("CONNECTION_ERROR", ex.getMessage());
+        }
+        return Pair.of(null, ex.getMessage());
       }
     }
   }
