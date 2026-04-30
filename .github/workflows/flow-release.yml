@@ -39,6 +39,7 @@ jobs:
 
   azure-devops-trigger:
     name: 🅰️ Azure DevOps Pipeline Trigger
+    if: github.ref_name == 'develop'
     needs: payments-flow-release
     runs-on: ubuntu-22.04
     steps:
@@ -52,7 +53,9 @@ jobs:
           azure_devops_pat: ${{ secrets.AZURE_DEVOPS_TOKEN }}
           azure_template_parameters: |
             {
-              "APPS_TOP": "[template]",
+              "APPS_TOP": "[]",
+              "APPS_MID": "[]",
+              "APPS_EXT": "[p4pa-registries]",
               "POSTMAN_BRANCH": "${{ github.ref_name }}",
-              "TRIGGER_MESSAGE": "template"
+              "TRIGGER_MESSAGE": "p4pa-registries"
             }

@@ -1,0 +1,71 @@
+package it.gov.pagopa.pu.registry.mapper.debtposition;
+
+import it.gov.pagopa.pu.registry.event.payments.dto.DebtPositionIoEventDTO;
+import it.gov.pagopa.pu.registry.event.payments.dto.DebtPositionIoNotificationDTO;
+import it.gov.pagopa.pu.registry.model.DebtPositionRegistry;
+import it.gov.pagopa.pu.registry.utils.TestUtils;
+import it.gov.pagopa.pu.workflowhub.dto.generated.PaymentEventType;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.time.OffsetDateTime;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class DebtPositionIoEventDTO2DebtPositionRegistryMapperTest {
+
+  private DebtPositionIoEventDTO2DebtPositionRegistryMapper mapper;
+
+  @BeforeEach
+  void setUp() {
+    mapper = new DebtPositionIoEventDTO2DebtPositionRegistryMapper();
+  }
+
+  @Test
+  void map_shouldMapCorrectly_whenValidInput() {
+    DebtPositionIoEventDTO dto = createValidDto();
+    DebtPositionRegistry result = mapper.map(dto);
+    TestUtils.checkNotNullFields(result, "operatorExternalUserId", "creationDate", "updateDate", "updateOperatorExternalId", "updateTraceId");
+
+    assertEquals(dto.getEventId(), result.getEventId());
+    assertEquals(dto.getEventType(), result.getEventType());
+    assertEquals(dto.getTraceId(), result.getTraceId());
+    assertEquals(dto.getEventDateTime(), result.getEventDateTime());
+    assertEquals(dto.getEventDescription(), result.getEventDescription());
+    assertEquals(dto.getPayload().getDebtPositionId(), result.getDebtPositionId());
+    assertEquals(dto.getPayload().getOrganizationId(), result.getOrganizationId());
+  }
+
+  private DebtPositionIoEventDTO createValidDto() {
+    List<DebtPositionIoNotificationDTO.IoMessage> ioMessagess = List.of(
+      DebtPositionIoNotificationDTO.IoMessage.builder()
+        .serviceId("serviceId1")
+        .nav("nav1")
+        .notificationId("notificationId1")
+        .build(),
+      DebtPositionIoNotificationDTO.IoMessage.builder()
+        .serviceId("serviceId2")
+        .nav("nav2")
+        .notificationId("notificationId2")
+        .build()
+    );
+
+    DebtPositionIoNotificationDTO payload = DebtPositionIoNotificationDTO.builder()
+      .debtPositionId(123L)
+      .debtPositionTypeOrgId(456L)
+      .organizationId(789L)
+      .messages(ioMessagess)
+      .build();
+
+    return DebtPositionIoEventDTO.builder()
+      .eventId("eventId1")
+      .eventType(PaymentEventType.DP_CREATED)
+      .traceId("traceId2")
+      .eventDateTime(OffsetDateTime.now())
+      .eventDescription("Some event description")
+      .payload(payload)
+      .build();
+  }
+
+}
