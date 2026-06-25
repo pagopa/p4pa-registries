@@ -35,6 +35,7 @@ spring:
             spring.cloud.stream.kafka.binder:
               brokers: "\${KAFKA_PAYMENTS_BINDER_BROKER:\${KAFKA_BINDER_BROKER:}}"
               configuration:
+                client.id: registries-paymentsConsumer
                 sasl.jaas.config: "\${KAFKA_PAYMENTS_CONSUMER_SASL_JAAS_CONFIG:}"
         kafka-registries-consumer:
           type: kafka
@@ -42,6 +43,7 @@ spring:
             spring.cloud.stream.kafka.binder:
               brokers: "\${KAFKA_REGISTRIES_BINDER_BROKER:\${KAFKA_BINDER_BROKER:}}"
               configuration:
+                client.id: registries-registryEventsConsumer
                 sasl.jaas.config: "\${KAFKA_REGISTRIES_CONSUMER_SASL_JAAS_CONFIG:}"
       bindings:
         paymentsConsumer-in-0:
@@ -49,13 +51,17 @@ spring:
           content-type: "\${KAFKA_CONTENT_TYPE:application/json}"
           destination: "\${KAFKA_TOPIC_PAYMENTS:p4pa-payhub-payments-evh}"
           group: "\${KAFKA_PAYMENTS_GROUP_ID:p4pa-payments-consumer-group}"
-          consumer.auto-startup: "\${KAFKA_PAYMENTS_CONSUMER_ENABLED:true}"
+          consumer:
+            auto-startup: "\${KAFKA_PAYMENTS_CONSUMER_ENABLED:true}"
+            concurrency: "\${KAFKA_PAYMENTS_CONSUMER_CONCURRENCY:1}"
         registryEventsConsumer-in-0:
           binder: kafka-registries-consumer
           content-type: "\${KAFKA_CONTENT_TYPE:application/json}"
           destination: "\${KAFKA_TOPIC_REGISTRIES:p4pa-payhub-registries-evh}"
           group: "\${KAFKA_REGISTRIES_GROUP_ID:p4pa-registries-consumer-group}"
-          consumer.auto-startup: "\${KAFKA_REGISTRIES_CONSUMER_ENABLED:true}"
+          consumer:
+            auto-startup: "\${KAFKA_REGISTRIES_CONSUMER_ENABLED:true}"
+            concurrency: "\${KAFKA_REGISTRIES_CONSUMER_CONCURRENCY:1}"
       kafka:
         binder:
           auto-create-topics: false
