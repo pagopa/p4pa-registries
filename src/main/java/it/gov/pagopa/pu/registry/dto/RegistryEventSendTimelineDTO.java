@@ -8,6 +8,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.time.OffsetDateTime;
+import java.util.List;
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 @SuperBuilder
@@ -27,6 +30,8 @@ public class RegistryEventSendTimelineDTO extends RegistryInterfaceEventDTO {
   private String iun;
   private Integer recipientIndex;
   private String newStatus;
+  private OffsetDateTime eventTimestamp;
+  private List<String> legalFactIds;
   @NotNull
   private RegistryOutcome outcome;
   private String body;
