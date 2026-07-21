@@ -8,6 +8,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @Document(collection = "send_timeline_event")
 @AllArgsConstructor
@@ -46,6 +47,8 @@ public class SendTimelineRegistry extends BaseEntity {
   private String iun;
   private Integer recipientIndex;
   private String newStatus;
+  private OffsetDateTime eventTimestamp;
+  private List<String> legalFactIds;
 
   @NotNull
   private RegistryOutcome outcome;

@@ -31,6 +31,8 @@ public class RegistrySendTemplateDTO2PSentTemplateRegistryMapper {
       .iun(dto.getIun())
       .recipientIndex(dto.getRecipientIndex())
       .newStatus(dto.getNewStatus())
+      .eventTimestamp(dto.getEventTimestamp())
+      .legalFactIds(dto.getLegalFactIds())
       .outcome(dto.getOutcome())
       .bodyCiphered(dataCipherService.encrypt(dto.getBody()))
       .build();
