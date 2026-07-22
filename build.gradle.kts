@@ -200,7 +200,9 @@ openApiGenerate {
       "RegistryPagoPaEventType" to "it.gov.pagopa.pu.registry.enums.RegistryPagoPaEventType",
       "RegistrySilEventType" to "it.gov.pagopa.pu.registry.enums.RegistrySilEventType",
       "RegistryEventSubType" to "it.gov.pagopa.pu.registry.enums.RegistryEventSubType",
-      "RegistryOutcome" to "it.gov.pagopa.pu.registry.enums.RegistryOutcome"
+      "RegistryOutcome" to "it.gov.pagopa.pu.registry.enums.RegistryOutcome",
+      "SendTimelineRegistryDTO" to "it.gov.pagopa.pu.registry.dto.SendTimelineRegistryDTO",
+      "SendTimelineFullRegistryDTO" to "it.gov.pagopa.pu.registry.dto.SendTimelineFullRegistryDTO"
     )
   )
   configOptions.set(
