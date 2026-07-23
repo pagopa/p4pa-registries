@@ -1,22 +1,33 @@
 package it.gov.pagopa.pu.registry.dto;
 
+import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
 import it.gov.pagopa.pu.registry.enums.RegistryOutcome;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.time.OffsetDateTime;
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SendTimelineRegistryDTO extends BaseRegistryDTO {
+public class SendTimelineRegistryDTO {
+  @NotNull
+  private String registryId;
+  @NotNull
+  private OffsetDateTime dateTime;
+  @NotNull
+  private String traceId;
+  @NotNull
+  private RegistryEventSubType eventSubType;
+  @NotNull
+  private String requestorId;
+  @NotNull
+  private String grantorId;
   @NotNull
   private Long organizationId;
   @NotNull

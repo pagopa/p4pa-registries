@@ -98,7 +98,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: 'SendTimelineRegistryDTO'
+                  type: 'SendTimelineRegistryDTO'
         "400":
           description: Bad request
           content:
@@ -136,7 +136,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: 'SendTimelineRegistryExtendedDTO'
+                  type: 'SendTimelineRegistryExtendedDTO'
         "400":
           description: Bad request
           content:
