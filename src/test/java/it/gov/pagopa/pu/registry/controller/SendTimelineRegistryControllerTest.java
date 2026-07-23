@@ -1,7 +1,7 @@
 package it.gov.pagopa.pu.registry.controller;
 
 import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryDTO;
-import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryPiiDTO;
+import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryExtendedDTO;
 import it.gov.pagopa.pu.registry.service.send.SendTimelineRegistryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -62,19 +62,19 @@ public class SendTimelineRegistryControllerTest {
   }
 
   @Test
-  void givenValidRequestIdWhenGetExtendedSendTimelineRegistriesThenReturnSendTimelineRegistryPiiDTO() {
+  void givenValidRequestIdWhenGetExtendedSendTimelineRegistriesThenReturnSendTimelineRegistryExtendedDTO() {
     // Given
-    SendTimelineRegistryPiiDTO dto = new SendTimelineRegistryPiiDTO();
+    SendTimelineRegistryExtendedDTO dto = new SendTimelineRegistryExtendedDTO();
     dto.setRegistryId("registryId");
     dto.setNotificationRequestId("notificationRequestId");
     dto.setBody("bodyString");
-    List<SendTimelineRegistryPiiDTO> expectedRegistrytList = List.of(dto);
+    List<SendTimelineRegistryExtendedDTO> expectedRegistrytList = List.of(dto);
 
     Mockito.when(serviceMock.getExtendedSendTimelineRegistries("notificationRequestId"))
       .thenReturn(expectedRegistrytList);
 
     // When
-    ResponseEntity<List<SendTimelineRegistryPiiDTO>> result = controller.getExtendedSendTimelineRegistries("notificationRequestId");
+    ResponseEntity<List<SendTimelineRegistryExtendedDTO>> result = controller.getExtendedSendTimelineRegistries("notificationRequestId");
 
     // Then
     assertNotNull(result);

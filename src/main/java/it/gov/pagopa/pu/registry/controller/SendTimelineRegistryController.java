@@ -2,7 +2,7 @@ package it.gov.pagopa.pu.registry.controller;
 
 import it.gov.pagopa.pu.registry.controller.generated.SendTimelineRegistryApi;
 import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryDTO;
-import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryPiiDTO;
+import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryExtendedDTO;
 import it.gov.pagopa.pu.registry.service.send.SendTimelineRegistryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ public class SendTimelineRegistryController implements SendTimelineRegistryApi {
   }
 
   @Override
-  public ResponseEntity<List<SendTimelineRegistryPiiDTO>> getExtendedSendTimelineRegistries(String notificationRequestId) {
+  public ResponseEntity<List<SendTimelineRegistryExtendedDTO>> getExtendedSendTimelineRegistries(String notificationRequestId) {
     log.info("User requested getExtendedSendTimelineRegistries having notificationRequestId {}", notificationRequestId);
 
     return ResponseEntity.ok(sendTimelineRegistryService.getExtendedSendTimelineRegistries(notificationRequestId));

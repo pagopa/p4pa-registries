@@ -202,7 +202,7 @@ openApiGenerate {
       "RegistryEventSubType" to "it.gov.pagopa.pu.registry.enums.RegistryEventSubType",
       "RegistryOutcome" to "it.gov.pagopa.pu.registry.enums.RegistryOutcome",
       "SendTimelineRegistryDTO" to "it.gov.pagopa.pu.registry.dto.SendTimelineRegistryDTO",
-      "SendTimelineRegistryPiiDTO" to "it.gov.pagopa.pu.registry.dto.SendTimelineRegistryPiiDTO"
+      "SendTimelineRegistryExtendedDTO" to "it.gov.pagopa.pu.registry.dto.SendTimelineRegistryExtendedDTO"
     )
   )
   configOptions.set(

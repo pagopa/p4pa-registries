@@ -1,6 +1,6 @@
 package it.gov.pagopa.pu.registry.mapper.send;
 
-import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryPiiDTO;
+import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryExtendedDTO;
 import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryDTO;
 import it.gov.pagopa.pu.registry.model.SendTimelineRegistry;
 import it.gov.pagopa.pu.registry.service.DataCipherService;
@@ -21,11 +21,11 @@ public class SendTimelineRegistry2SendTimelineRegistryDTOMapper {
     return sendTimelineRegistryDTO;
   }
 
-  public SendTimelineRegistryPiiDTO mapToSendTimelineRegistryPiiDTO(SendTimelineRegistry sendTimelineRegistry) {
-    SendTimelineRegistryPiiDTO sendTimelineRegistryPiiDTO = new SendTimelineRegistryPiiDTO();
-    this.mapToDTO(sendTimelineRegistryPiiDTO, sendTimelineRegistry);
-    sendTimelineRegistryPiiDTO.setBody(dataCipherService.decrypt(sendTimelineRegistry.getBodyCiphered()));
-    return sendTimelineRegistryPiiDTO;
+  public SendTimelineRegistryExtendedDTO mapToSendTimelineRegistryExtendedDTO(SendTimelineRegistry sendTimelineRegistry) {
+    SendTimelineRegistryExtendedDTO sendTimelineRegistryExtendedDTO = new SendTimelineRegistryExtendedDTO();
+    this.mapToDTO(sendTimelineRegistryExtendedDTO, sendTimelineRegistry);
+    sendTimelineRegistryExtendedDTO.setBody(dataCipherService.decrypt(sendTimelineRegistry.getBodyCiphered()));
+    return sendTimelineRegistryExtendedDTO;
   }
 
   private void mapToDTO(SendTimelineRegistryDTO sendTimelineRegistryDTO, SendTimelineRegistry sendTimelineRegistry) {

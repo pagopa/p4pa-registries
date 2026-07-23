@@ -1,7 +1,7 @@
 package it.gov.pagopa.pu.registry.mapper.send;
 
 import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryDTO;
-import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryPiiDTO;
+import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryExtendedDTO;
 import it.gov.pagopa.pu.registry.model.SendTimelineRegistry;
 import it.gov.pagopa.pu.registry.service.DataCipherService;
 import it.gov.pagopa.pu.registry.utils.TestUtils;
@@ -46,7 +46,7 @@ public class SendTimelineRegistry2SendTimelineRegistryDTOMapperTest {
   }
 
   @Test
-  void testMapToSendTimelineRegistryPiiDTO() {
+  void testMapToSendTimelineRegistryExtendedDTO() {
     //GIVEN
     SendTimelineRegistry registry = podamFactory.manufacturePojo(SendTimelineRegistry.class);
     String decryptedBody = "decryptedBody";
@@ -57,7 +57,7 @@ public class SendTimelineRegistry2SendTimelineRegistryDTOMapperTest {
       .thenReturn(decryptedBody);
 
     //WHEN
-    SendTimelineRegistryPiiDTO actualDTO = mapper.mapToSendTimelineRegistryPiiDTO(registry);
+    SendTimelineRegistryExtendedDTO actualDTO = mapper.mapToSendTimelineRegistryExtendedDTO(registry);
 
     //THEN
     Assertions.assertEquals(decryptedBody, actualDTO.getBody());

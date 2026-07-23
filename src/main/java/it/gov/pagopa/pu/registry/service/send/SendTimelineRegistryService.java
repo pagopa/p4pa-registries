@@ -1,7 +1,7 @@
 package it.gov.pagopa.pu.registry.service.send;
 
 import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryDTO;
-import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryPiiDTO;
+import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryExtendedDTO;
 import it.gov.pagopa.pu.registry.dto.RegistryEventSendTimelineDTO;
 import it.gov.pagopa.pu.registry.mapper.send.RegistryEventSendTimelineDTO2PSendTimelineRegistryMapper;
 import it.gov.pagopa.pu.registry.mapper.send.SendTimelineRegistry2SendTimelineRegistryDTOMapper;
@@ -37,10 +37,10 @@ public class SendTimelineRegistryService {
       .toList();
   }
 
-  public List<SendTimelineRegistryPiiDTO> getExtendedSendTimelineRegistries(String notificationRequestId) {
+  public List<SendTimelineRegistryExtendedDTO> getExtendedSendTimelineRegistries(String notificationRequestId) {
     return sendTimelineRegistryRepository.findByNotificationRequestId(notificationRequestId)
       .stream()
-      .map(sendTimelineRegistry2SendTimelineRegistryDTOMapper::mapToSendTimelineRegistryPiiDTO)
+      .map(sendTimelineRegistry2SendTimelineRegistryDTOMapper::mapToSendTimelineRegistryExtendedDTO)
       .toList();
   }
 
