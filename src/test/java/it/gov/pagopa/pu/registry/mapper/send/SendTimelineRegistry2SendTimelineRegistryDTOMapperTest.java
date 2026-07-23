@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class SendTimelineRegistry2SendTimelineRegistryDTOMapperTest {
+class SendTimelineRegistry2SendTimelineRegistryDTOMapperTest {
   @Mock
   private DataCipherService dataCipherServiceMock;
   @InjectMocks

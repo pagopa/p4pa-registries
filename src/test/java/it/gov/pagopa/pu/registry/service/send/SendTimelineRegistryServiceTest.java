@@ -19,6 +19,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Collections;
 import java.util.List;
 
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
 class SendTimelineRegistryServiceTest {
 
@@ -47,16 +50,16 @@ class SendTimelineRegistryServiceTest {
     RegistryEventSendTimelineDTO event = new RegistryEventSendTimelineDTO();
     SendTimelineRegistry entity = new SendTimelineRegistry();
 
-    Mockito.when(registryEventSendTimelineDTO2SendTimelineRegistryMapperMock.mapToSendTimelineRegistry(event))
+    when(registryEventSendTimelineDTO2SendTimelineRegistryMapperMock.mapToSendTimelineRegistry(event))
       .thenReturn(entity);
 
     //WHEN
     sendTimelineRegistryService.consumeSendTimelineEvent(event);
 
     //THEN
-    Mockito.verify(registryEventSendTimelineDTO2SendTimelineRegistryMapperMock)
+    verify(registryEventSendTimelineDTO2SendTimelineRegistryMapperMock)
       .mapToSendTimelineRegistry(event);
-    Mockito.verify(sendTimelineRegistryRepositoryMock)
+    verify(sendTimelineRegistryRepositoryMock)
       .save(entity);
   }
 
@@ -65,16 +68,16 @@ class SendTimelineRegistryServiceTest {
     //GIVEN
     RegistryEventSendTimelineDTO event = new RegistryEventSendTimelineDTO();
 
-    Mockito.when(registryEventSendTimelineDTO2SendTimelineRegistryMapperMock.mapToSendTimelineRegistry(event))
+    when(registryEventSendTimelineDTO2SendTimelineRegistryMapperMock.mapToSendTimelineRegistry(event))
       .thenReturn(null);
 
     //WHEN
     sendTimelineRegistryService.consumeSendTimelineEvent(event);
 
     //THEN
-    Mockito.verify(registryEventSendTimelineDTO2SendTimelineRegistryMapperMock)
+    verify(registryEventSendTimelineDTO2SendTimelineRegistryMapperMock)
       .mapToSendTimelineRegistry(event);
-    Mockito.verify(sendTimelineRegistryRepositoryMock, Mockito.times(0))
+    verify(sendTimelineRegistryRepositoryMock, Mockito.times(0))
       .save(Mockito.any(SendTimelineRegistry.class));
   }
 
@@ -86,9 +89,9 @@ class SendTimelineRegistryServiceTest {
     SendTimelineRegistryDTO expectedDTO = new SendTimelineRegistryDTO();
     expectedDTO.setRegistryId("registryId");
 
-    Mockito.when(sendTimelineRegistryRepositoryMock.findByNotificationRequestId(notificationRequestId))
+    when(sendTimelineRegistryRepositoryMock.findByNotificationRequestId(notificationRequestId))
         .thenReturn(List.of(registry));
-    Mockito.when(sendTimelineRegistry2SendTimelineRegistryDTOMapperMock.mapToSendTimelineRegistryDTO(registry))
+    when(sendTimelineRegistry2SendTimelineRegistryDTOMapperMock.mapToSendTimelineRegistryDTO(registry))
       .thenReturn(expectedDTO);
 
     //WHEN
@@ -105,7 +108,7 @@ class SendTimelineRegistryServiceTest {
     //GIVEN
     String notificationRequestId = "notificationRequestId";
 
-    Mockito.when(sendTimelineRegistryRepositoryMock.findByNotificationRequestId(notificationRequestId))
+    when(sendTimelineRegistryRepositoryMock.findByNotificationRequestId(notificationRequestId))
       .thenReturn(Collections.emptyList());
 
     //WHEN
@@ -125,9 +128,9 @@ class SendTimelineRegistryServiceTest {
     expectedDTO.setRegistryId("registryId");
     expectedDTO.setBody("decryptedBody");
 
-    Mockito.when(sendTimelineRegistryRepositoryMock.findByNotificationRequestId(notificationRequestId))
+    when(sendTimelineRegistryRepositoryMock.findByNotificationRequestId(notificationRequestId))
       .thenReturn(List.of(registry));
-    Mockito.when(sendTimelineRegistry2SendTimelineRegistryDTOMapperMock.mapToSendTimelineRegistryExtendedDTO(registry))
+    when(sendTimelineRegistry2SendTimelineRegistryDTOMapperMock.mapToSendTimelineRegistryExtendedDTO(registry))
       .thenReturn(expectedDTO);
 
     //WHEN
@@ -144,7 +147,7 @@ class SendTimelineRegistryServiceTest {
     //GIVEN
     String notificationRequestId = "notificationRequestId";
 
-    Mockito.when(sendTimelineRegistryRepositoryMock.findByNotificationRequestId(notificationRequestId))
+    when(sendTimelineRegistryRepositoryMock.findByNotificationRequestId(notificationRequestId))
       .thenReturn(Collections.emptyList());
 
     //WHEN

@@ -3,9 +3,10 @@ package it.gov.pagopa.pu.registry.controller;
 import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryDTO;
 import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryExtendedDTO;
 import it.gov.pagopa.pu.registry.service.send.SendTimelineRegistryService;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -18,15 +19,18 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-public class SendTimelineRegistryControllerTest {
+class SendTimelineRegistryControllerTest {
 
   @Mock
   private SendTimelineRegistryService serviceMock;
+  @InjectMocks
   private SendTimelineRegistryController controller;
 
-  @BeforeEach
-  void setUp() {
-    this.controller = new SendTimelineRegistryController(serviceMock);
+  @AfterEach
+  void verifyNoMoreInteractions() {
+    Mockito.verifyNoMoreInteractions(
+      serviceMock
+    );
   }
 
   @Test
