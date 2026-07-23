@@ -19,8 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Collections;
 import java.util.List;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class SendTimelineRegistryServiceTest {
@@ -77,7 +76,7 @@ class SendTimelineRegistryServiceTest {
     //THEN
     verify(registryEventSendTimelineDTO2SendTimelineRegistryMapperMock)
       .mapToSendTimelineRegistry(event);
-    verify(sendTimelineRegistryRepositoryMock, Mockito.times(0))
+    verify(sendTimelineRegistryRepositoryMock, times(0))
       .save(Mockito.any(SendTimelineRegistry.class));
   }
 

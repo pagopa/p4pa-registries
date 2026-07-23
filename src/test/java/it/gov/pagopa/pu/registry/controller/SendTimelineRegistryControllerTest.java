@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class SendTimelineRegistryControllerTest {
@@ -41,7 +42,7 @@ class SendTimelineRegistryControllerTest {
     dto.setNotificationRequestId("notificationRequestId");
     List<SendTimelineRegistryDTO> expectedRegistrytList = List.of(dto);
 
-    Mockito.when(serviceMock.getSendTimelineRegistries("notificationRequestId"))
+    when(serviceMock.getSendTimelineRegistries("notificationRequestId"))
       .thenReturn(expectedRegistrytList);
 
     // When
@@ -55,7 +56,7 @@ class SendTimelineRegistryControllerTest {
 
   @Test
   void givenInvalidRequestIdWhenGetSendTimelineRegistriesThenNotFound() {
-    Mockito.when(serviceMock.getSendTimelineRegistries("notificationRequestId"))
+    when(serviceMock.getSendTimelineRegistries("notificationRequestId"))
       .thenThrow(ResourceNotFoundException.class);
 
     // Then
@@ -74,7 +75,7 @@ class SendTimelineRegistryControllerTest {
     dto.setBody("bodyString");
     List<SendTimelineRegistryExtendedDTO> expectedRegistrytList = List.of(dto);
 
-    Mockito.when(serviceMock.getExtendedSendTimelineRegistries("notificationRequestId"))
+    when(serviceMock.getExtendedSendTimelineRegistries("notificationRequestId"))
       .thenReturn(expectedRegistrytList);
 
     // When
@@ -88,7 +89,7 @@ class SendTimelineRegistryControllerTest {
 
   @Test
   void givenInvalidRequestIdWhenGetExtendedSendTimelineRegistriesThenNotFound() {
-    Mockito.when(serviceMock.getExtendedSendTimelineRegistries("notificationRequestId"))
+    when(serviceMock.getExtendedSendTimelineRegistries("notificationRequestId"))
       .thenThrow(ResourceNotFoundException.class);
 
     // Then
