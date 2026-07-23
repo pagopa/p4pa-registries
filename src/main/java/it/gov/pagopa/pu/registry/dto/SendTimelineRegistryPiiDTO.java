@@ -11,6 +11,6 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SendTimelineFullRegistryDTO extends SendTimelineRegistryDTO {
+public class SendTimelineRegistryPiiDTO extends SendTimelineRegistryDTO {
   private String body;
 }

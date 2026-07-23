@@ -1,9 +1,10 @@
 package it.gov.pagopa.pu.registry.service.send;
 
 import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryDTO;
-import it.gov.pagopa.pu.registry.dto.SendTimelineFullRegistryDTO;
+import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryPiiDTO;
 import it.gov.pagopa.pu.registry.dto.RegistryEventSendTimelineDTO;
-import it.gov.pagopa.pu.registry.mapper.send.RegistrySendTemplateDTO2PSentTemplateRegistryMapper;
+import it.gov.pagopa.pu.registry.mapper.send.RegistryEventSendTimelineDTO2PSendTimelineRegistryMapper;
+import it.gov.pagopa.pu.registry.mapper.send.SendTimelineRegistry2SendTimelineRegistryDTOMapper;
 import it.gov.pagopa.pu.registry.model.SendTimelineRegistry;
 import it.gov.pagopa.pu.registry.repository.SendTimelineRegistryRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +20,12 @@ import java.util.List;
 public class SendTimelineRegistryService {
 
   private final SendTimelineRegistryRepository sendTimelineRegistryRepository;
-  private final RegistrySendTemplateDTO2PSentTemplateRegistryMapper registryEventSendTimelineEventDTO2SendTimelineRegistryMapper;
+  private final RegistryEventSendTimelineDTO2PSendTimelineRegistryMapper registryEventSendTimelineDTO2PSendTimelineRegistryMapper;
+  private final SendTimelineRegistry2SendTimelineRegistryDTOMapper sendTimelineRegistry2SendTimelineRegistryDTOMapper;
 
   @Transactional
   public void consumeSendTimelineEvent(RegistryEventSendTimelineDTO event) {
-    SendTimelineRegistry registry = registryEventSendTimelineEventDTO2SendTimelineRegistryMapper.mapToSendTimelineRegistry(event);
+    SendTimelineRegistry registry = registryEventSendTimelineDTO2PSendTimelineRegistryMapper.mapToSendTimelineRegistry(event);
     if (registry == null) return;
     sendTimelineRegistryRepository.save(registry);
   }
@@ -31,14 +33,14 @@ public class SendTimelineRegistryService {
   public List<SendTimelineRegistryDTO> getSendTimelineRegistries(String notificationRequestId) {
     return sendTimelineRegistryRepository.findByNotificationRequestId(notificationRequestId)
       .stream()
-      .map(registryEventSendTimelineEventDTO2SendTimelineRegistryMapper::mapToSendTimelineDTO)
+      .map(sendTimelineRegistry2SendTimelineRegistryDTOMapper::mapToSendTimelineRegistryDTO)
       .toList();
   }
 
-  public List<SendTimelineFullRegistryDTO> getFullSendTimelineRegistries(String notificationRequestId) {
+  public List<SendTimelineRegistryPiiDTO> getExtendedSendTimelineRegistries(String notificationRequestId) {
     return sendTimelineRegistryRepository.findByNotificationRequestId(notificationRequestId)
       .stream()
-      .map(registryEventSendTimelineEventDTO2SendTimelineRegistryMapper::mapToSendTimelineFullDTO)
+      .map(sendTimelineRegistry2SendTimelineRegistryDTOMapper::mapToSendTimelineRegistryPiiDTO)
       .toList();
   }
 

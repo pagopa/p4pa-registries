@@ -82,7 +82,7 @@ paths:
   /send-timeline-registries/{notificationRequestId}:
     get:
       tags:
-        - sendRegistry
+        - sendTimelineRegistry
       operationId: getSendTimelineRegistries
       parameters:
         - name: notificationRequestId
@@ -117,11 +117,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorDTO'
-  /send-timeline-registries/full/{notificationRequestId}:
+  /send-timeline-registries/{notificationRequestId}/extended:
     get:
       tags:
-        - sendRegistry
-      operationId: getFullSendTimelineRegistries
+        - sendTimelineRegistry
+      operationId: getExtendedSendTimelineRegistries
       parameters:
         - name: notificationRequestId
           in: path
@@ -136,7 +136,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: 'SendTimelineFullRegistryDTO'
+                  $ref: 'SendTimelineRegistryPiiDTO'
         "400":
           description: Bad request
           content:

@@ -1,7 +1,7 @@
 package it.gov.pagopa.pu.registry.service.send;
 
 import it.gov.pagopa.pu.registry.dto.RegistryEventSendTimelineDTO;
-import it.gov.pagopa.pu.registry.mapper.send.RegistrySendTemplateDTO2PSentTemplateRegistryMapper;
+import it.gov.pagopa.pu.registry.mapper.send.RegistryEventSendTimelineDTO2PSendTimelineRegistryMapper;
 import it.gov.pagopa.pu.registry.model.SendTimelineRegistry;
 import it.gov.pagopa.pu.registry.repository.SendTimelineRegistryRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -18,7 +18,7 @@ class SendTimelineRegistryServiceTest {
   @Mock
   private SendTimelineRegistryRepository sendTimelineRegistryRepositoryMock;
   @Mock
-  private RegistrySendTemplateDTO2PSentTemplateRegistryMapper registryEventSendTimelineEventDTO2SendTimelineRegistryMapperMock;
+  private RegistryEventSendTimelineDTO2PSendTimelineRegistryMapper registryEventSendTimelineEventDTO2SendTimelineRegistryMapperMock;
 
   @InjectMocks
   private SendTimelineRegistryService sendTimelineRegistryService;
