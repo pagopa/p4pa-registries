@@ -25,7 +25,7 @@ class SendTimelineRegistryServiceTest {
   @Mock
   private SendTimelineRegistryRepository sendTimelineRegistryRepositoryMock;
   @Mock
-  private RegistryEventSendTimelineDTO2SendTimelineRegistryMapper registryEventSendTimelineEventDTO2SendTimelineRegistryMapperMock;
+  private RegistryEventSendTimelineDTO2SendTimelineRegistryMapper registryEventSendTimelineDTO2SendTimelineRegistryMapperMock;
   @Mock
   private SendTimelineRegistry2SendTimelineRegistryDTOMapper sendTimelineRegistry2SendTimelineRegistryDTOMapperMock;
 
@@ -36,7 +36,7 @@ class SendTimelineRegistryServiceTest {
   void verifyNoMoreInteractions() {
     Mockito.verifyNoMoreInteractions(
       sendTimelineRegistryRepositoryMock,
-      registryEventSendTimelineEventDTO2SendTimelineRegistryMapperMock,
+      registryEventSendTimelineDTO2SendTimelineRegistryMapperMock,
       sendTimelineRegistry2SendTimelineRegistryDTOMapperMock
     );
   }
@@ -47,14 +47,14 @@ class SendTimelineRegistryServiceTest {
     RegistryEventSendTimelineDTO event = new RegistryEventSendTimelineDTO();
     SendTimelineRegistry entity = new SendTimelineRegistry();
 
-    Mockito.when(registryEventSendTimelineEventDTO2SendTimelineRegistryMapperMock.mapToSendTimelineRegistry(event))
+    Mockito.when(registryEventSendTimelineDTO2SendTimelineRegistryMapperMock.mapToSendTimelineRegistry(event))
       .thenReturn(entity);
 
     //WHEN
     sendTimelineRegistryService.consumeSendTimelineEvent(event);
 
     //THEN
-    Mockito.verify(registryEventSendTimelineEventDTO2SendTimelineRegistryMapperMock)
+    Mockito.verify(registryEventSendTimelineDTO2SendTimelineRegistryMapperMock)
       .mapToSendTimelineRegistry(event);
     Mockito.verify(sendTimelineRegistryRepositoryMock)
       .save(entity);
@@ -65,14 +65,14 @@ class SendTimelineRegistryServiceTest {
     //GIVEN
     RegistryEventSendTimelineDTO event = new RegistryEventSendTimelineDTO();
 
-    Mockito.when(registryEventSendTimelineEventDTO2SendTimelineRegistryMapperMock.mapToSendTimelineRegistry(event))
+    Mockito.when(registryEventSendTimelineDTO2SendTimelineRegistryMapperMock.mapToSendTimelineRegistry(event))
       .thenReturn(null);
 
     //WHEN
     sendTimelineRegistryService.consumeSendTimelineEvent(event);
 
     //THEN
-    Mockito.verify(registryEventSendTimelineEventDTO2SendTimelineRegistryMapperMock)
+    Mockito.verify(registryEventSendTimelineDTO2SendTimelineRegistryMapperMock)
       .mapToSendTimelineRegistry(event);
     Mockito.verify(sendTimelineRegistryRepositoryMock, Mockito.times(0))
       .save(Mockito.any(SendTimelineRegistry.class));
