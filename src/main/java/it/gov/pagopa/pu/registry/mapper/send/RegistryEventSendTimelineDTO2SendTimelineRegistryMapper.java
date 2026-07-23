@@ -6,11 +6,11 @@ import it.gov.pagopa.pu.registry.service.DataCipherService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RegistryEventSendTimelineDTO2PSendTimelineRegistryMapper {
+public class RegistryEventSendTimelineDTO2SendTimelineRegistryMapper {
 
   private final DataCipherService dataCipherService;
 
-  public RegistryEventSendTimelineDTO2PSendTimelineRegistryMapper(DataCipherService dataCipherService) {
+  public RegistryEventSendTimelineDTO2SendTimelineRegistryMapper(DataCipherService dataCipherService) {
     this.dataCipherService = dataCipherService;
   }
 

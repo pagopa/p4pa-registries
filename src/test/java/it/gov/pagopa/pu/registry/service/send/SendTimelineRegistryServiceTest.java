@@ -3,7 +3,7 @@ package it.gov.pagopa.pu.registry.service.send;
 import it.gov.pagopa.pu.registry.dto.RegistryEventSendTimelineDTO;
 import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryDTO;
 import it.gov.pagopa.pu.registry.dto.SendTimelineRegistryExtendedDTO;
-import it.gov.pagopa.pu.registry.mapper.send.RegistryEventSendTimelineDTO2PSendTimelineRegistryMapper;
+import it.gov.pagopa.pu.registry.mapper.send.RegistryEventSendTimelineDTO2SendTimelineRegistryMapper;
 import it.gov.pagopa.pu.registry.mapper.send.SendTimelineRegistry2SendTimelineRegistryDTOMapper;
 import it.gov.pagopa.pu.registry.model.SendTimelineRegistry;
 import it.gov.pagopa.pu.registry.repository.SendTimelineRegistryRepository;
@@ -25,7 +25,7 @@ class SendTimelineRegistryServiceTest {
   @Mock
   private SendTimelineRegistryRepository sendTimelineRegistryRepositoryMock;
   @Mock
-  private RegistryEventSendTimelineDTO2PSendTimelineRegistryMapper registryEventSendTimelineEventDTO2SendTimelineRegistryMapperMock;
+  private RegistryEventSendTimelineDTO2SendTimelineRegistryMapper registryEventSendTimelineEventDTO2SendTimelineRegistryMapperMock;
   @Mock
   private SendTimelineRegistry2SendTimelineRegistryDTOMapper sendTimelineRegistry2SendTimelineRegistryDTOMapperMock;
 

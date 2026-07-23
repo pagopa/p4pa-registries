@@ -18,11 +18,11 @@ import uk.co.jemos.podam.api.PodamFactory;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class RegistryEventSendTimelineDTO2PSendTimelineRegistryMapperTest {
+class RegistryEventSendTimelineDTO2SendTimelineRegistryMapperTest {
   @Mock
   private DataCipherService dataCipherServiceMock;
   @InjectMocks
-  private RegistryEventSendTimelineDTO2PSendTimelineRegistryMapper mapper;
+  private RegistryEventSendTimelineDTO2SendTimelineRegistryMapper mapper;
 
   private final PodamFactory podamFactory = TestUtils.getPodamFactory();
 
