@@ -1,28 +1,23 @@
-package it.gov.pagopa.pu.registry.model;
+package it.gov.pagopa.pu.registry.dto;
 
 import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
 import it.gov.pagopa.pu.registry.enums.RegistryOutcome;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.time.OffsetDateTime;
 import java.util.List;
 
-@Document(collection = "send_timeline_event")
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
-@Builder
-@EqualsAndHashCode(callSuper = false)
-public class SendTimelineRegistry extends BaseEntity {
-
-  @Id
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
+public class SendTimelineRegistryDTO {
   @NotNull
   private String registryId;
-  @NotNull
-  private String registryOrigin;
   @NotNull
   private OffsetDateTime dateTime;
   @NotNull
@@ -33,7 +28,6 @@ public class SendTimelineRegistry extends BaseEntity {
   private String requestorId;
   @NotNull
   private String grantorId;
-
   @NotNull
   private Long organizationId;
   @NotNull
@@ -49,8 +43,6 @@ public class SendTimelineRegistry extends BaseEntity {
   private String newStatus;
   private OffsetDateTime eventTimestamp;
   private List<String> legalFactIds;
-
   @NotNull
   private RegistryOutcome outcome;
-  private byte[] bodyCiphered;
 }
