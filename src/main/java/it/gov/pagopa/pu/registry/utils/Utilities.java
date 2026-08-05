@@ -9,7 +9,14 @@ import java.util.stream.Stream;
 
 public class Utilities {
 
-  private Utilities() {
+  private Utilities() {}
+
+  public static String getTraceId(){
+    return MDC.get("traceId");
+  }
+
+  public static String getSpanId(){
+    return MDC.get("spanId");
   }
 
   public static String[] splitCommaString(String toSplit) {
@@ -27,10 +34,6 @@ public class Utilities {
       return Stream.concat(out, fillerStream);
     }
     return out;
-  }
-
-  public static String getTraceId(){
-    return MDC.get("traceId");
   }
 }
 
