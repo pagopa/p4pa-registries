@@ -5,6 +5,7 @@ import com.mongodb.MongoWriteException;
 import com.mongodb.ServerAddress;
 import com.mongodb.WriteError;
 import it.gov.pagopa.pu.registry.config.json.JsonConfig;
+import it.gov.pagopa.pu.registry.exception.common.CommonExceptionHandlerTest;
 import it.gov.pagopa.pu.registry.utils.UtilitiesTest;
 import org.bson.BsonDocument;
 import org.junit.jupiter.api.AfterEach;
@@ -33,11 +34,11 @@ import static org.mockito.Mockito.doThrow;
 
 @WebMvcTest(value = {
   MongoTooManyRequestsExceptionHandler.class,
-  ControllerExceptionHandlerTest.TestController.class})
+  CommonExceptionHandlerTest.TestController.class})
 @ContextConfiguration(classes = {
   ControllerExceptionHandlerTest.class,
   MongoTooManyRequestsExceptionHandler.class,
-  ControllerExceptionHandlerTest.TestController.class,
+  CommonExceptionHandlerTest.TestController.class,
   JsonConfig.class
 })
 @AutoConfigureMockMvc(addFilters = false)
@@ -46,7 +47,7 @@ class MongoTooManyRequestsExceptionHandlerTest {
   private MockMvc mockMvc;
 
   @MockitoSpyBean
-  private ControllerExceptionHandlerTest.TestController testControllerSpy;
+  private CommonExceptionHandlerTest.TestController testControllerSpy;
 
   private final String traceId = "TRACEID";
   @BeforeEach
@@ -124,7 +125,8 @@ class MongoTooManyRequestsExceptionHandlerTest {
         .accept(MediaType.APPLICATION_JSON)
         .content("{\"requiredField\":\"data\"}"))
       .andExpect(MockMvcResultMatchers.status().isInternalServerError())
-      .andExpect(MockMvcResultMatchers.content().json("{\"message\":\"[GENERIC_ERROR] DUMMY\"}", JsonCompareMode.LENIENT))
+      .andExpect(MockMvcResultMatchers.content().json("{\"code\":\"GENERIC_ERROR\"}", JsonCompareMode.LENIENT))
+      .andExpect(MockMvcResultMatchers.content().json("{\"message\":\"DUMMY\"}", JsonCompareMode.LENIENT))
       .andExpect(MockMvcResultMatchers.jsonPath("$.traceId").value(traceId));
   }
 
