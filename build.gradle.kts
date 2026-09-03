@@ -64,8 +64,10 @@ val bouncycastleVersion = "1.85.2"
 val podamVersion = "8.0.2.RELEASE"
 val commonsLang3Version = "3.20.0"
 
-
 val springCloudDepsVersion = "2025.1.3"
+
+// CVE Security dependencies
+val tomcatEmbedCoreVersion = "11.0.25"
 
 dependencyManagement {
   imports {
@@ -79,7 +81,7 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-restclient")
   implementation("org.springframework.boot:spring-boot-starter-validation")
   implementation("org.springframework.boot:spring-boot-starter-security-oauth2-resource-server")
-  implementation("org.bouncycastle:bcprov-jdk18on:${bouncycastleVersion}")
+  implementation("org.bouncycastle:bcprov-jdk18on:$bouncycastleVersion")
   implementation("org.springframework.boot:spring-boot-starter-actuator")
   implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
   implementation("org.springframework.boot:spring-boot-starter-hateoas")
@@ -93,11 +95,11 @@ dependencies {
     exclude(group = "org.apache.commons", module = "commons-lang3")
   }
   implementation("org.apache.commons:commons-lang3:$commonsLang3Version")
-  implementation("io.github.springwolf:springwolf-kafka:${springWolfAsyncApiVersion}") {
+  implementation("io.github.springwolf:springwolf-kafka:$springWolfAsyncApiVersion") {
     exclude(group = "org.lz4", module = "lz4-java")
   }
-  implementation("io.github.springwolf:springwolf-ui:${springWolfUiAsyncApiVersion}")
-  implementation("io.github.springwolf:springwolf-cloud-stream:${springWolfAsyncApiVersion}")
+  implementation("io.github.springwolf:springwolf-ui:$springWolfUiAsyncApiVersion")
+  implementation("io.github.springwolf:springwolf-cloud-stream:$springWolfAsyncApiVersion")
   implementation("io.micrometer:micrometer-tracing-bridge-otel:$micrometerVersion")
   implementation("io.micrometer:micrometer-registry-prometheus")
   implementation("org.openapitools:jackson-databind-nullable:$openApiToolsVersion")
@@ -108,6 +110,9 @@ dependencies {
     exclude(group = "org.lz4", module = "lz4-java")
   }
 
+  // CVE Security dependencies
+  implementation("org.apache.tomcat.embed:tomcat-embed-core:$tomcatEmbedCoreVersion")
+
   compileOnly("org.projectlombok:lombok")
   annotationProcessor("org.projectlombok:lombok")
   testAnnotationProcessor("org.projectlombok:lombok")
@@ -117,7 +122,7 @@ dependencies {
   testImplementation("org.springframework.boot:spring-boot-starter-security-test")
   testImplementation("org.mockito:mockito-core")
   testImplementation("org.projectlombok:lombok")
-  testImplementation("uk.co.jemos.podam:podam:${podamVersion}")
+  testImplementation("uk.co.jemos.podam:podam:$podamVersion")
 }
 
 tasks.withType<Test> {
