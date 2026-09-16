@@ -125,8 +125,10 @@ class RegistryInterfaceEventDTOTest {
       .grantorId("grantor456")
       .organizationId(1L)
       .streamId("streamId")
+      .campaignId("campaignId")
       .eventId("eventId")
       .eventType("sentTimelineCategory")
+      .sendNotificationId("sendNotificationId")
       .notificationRequestId("notificationRequestId")
       .iun("iun")
       .recipientIndex(1)
@@ -193,7 +195,10 @@ class RegistryInterfaceEventDTOTest {
             "requestorId": "test-requestor",
             "grantorId": "test-grantor",
             "organizationId": "1",
+            "streamId": "streamId",
+            "campaignId": "campaignId",
             "iun": "iun",
+            "sendNotificationId": "sendNotificationId",
             "notificationRequestId": "notificationRequestId",
             "outcome": "OK"
           }
@@ -268,8 +273,10 @@ class RegistryInterfaceEventDTOTest {
       .grantorId("grantor456")
       .organizationId(1L)
       .streamId("streamId")
+      .campaignId("campaignId")
       .eventId("eventId")
       .eventType("sentTimelineCategory")
+      .sendNotificationId("sendNotificationId")
       .notificationRequestId("notificationRequestId")
       .outcome(RegistryOutcome.OK)
       .build();
@@ -279,8 +286,10 @@ class RegistryInterfaceEventDTOTest {
 
     Assertions.assertEquals(event.getOrganizationId(), result.getOrganizationId());
     Assertions.assertEquals(event.getStreamId(), result.getStreamId());
+    Assertions.assertEquals(event.getCampaignId(), result.getCampaignId());
     Assertions.assertEquals(event.getEventId(), result.getEventId());
     Assertions.assertEquals(event.getEventType(), result.getEventType());
+    Assertions.assertEquals(event.getSendNotificationId(), result.getSendNotificationId());
     Assertions.assertEquals(event.getNotificationRequestId(), result.getNotificationRequestId());
     Assertions.assertEquals(event.getOutcome(), result.getOutcome());
   }
@@ -361,8 +370,10 @@ class RegistryInterfaceEventDTOTest {
       .grantorId("grantor456")
       .organizationId(1L)
       .streamId("streamId")
+      .campaignId("campaignId")
       .eventId("eventId")
       .eventType("sentTimelineCategory")
+      .sendNotificationId("sendNotificationId")
       .notificationRequestId("notificationRequestId")
       .iun("iun")
       .recipientIndex(1)

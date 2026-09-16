@@ -30,15 +30,15 @@ public class SendTimelineRegistryService {
     sendTimelineRegistryRepository.save(registry);
   }
 
-  public List<SendTimelineRegistryDTO> getSendTimelineRegistries(String notificationRequestId) {
-    return sendTimelineRegistryRepository.findByNotificationRequestId(notificationRequestId)
+  public List<SendTimelineRegistryDTO> getSendTimelineRegistries(String sendNotificationId) {
+    return sendTimelineRegistryRepository.findBySendNotificationId(sendNotificationId)
       .stream()
       .map(sendTimelineRegistry2SendTimelineRegistryDTOMapper::mapToSendTimelineRegistryDTO)
       .toList();
   }
 
-  public List<SendTimelineRegistryExtendedDTO> getExtendedSendTimelineRegistries(String notificationRequestId) {
-    return sendTimelineRegistryRepository.findByNotificationRequestId(notificationRequestId)
+  public List<SendTimelineRegistryExtendedDTO> getExtendedSendTimelineRegistries(String sendNotificationId) {
+    return sendTimelineRegistryRepository.findBySendNotificationId(sendNotificationId)
       .stream()
       .map(sendTimelineRegistry2SendTimelineRegistryDTOMapper::mapToSendTimelineRegistryExtendedDTO)
       .toList();

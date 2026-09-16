@@ -37,8 +37,10 @@ public class SendTimelineRegistry2SendTimelineRegistryDTOMapper {
     sendTimelineRegistryDTO.setGrantorId(sendTimelineRegistry.getGrantorId());
     sendTimelineRegistryDTO.setOrganizationId(sendTimelineRegistry.getOrganizationId());
     sendTimelineRegistryDTO.setStreamId(sendTimelineRegistry.getStreamId());
+    sendTimelineRegistryDTO.setCampaignId(sendTimelineRegistry.getCampaignId());
     sendTimelineRegistryDTO.setEventId(sendTimelineRegistry.getEventId());
     sendTimelineRegistryDTO.setEventType(sendTimelineRegistry.getEventType());
+    sendTimelineRegistryDTO.setSendNotificationId(sendTimelineRegistry.getSendNotificationId());
     sendTimelineRegistryDTO.setNotificationRequestId(sendTimelineRegistry.getNotificationRequestId());
     sendTimelineRegistryDTO.setIun(sendTimelineRegistry.getIun());
     sendTimelineRegistryDTO.setRecipientIndex(sendTimelineRegistry.getRecipientIndex());

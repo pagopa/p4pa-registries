@@ -19,16 +19,16 @@ public class SendTimelineRegistryController implements SendTimelineRegistryApi {
   private final SendTimelineRegistryService sendTimelineRegistryService;
 
   @Override
-  public ResponseEntity<List<SendTimelineRegistryDTO>> getSendTimelineRegistries(String notificationRequestId) {
-    log.info("User requested getSendTimelineRegistries having notificationRequestId {}", notificationRequestId);
+  public ResponseEntity<List<SendTimelineRegistryDTO>> getSendTimelineRegistries(String sendNotificationId) {
+    log.info("User requested getSendTimelineRegistries having sendNotificationId {}", sendNotificationId);
 
-    return ResponseEntity.ok(sendTimelineRegistryService.getSendTimelineRegistries(notificationRequestId));
+    return ResponseEntity.ok(sendTimelineRegistryService.getSendTimelineRegistries(sendNotificationId));
   }
 
   @Override
-  public ResponseEntity<List<SendTimelineRegistryExtendedDTO>> getExtendedSendTimelineRegistries(String notificationRequestId) {
-    log.info("User requested getExtendedSendTimelineRegistries having notificationRequestId {}", notificationRequestId);
+  public ResponseEntity<List<SendTimelineRegistryExtendedDTO>> getExtendedSendTimelineRegistries(String sendNotificationId) {
+    log.info("User requested getExtendedSendTimelineRegistries having sendNotificationId {}", sendNotificationId);
 
-    return ResponseEntity.ok(sendTimelineRegistryService.getExtendedSendTimelineRegistries(notificationRequestId));
+    return ResponseEntity.ok(sendTimelineRegistryService.getExtendedSendTimelineRegistries(sendNotificationId));
   }
 }
