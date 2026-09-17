@@ -22,9 +22,13 @@ public class RegistryEventSendTimelineDTO extends RegistryInterfaceEventDTO {
   @NotNull
   private String streamId;
   @NotNull
+  private String campaignId;
+  @NotNull
   private String eventId;
   @NotNull
   private String eventType;
+  @NotNull
+  private String sendNotificationId;
   @NotNull
   private String notificationRequestId;
   private String iun;

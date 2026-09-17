@@ -83,18 +83,18 @@ class SendTimelineRegistryServiceTest {
   @Test
   void givenValidRequestNotificationIdWhenGetSendTimelineRegistriesThenReturnRegistryList() {
     //GIVEN
-    String notificationRequestId = "notificationRequestId";
+    String sendNotificationId = "sendNotificationId";
     SendTimelineRegistry registry = new SendTimelineRegistry();
     SendTimelineRegistryDTO expectedDTO = new SendTimelineRegistryDTO();
     expectedDTO.setRegistryId("registryId");
 
-    when(sendTimelineRegistryRepositoryMock.findByNotificationRequestId(notificationRequestId))
+    when(sendTimelineRegistryRepositoryMock.findBySendNotificationId(sendNotificationId))
         .thenReturn(List.of(registry));
     when(sendTimelineRegistry2SendTimelineRegistryDTOMapperMock.mapToSendTimelineRegistryDTO(registry))
       .thenReturn(expectedDTO);
 
     //WHEN
-    List<SendTimelineRegistryDTO> actualDTOList = sendTimelineRegistryService.getSendTimelineRegistries(notificationRequestId);
+    List<SendTimelineRegistryDTO> actualDTOList = sendTimelineRegistryService.getSendTimelineRegistries(sendNotificationId);
 
     //THEN
     Assertions.assertNotNull(actualDTOList);
@@ -105,13 +105,13 @@ class SendTimelineRegistryServiceTest {
   @Test
   void givenInvalidRequestNotificationIdWhenGetSendTimelineRegistriesThenReturnEmptyList() {
     //GIVEN
-    String notificationRequestId = "notificationRequestId";
+    String sendNotificationId = "sendNotificationId";
 
-    when(sendTimelineRegistryRepositoryMock.findByNotificationRequestId(notificationRequestId))
+    when(sendTimelineRegistryRepositoryMock.findBySendNotificationId(sendNotificationId))
       .thenReturn(Collections.emptyList());
 
     //WHEN
-    List<SendTimelineRegistryDTO> actualDTOList = sendTimelineRegistryService.getSendTimelineRegistries(notificationRequestId);
+    List<SendTimelineRegistryDTO> actualDTOList = sendTimelineRegistryService.getSendTimelineRegistries(sendNotificationId);
 
     //THEN
     Assertions.assertNotNull(actualDTOList);
@@ -121,19 +121,19 @@ class SendTimelineRegistryServiceTest {
   @Test
   void givenValidRequestNotificationIdWhenGetExtendedSendTimelineRegistriesThenReturnRegistryList() {
     //GIVEN
-    String notificationRequestId = "notificationRequestId";
+    String sendNotificationId = "sendNotificationId";
     SendTimelineRegistry registry = new SendTimelineRegistry();
     SendTimelineRegistryExtendedDTO expectedDTO = new SendTimelineRegistryExtendedDTO();
     expectedDTO.setRegistryId("registryId");
     expectedDTO.setBody("decryptedBody");
 
-    when(sendTimelineRegistryRepositoryMock.findByNotificationRequestId(notificationRequestId))
+    when(sendTimelineRegistryRepositoryMock.findBySendNotificationId(sendNotificationId))
       .thenReturn(List.of(registry));
     when(sendTimelineRegistry2SendTimelineRegistryDTOMapperMock.mapToSendTimelineRegistryExtendedDTO(registry))
       .thenReturn(expectedDTO);
 
     //WHEN
-    List<SendTimelineRegistryExtendedDTO> actualDTOList = sendTimelineRegistryService.getExtendedSendTimelineRegistries(notificationRequestId);
+    List<SendTimelineRegistryExtendedDTO> actualDTOList = sendTimelineRegistryService.getExtendedSendTimelineRegistries(sendNotificationId);
 
     //THEN
     Assertions.assertNotNull(actualDTOList);
@@ -144,13 +144,13 @@ class SendTimelineRegistryServiceTest {
   @Test
   void givenInvalidRequestNotificationIdWhenGetExtendedSendTimelineRegistriesThenReturnEmptyList() {
     //GIVEN
-    String notificationRequestId = "notificationRequestId";
+    String sendNotificationId = "sendNotificationId";
 
-    when(sendTimelineRegistryRepositoryMock.findByNotificationRequestId(notificationRequestId))
+    when(sendTimelineRegistryRepositoryMock.findBySendNotificationId(sendNotificationId))
       .thenReturn(Collections.emptyList());
 
     //WHEN
-    List<SendTimelineRegistryExtendedDTO> actualDTOList = sendTimelineRegistryService.getExtendedSendTimelineRegistries(notificationRequestId);
+    List<SendTimelineRegistryExtendedDTO> actualDTOList = sendTimelineRegistryService.getExtendedSendTimelineRegistries(sendNotificationId);
 
     //THEN
     Assertions.assertNotNull(actualDTOList);

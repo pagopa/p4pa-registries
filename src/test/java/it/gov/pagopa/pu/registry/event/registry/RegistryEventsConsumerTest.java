@@ -138,7 +138,10 @@ class RegistryEventsConsumerTest {
     sendTimelineEventDTO.setTraceId(UUID.randomUUID().toString());
     sendTimelineEventDTO.setEventType("eventType");
     sendTimelineEventDTO.setOrganizationId(1L);
+    sendTimelineEventDTO.setStreamId("streamId");
+    sendTimelineEventDTO.setCampaignId("campaignId");
     sendTimelineEventDTO.setIun("iun");
+    sendTimelineEventDTO.setSendNotificationId("sendNotificationId");
     sendTimelineEventDTO.setNotificationRequestId("notificationRequestId");
     sendTimelineEventDTO.setEventSubType(RegistryEventSubType.RESP);
     sendTimelineEventDTO.setBody("{}");
@@ -159,7 +162,9 @@ class RegistryEventsConsumerTest {
     assertEquals(sendTimelineEventDTO.getTraceId(), capturedEvent.getTraceId());
     assertEquals(sendTimelineEventDTO.getEventType(), capturedEvent.getEventType());
     assertEquals(sendTimelineEventDTO.getOrganizationId(), capturedEvent.getOrganizationId());
+    assertEquals(sendTimelineEventDTO.getCampaignId(), capturedEvent.getCampaignId());
     assertEquals(sendTimelineEventDTO.getIun(), capturedEvent.getIun());
+    assertEquals(sendTimelineEventDTO.getSendNotificationId(), capturedEvent.getSendNotificationId());
     assertEquals(sendTimelineEventDTO.getNotificationRequestId(), capturedEvent.getNotificationRequestId());
     assertEquals(sendTimelineEventDTO.getEventSubType(), capturedEvent.getEventSubType());
     assertEquals(sendTimelineEventDTO.getBody(), capturedEvent.getBody());

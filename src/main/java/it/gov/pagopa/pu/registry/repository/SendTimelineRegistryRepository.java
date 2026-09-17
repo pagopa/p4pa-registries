@@ -9,6 +9,6 @@ import java.util.List;
 @RepositoryRestResource(path = "send-timeline-registries")
 public interface SendTimelineRegistryRepository extends MongoRepository<SendTimelineRegistry, String> {
 
-  List<SendTimelineRegistry> findByNotificationRequestId(String notificationRequestId);
+  List<SendTimelineRegistry> findBySendNotificationId(String sendNotificationId);
 
 }
