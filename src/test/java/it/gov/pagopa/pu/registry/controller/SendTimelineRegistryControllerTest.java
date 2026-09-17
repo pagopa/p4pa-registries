@@ -39,14 +39,14 @@ class SendTimelineRegistryControllerTest {
     // Given
     SendTimelineRegistryDTO dto = new SendTimelineRegistryDTO();
     dto.setRegistryId("registryId");
-    dto.setNotificationRequestId("notificationRequestId");
+    dto.setSendNotificationId("sendNotificationId");
     List<SendTimelineRegistryDTO> expectedRegistrytList = List.of(dto);
 
-    when(serviceMock.getSendTimelineRegistries("notificationRequestId"))
+    when(serviceMock.getSendTimelineRegistries("sendNotificationId"))
       .thenReturn(expectedRegistrytList);
 
     // When
-    ResponseEntity<List<SendTimelineRegistryDTO>> actualResult = controller.getSendTimelineRegistries("notificationRequestId");
+    ResponseEntity<List<SendTimelineRegistryDTO>> actualResult = controller.getSendTimelineRegistries("sendNotificationId");
 
     // Then
     assertNotNull(actualResult);
@@ -56,13 +56,13 @@ class SendTimelineRegistryControllerTest {
 
   @Test
   void givenInvalidRequestIdWhenGetSendTimelineRegistriesThenNotFound() {
-    when(serviceMock.getSendTimelineRegistries("notificationRequestId"))
+    when(serviceMock.getSendTimelineRegistries("sendNotificationId"))
       .thenThrow(ResourceNotFoundException.class);
 
     // Then
     assertThrows(
       ResourceNotFoundException.class,
-      () -> controller.getSendTimelineRegistries("notificationRequestId")
+      () -> controller.getSendTimelineRegistries("sendNotificationId")
     );
   }
 
@@ -71,15 +71,15 @@ class SendTimelineRegistryControllerTest {
     // Given
     SendTimelineRegistryExtendedDTO dto = new SendTimelineRegistryExtendedDTO();
     dto.setRegistryId("registryId");
-    dto.setNotificationRequestId("notificationRequestId");
+    dto.setSendNotificationId("sendNotificationId");
     dto.setBody("bodyString");
     List<SendTimelineRegistryExtendedDTO> expectedRegistrytList = List.of(dto);
 
-    when(serviceMock.getExtendedSendTimelineRegistries("notificationRequestId"))
+    when(serviceMock.getExtendedSendTimelineRegistries("sendNotificationId"))
       .thenReturn(expectedRegistrytList);
 
     // When
-    ResponseEntity<List<SendTimelineRegistryExtendedDTO>> result = controller.getExtendedSendTimelineRegistries("notificationRequestId");
+    ResponseEntity<List<SendTimelineRegistryExtendedDTO>> result = controller.getExtendedSendTimelineRegistries("sendNotificationId");
 
     // Then
     assertNotNull(result);
@@ -89,13 +89,13 @@ class SendTimelineRegistryControllerTest {
 
   @Test
   void givenInvalidRequestIdWhenGetExtendedSendTimelineRegistriesThenNotFound() {
-    when(serviceMock.getExtendedSendTimelineRegistries("notificationRequestId"))
+    when(serviceMock.getExtendedSendTimelineRegistries("sendNotificationId"))
       .thenThrow(ResourceNotFoundException.class);
 
     // Then
     assertThrows(
       ResourceNotFoundException.class, () ->
-      controller.getExtendedSendTimelineRegistries("notificationRequestId")
+      controller.getExtendedSendTimelineRegistries("sendNotificationId")
     );
   }
 
