@@ -37,7 +37,7 @@ class RegistryEventSendTimelineDTO2SendTimelineRegistryMapperTest {
   }
 
   @Test
-  void testMapToSendTimelineRegistry() {
+  void givenNotNullNullErrorDTOListWhenMapToSendTimelineRegistryThenOk() {
     //GIVEN
     RegistryEventSendTimelineDTO dto = podamFactory.manufacturePojo(RegistryEventSendTimelineDTO.class);
     dto.setEventSubType(RegistryEventSubType.RESP);
@@ -63,5 +63,23 @@ class RegistryEventSendTimelineDTO2SendTimelineRegistryMapperTest {
     Assertions.assertEquals(2, actualEntity.getErrors().size());
     Assertions.assertTrue(actualEntity.getErrors().contains(expectedErrorList.getFirst()));
     Assertions.assertTrue(actualEntity.getErrors().contains(expectedErrorList.getLast()));
+  }
+
+  @Test
+  void givenNullErrorDTOListWhenMapToSendTimelineRegistryThenOk() {
+    //GIVEN
+    RegistryEventSendTimelineDTO dto = podamFactory.manufacturePojo(RegistryEventSendTimelineDTO.class);
+    dto.setEventSubType(RegistryEventSubType.RESP);
+    dto.setOutcome(RegistryOutcome.OK);
+    dto.setBody("body");
+    dto.setErrors(null);
+
+    when(dataCipherServiceMock.encrypt("body")).thenReturn("encryptedBody".getBytes());
+
+    //WHEN
+    SendTimelineRegistry actualEntity = mapper.mapToSendTimelineRegistry(dto);
+    //THEN
+    TestUtils.checkNotNullFields(actualEntity, "creationDate", "updateDate", "updateOperatorExternalId", "updateTraceId");
+    Assertions.assertTrue(actualEntity.getErrors().isEmpty());
   }
 }
