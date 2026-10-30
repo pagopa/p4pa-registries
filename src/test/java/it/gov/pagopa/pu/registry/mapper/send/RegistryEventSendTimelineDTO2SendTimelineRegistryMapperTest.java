@@ -1,8 +1,10 @@
 package it.gov.pagopa.pu.registry.mapper.send;
 
+import it.gov.pagopa.pu.registry.dto.NotificationRefusedErrorDTO;
 import it.gov.pagopa.pu.registry.dto.RegistryEventSendTimelineDTO;
 import it.gov.pagopa.pu.registry.enums.RegistryEventSubType;
 import it.gov.pagopa.pu.registry.enums.RegistryOutcome;
+import it.gov.pagopa.pu.registry.model.NotificationRefusedError;
 import it.gov.pagopa.pu.registry.model.SendTimelineRegistry;
 import it.gov.pagopa.pu.registry.service.DataCipherService;
 import it.gov.pagopa.pu.registry.utils.TestUtils;
@@ -41,15 +43,15 @@ class RegistryEventSendTimelineDTO2SendTimelineRegistryMapperTest {
     dto.setEventSubType(RegistryEventSubType.RESP);
     dto.setOutcome(RegistryOutcome.OK);
     dto.setBody("body");
-    List<RegistryEventSendTimelineDTO.NotificationRefusedErrorDTO> errorDTOList = List.of(
-      new RegistryEventSendTimelineDTO.NotificationRefusedErrorDTO("code1", "detail1", 0),
-      new RegistryEventSendTimelineDTO.NotificationRefusedErrorDTO("code2", "detail2", 1)
+    List<NotificationRefusedErrorDTO> errorDTOList = List.of(
+      new NotificationRefusedErrorDTO("code1", "detail1", 0),
+      new NotificationRefusedErrorDTO("code2", "detail2", 1)
     );
     dto.setErrors(errorDTOList);
 
-    List<SendTimelineRegistry.NotificationRefusedError> expectedErrorList = List.of(
-      new SendTimelineRegistry.NotificationRefusedError("code1", "detail1", 0),
-      new SendTimelineRegistry.NotificationRefusedError("code2", "detail2", 1)
+    List<NotificationRefusedError> expectedErrorList = List.of(
+      new NotificationRefusedError("code1", "detail1", 0),
+      new NotificationRefusedError("code2", "detail2", 1)
     );
 
     when(dataCipherServiceMock.encrypt("body")).thenReturn("encryptedBody".getBytes());

@@ -58,6 +58,4 @@ public class SendTimelineRegistry extends BaseEntity {
   @NotNull
   private RegistryOutcome outcome;
   private byte[] bodyCiphered;
-
-  public record NotificationRefusedError(String code, String detail, Integer recIndex) {}
 }

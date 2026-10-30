@@ -40,6 +40,4 @@ public class RegistryEventSendTimelineDTO extends RegistryInterfaceEventDTO {
   @NotNull
   private RegistryOutcome outcome;
   private String body;
-
-  public record NotificationRefusedErrorDTO(String errCode, String detail, Integer recIndex) {}
 }
