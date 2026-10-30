@@ -7,6 +7,7 @@ import it.gov.pagopa.pu.registry.model.SendTimelineRegistry;
 import it.gov.pagopa.pu.registry.service.DataCipherService;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -47,7 +48,7 @@ public class RegistryEventSendTimelineDTO2SendTimelineRegistryMapper {
 
   private List<NotificationRefusedError> mapErrorList(List<NotificationRefusedErrorDTO> errorDTOList) {
     if(errorDTOList == null) {
-      return null;
+      return Collections.emptyList();
     }
     return errorDTOList.stream()
       .map(this::mapErrorDTO)
