@@ -36,7 +36,10 @@ public class RegistryEventSendTimelineDTO extends RegistryInterfaceEventDTO {
   private String newStatus;
   private OffsetDateTime eventTimestamp;
   private List<String> legalFactIds;
+  private List<NotificationRefusedErrorDTO> errors;
   @NotNull
   private RegistryOutcome outcome;
   private String body;
+
+  public record NotificationRefusedErrorDTO(String errCode, String detail, Integer recIndex) {}
 }

@@ -5,6 +5,8 @@ import it.gov.pagopa.pu.registry.model.SendTimelineRegistry;
 import it.gov.pagopa.pu.registry.service.DataCipherService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RegistryEventSendTimelineDTO2SendTimelineRegistryMapper {
 
@@ -35,9 +37,24 @@ public class RegistryEventSendTimelineDTO2SendTimelineRegistryMapper {
       .newStatus(dto.getNewStatus())
       .eventTimestamp(dto.getEventTimestamp())
       .legalFactIds(dto.getLegalFactIds())
+      .errors(mapErrorList(dto.getErrors()))
       .outcome(dto.getOutcome())
       .bodyCiphered(dataCipherService.encrypt(dto.getBody()))
       .build();
+  }
+
+  private List<SendTimelineRegistry.NotificationRefusedError> mapErrorList(List<RegistryEventSendTimelineDTO.NotificationRefusedErrorDTO> errorDTOList) {
+    return errorDTOList.stream()
+      .map(this::mapErrorDTO)
+      .toList();
+  }
+
+  private SendTimelineRegistry.NotificationRefusedError mapErrorDTO(RegistryEventSendTimelineDTO.NotificationRefusedErrorDTO errorDTO) {
+    return new SendTimelineRegistry.NotificationRefusedError(
+      errorDTO.errCode(),
+      errorDTO.detail(),
+      errorDTO.recIndex()
+    );
   }
 
 }

@@ -7,6 +7,7 @@ import it.gov.pagopa.pu.registry.model.SendTimelineRegistry;
 import it.gov.pagopa.pu.registry.service.DataCipherService;
 import it.gov.pagopa.pu.registry.utils.TestUtils;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,6 +15,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import uk.co.jemos.podam.api.PodamFactory;
+
+import java.util.List;
 
 import static org.mockito.Mockito.when;
 
@@ -38,6 +41,16 @@ class RegistryEventSendTimelineDTO2SendTimelineRegistryMapperTest {
     dto.setEventSubType(RegistryEventSubType.RESP);
     dto.setOutcome(RegistryOutcome.OK);
     dto.setBody("body");
+    List<RegistryEventSendTimelineDTO.NotificationRefusedErrorDTO> errorDTOList = List.of(
+      new RegistryEventSendTimelineDTO.NotificationRefusedErrorDTO("code1", "detail1", 0),
+      new RegistryEventSendTimelineDTO.NotificationRefusedErrorDTO("code2", "detail2", 1)
+    );
+    dto.setErrors(errorDTOList);
+
+    List<SendTimelineRegistry.NotificationRefusedError> expectedErrorList = List.of(
+      new SendTimelineRegistry.NotificationRefusedError("code1", "detail1", 0),
+      new SendTimelineRegistry.NotificationRefusedError("code2", "detail2", 1)
+    );
 
     when(dataCipherServiceMock.encrypt("body")).thenReturn("encryptedBody".getBytes());
 
@@ -45,5 +58,8 @@ class RegistryEventSendTimelineDTO2SendTimelineRegistryMapperTest {
     SendTimelineRegistry actualEntity = mapper.mapToSendTimelineRegistry(dto);
     //THEN
     TestUtils.checkNotNullFields(actualEntity, "creationDate", "updateDate", "updateOperatorExternalId", "updateTraceId");
+    Assertions.assertEquals(2, actualEntity.getErrors().size());
+    Assertions.assertTrue(actualEntity.getErrors().contains(expectedErrorList.getFirst()));
+    Assertions.assertTrue(actualEntity.getErrors().contains(expectedErrorList.getLast()));
   }
 }

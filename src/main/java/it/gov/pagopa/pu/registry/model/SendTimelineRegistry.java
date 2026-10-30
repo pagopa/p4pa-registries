@@ -53,8 +53,11 @@ public class SendTimelineRegistry extends BaseEntity {
   private String newStatus;
   private OffsetDateTime eventTimestamp;
   private List<String> legalFactIds;
+  private List<NotificationRefusedError> errors;
 
   @NotNull
   private RegistryOutcome outcome;
   private byte[] bodyCiphered;
+
+  public record NotificationRefusedError(String code, String detail, Integer recIndex) {}
 }
