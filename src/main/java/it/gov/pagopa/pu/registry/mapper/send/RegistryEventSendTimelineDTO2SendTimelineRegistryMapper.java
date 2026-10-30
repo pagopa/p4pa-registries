@@ -46,6 +46,9 @@ public class RegistryEventSendTimelineDTO2SendTimelineRegistryMapper {
   }
 
   private List<NotificationRefusedError> mapErrorList(List<NotificationRefusedErrorDTO> errorDTOList) {
+    if(errorDTOList == null) {
+      return null;
+    }
     return errorDTOList.stream()
       .map(this::mapErrorDTO)
       .toList();
