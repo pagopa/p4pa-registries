@@ -57,7 +57,7 @@ public class RegistryEventSendTimelineDTO2SendTimelineRegistryMapper {
 
   private NotificationRefusedError mapErrorDTO(NotificationRefusedErrorDTO errorDTO) {
     return new NotificationRefusedError(
-      errorDTO.getErrCode(),
+      errorDTO.getErrorCode(),
       errorDTO.getDetail(),
       errorDTO.getRecIndex()
     );

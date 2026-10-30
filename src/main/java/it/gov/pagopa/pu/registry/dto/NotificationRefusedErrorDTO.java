@@ -8,7 +8,7 @@ import lombok.*;
 @Builder
 @EqualsAndHashCode
 public class NotificationRefusedErrorDTO {
-  private String errCode;
+  private String errorCode;
   private String detail;
   private Integer recIndex;
 }

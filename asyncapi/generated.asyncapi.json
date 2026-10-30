@@ -965,7 +965,7 @@
           "detail": {
             "type": "string"
           },
-          "errCode": {
+          "errorCode": {
             "type": "string"
           },
           "recIndex": {
@@ -976,7 +976,7 @@
         "examples": [
           {
             "detail": "string",
-            "errCode": "string",
+            "errorCode": "string",
             "recIndex": 0
           }
         ]
@@ -1449,7 +1449,7 @@
             "errors": [
               {
                 "detail": "string",
-                "errCode": "string",
+                "errorCode": "string",
                 "recIndex": 0
               }
             ],
