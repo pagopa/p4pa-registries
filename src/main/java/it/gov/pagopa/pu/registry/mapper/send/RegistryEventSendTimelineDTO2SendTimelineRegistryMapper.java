@@ -1,9 +1,14 @@
 package it.gov.pagopa.pu.registry.mapper.send;
 
+import it.gov.pagopa.pu.registry.dto.NotificationRefusedErrorDTO;
 import it.gov.pagopa.pu.registry.dto.RegistryEventSendTimelineDTO;
+import it.gov.pagopa.pu.registry.model.NotificationRefusedError;
 import it.gov.pagopa.pu.registry.model.SendTimelineRegistry;
 import it.gov.pagopa.pu.registry.service.DataCipherService;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class RegistryEventSendTimelineDTO2SendTimelineRegistryMapper {
@@ -35,9 +40,27 @@ public class RegistryEventSendTimelineDTO2SendTimelineRegistryMapper {
       .newStatus(dto.getNewStatus())
       .eventTimestamp(dto.getEventTimestamp())
       .legalFactIds(dto.getLegalFactIds())
+      .errors(mapErrorList(dto.getErrors()))
       .outcome(dto.getOutcome())
       .bodyCiphered(dataCipherService.encrypt(dto.getBody()))
       .build();
+  }
+
+  private List<NotificationRefusedError> mapErrorList(List<NotificationRefusedErrorDTO> errorDTOList) {
+    if(errorDTOList == null) {
+      return Collections.emptyList();
+    }
+    return errorDTOList.stream()
+      .map(this::mapErrorDTO)
+      .toList();
+  }
+
+  private NotificationRefusedError mapErrorDTO(NotificationRefusedErrorDTO errorDTO) {
+    return new NotificationRefusedError(
+      errorDTO.getErrorCode(),
+      errorDTO.getDetail(),
+      errorDTO.getRecIndex()
+    );
   }
 
 }
